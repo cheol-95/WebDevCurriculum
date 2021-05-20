@@ -20,30 +20,59 @@
 <br><br><br>
 
 ## git과 GitHub는 어떻게 다를까요?
-- git은 DVCS 이고, GitHub는 아래의 기능를 비롯한 생산성을 높일 수 있는 기능들을 제공하는 Git 호스팅 저장소다.
+- git은 DVCS 이고, GitHub는 다양한 기능을 통해 생산성을 높일 수 있는 기능들을 제공하는 Git 호스팅 저장소다.
     - 원격 저장소에서의 활동 시각화
-    - Issues
-    - Pull Requests를 통한 Code Riview
+    - issue
+    - pr을 통한 code riview
 <br><br><br>
 
 ## git의 clone/ add/ commit/ push/ pull/ branch/ stash 명령은 무엇이며 어떨 때 이용하나요? 그리고 어떻게 사용하나요?
 - __clone__: 이미 원격에 존재하는 프로젝트의 로컬 사본을 만들고, 복제본에는 모든 프로젝트의 파일, 기록 및 분기가 포함된다.
+    ```
+    git clone <git_path>
+    ```
 
 - __add__: 코드베이스에 대한 변경 사항을 추적해 프로젝트 기록에 포함하기 위해 스테이징을 수행한다. 스테이징 된 모든 변경 사항은 다음 스냅 샷(commit)의 일부가 되고 프로젝트 기록의 일부가 된다.
+    ```
+    git add <file_path>
+    ```
 
 - __commit__: 스냅 샷을 프로젝트 기록에 저장하고 변경, 추적 프로세스를 완료한다. 각 커밋은 저장소의 이전 버전과 다음 버전의 변경내역(delta)을 저장한다.
+    ```
+    git commit -m <commit_description>
+    ```
 
 - __push__: 분기에 로컬로 만든 커밋으로 원격 저장소를 업데이트 한다.
     - 콜론 참조스펙을 이용해 source와 destination을 모두 지정할 수 있다. (참조스펙은 git이 알아낼 수 있는 위치를 의미함)
         - ex) git push origin foo:main
+    ```
+    git push <remote_name> <branch_name>
+    ```
 
 - __pull__: 원격 저장소의 업데이트로 로컬 저장소를 업데이트 한다. 팀원이 원격 저장소에 커밋을 수행하고 변경사항이 반영되면 pull을 이용해 싱크를 맞춘다.
     - 내부적으로는 fetch + merge의 작업을 한다.
     - git pull --rebase를 통해 rebase와 함께 사용할 수 있다.
+    ```
+    git pull <remote_name> <branch_name>
+    ```
 
 - __branch__: 브랜치를 관리하는 명령어다.
+    ```
+    git branch <branch_name> : 브랜치 생성하기
+    git branch -r : 원격 브랜치 목록보기
+    git branch -a : 로컬 브랜치 목록보기
+    git branch -m <branch_name> <change_branch_name> : 브랜치 이름 바꾸기
+    git branch -d <branch_name> : 브랜치 삭제하기
+    ```
 
 - __stash__: 현재 브랜치에서 작업중인 내용을 스택에 잠시 저장해놓는 명령어다.
+    ```
+    git stash : 작업중이던 코드 임시저장
+    git stash list : stash 내역 출력
+    git stash pop : 마지막으로 임시저장한 코드 가져오기
+    git stash save <stash_description>: 설명과 함께 저장
+    git stash drop <stash_id> : list 옵션을 조회한 stash 내역 제거
+    ```
 <br><br><br>
 
 ## git의 Object, Commit, Head, Branch, Tag는 어떤 개념일까요? git 시스템은 프로젝트의 히스토리를 어떻게 저장할까요?
@@ -66,9 +95,8 @@
     - 특정 commit에 tag를 달면 tag object가 생성된다.
     - git push은 태그를 원격 서버로 전송하지 않기 때문에 명시적으로 전송해야 한다.
         - ex) git push origin tagname
----
 - __Tree__
-    - working directory의 디렉토리에 대응하여 git에 저장되는 object다.
+    - 유닉스의 디렉토리에 대응하는 개념으로, git에 저장되는 object다.
     - 파일명, 형식, 크기, 접근권한, 어느 디렉터리에 속하는지 등의 정보를 기록한다.
 - __Blob__
     - 파일의 이름이나 형식등은 저장되지 않고 바이너리 데이터 자체만 저장하며, SHA1해시값 40글자로 구성되어있다.
@@ -79,9 +107,10 @@
 ## 리모트 git 저장소에 원하지 않는 파일이 올라갔을 때 이를 되돌리려면 어떻게 해야할까요?
 - reset과 revert를 사용하여 되돌릴 수 있다.
 - reset의 경우, 히스토리를 고쳐쓰는 개념이기 때문에 다른 사람이 작업하는 리모트 브랜치에는 쓸 수 없다. 따라서, 변경분을 되돌리고, 이 되돌린 내용을 다른 사람들과 공유하기 위해서는, revert를 사용해야 한다.
-<br><br><br>
+<br><br><br><br>
 
----
+
+
 # 아래는 Learn Git Branching 을 진행하며 노트한 내용입니다.
 - 커밋 메시지 수정하기
      ```
@@ -90,7 +119,7 @@
      3. git commit --amend 명령으로 커밋 내용 정정
      4. git rebase -continue 명령으로 리베이스 완료
      ```
-<br><br>
+<br>
 
 - 브랜치 생성: git branch ["브랜치 네임"]
     - -f 옵션을 사용해서 브랜치의 Startpoint를 특정 커밋에 직접적으로 재지정 할 수 있다.
