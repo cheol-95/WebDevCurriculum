@@ -52,7 +52,7 @@
     - 아래 4종류로 구성되어있으며 ".git/objects"에 위치한다.
         - blob, tree, commit, tag
 - __Commit__
-    - git com₩mit할 때 생성된다.
+    - git commit할 때 생성된다.
     - commit history를 저장하는 Object다.
     - author, committer, commit Date, commit message를 저장한다.
     - 해당 커밋의 root tree object와 parent commit object의 정보를 저장한다.
@@ -66,11 +66,12 @@
     - 특정 commit에 tag를 달면 tag object가 생성된다.
     - git push은 태그를 원격 서버로 전송하지 않기 때문에 명시적으로 전송해야 한다.
         - ex) git push origin tagname
+---
 - __Tree__
     - working directory의 디렉토리에 대응하여 git에 저장되는 object다.
     - 파일명, 형식, 크기, 접근권한, 어느 디렉터리에 속하는지 등의 정보를 기록한다.
 - __Blob__
-    - 파일의 이름이나 형식등은 저장되지 않고 바이너리 데이터 자체만 저장하며,SHA1해시값 40글자로 구성되어있다.
+    - 파일의 이름이나 형식등은 저장되지 않고 바이너리 데이터 자체만 저장하며, SHA1해시값 40글자로 구성되어있다.
     - 만약 이름이 다르고 내용이 같은 2개의 파일이 프로젝트 내에 있다면, 한개의 blob만 저장한다.
 <br><br><br>
 
