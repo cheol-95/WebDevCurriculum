@@ -73,7 +73,7 @@
     git stash save <stash_description>: 설명과 함께 저장
     git stash drop <stash_id> : list 옵션을 조회한 stash 내역 제거
     ```
-<br><br><br>
+<br><br>
 
 ## git의 Object, Commit, Head, Branch, Tag는 어떤 개념일까요? git 시스템은 프로젝트의 히스토리를 어떻게 저장할까요?
 - __Object__
@@ -101,16 +101,30 @@
 - __Blob__
     - 파일의 이름이나 형식등은 저장되지 않고 바이너리 데이터 자체만 저장하며, SHA1해시값 40글자로 구성되어있다.
     - 만약 이름이 다르고 내용이 같은 2개의 파일이 프로젝트 내에 있다면, 한개의 blob만 저장한다.
-<br><br><br>
-
+<br><br><br><br>
 
 ## 리모트 git 저장소에 원하지 않는 파일이 올라갔을 때 이를 되돌리려면 어떻게 해야할까요?
 - revert를 사용해 커밋을 되돌리고 push해 원격 저장소에 반영한다.
 ```
 reset의 경우, 히스토리를 고쳐쓰는 개념이기 때문에 force push를 사용해야 하는 리스크가 발생하기 때문에 사용하지 않는다.
 ```
+<br><br>
+
+## Mercurial은 어떤 형상관리 시스템일까요? 어떤 장점이 있을까요?
+- git에 비해 낮은 러닝커브를 요구한다.
+- git은 스냅샷 기반의 시스템이고, mercurial은 각 파일별 변경분만 추적하는 시스템이다.
+- 저장소에는 파일의 변경 이력이 바이너리 형태로 저장되어 있는 .i 확장자를 가진 변경 기록용 파일이 있다.
+- 장점
+    - 저장소에 대한 관리 작업이 필요하지 않다는 장점이 있다.
+    - 스냅샷 기반인 git에 비해 디스크 I/O가 적으므로, 대량의 읽기/쓰기가 발생하는 상황에서도 비교적 안정적이다.
+    - 대신 패치의 성능이나 변경 이력의 추적에는 Git에 비해 용이하나, 커밋 작업의 경우 높은 비용을 요구한다.
 <br><br><br>
 
+## 실리콘밸리의 테크 대기업들은 어떤 형상관리 시스템을 쓰고 있을까요?
+- __git__: Google, Facebook, Microsoft, Netfilx, Twitter 등
+- __mercurial__: Facebook, NginxMozilla Corporation, bitbucket 등
+- __Subversion__: Linkedin 등
+<br><br><br><br>
 
 
 # 아래는 Learn Git Branching 을 진행하며 노트한 내용입니다.
