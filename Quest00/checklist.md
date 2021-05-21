@@ -76,9 +76,6 @@
 <br><br>
 
 ## git의 Object, Commit, Head, Branch, Tag는 어떤 개념일까요? git 시스템은 프로젝트의 히스토리를 어떻게 저장할까요?
-![Commit-Tree-Blob 관계](https://media.vlpt.us/images/kwonh/post/cecd0799-a0be-4f48-9763-9af46eee8054/%EC%BA%A1%EC%B2%98.JPG)
-Commit-Tree-Blob 관계
-
 - __Object__
     - git이 데이터를 관리하기 위해 사용하는 객체다.
     - blob, tree, commit, tag로 구성되어있으며 ".git/objects"에 위치한다.
@@ -98,17 +95,18 @@ Commit-Tree-Blob 관계
     - 특정 커밋을 가리키는 포인터다.
 
 - __Tag__
-    - Lightweight, Annotated 두 종류가 있다.
-    - __Lightweight__: 특정 커밋에 대한 포인터이다.
-        ```
-        git tag v1.0 -lw
-        git show v1.0 -lw 
-        ```
-    - __Annotated__: 특정 커밋에 대한 포인터, 작성자, 메시지, 작성일 GPG서명 등을로 담고있다.
-        ```
-        git tag -a v1.0 -m "태그 메시지"
-        git show v1.0
-        ```
+    - __Lightweight__
+        - 특정 커밋에 대한 포인터이다.
+            ```
+            git tag v1.0 -lw
+            git show v1.0 -lw 
+            ```
+    - __Annotated__
+        - 특정 커밋에 대한 포인터, 작성자, 메시지, 작성일 GPG서명 등을로 담고있다.
+            ```
+            git tag -a v1.0 -m "태그 메시지"
+            git show v1.0
+            ```
     - git push는 태그를 원격 서버로 전송하지 않기 때문에 명시적으로 전송해야 한다.
         ```
         git push origin v1.0
@@ -122,6 +120,8 @@ Commit-Tree-Blob 관계
         - committer: 가장 최근에 커밋을 수행한 사람
         - commit date: 커밋한 날짜
         - parent commit: 이전 커밋의 포인터로 스냅샷의 순서 파악
+        ![Commit-Tree-Blob 관계](https://media.vlpt.us/images/kwonh/post/cecd0799-a0be-4f48-9763-9af46eee8054/%EC%BA%A1%EC%B2%98.JPG)
+
 
 - __Tree__
     - 유닉스의 디렉터리에 대응하는 개념으로, git에 저장되는 object다.
@@ -134,10 +134,16 @@ Commit-Tree-Blob 관계
 <br><br><br><br>
 
 ## 리모트 git 저장소에 원하지 않는 파일이 올라갔을 때 이를 되돌리려면 어떻게 해야할까요?
-- revert를 사용해 커밋을 되돌리고 push해 원격 저장소에 반영한다.
-```
-reset의 경우, 히스토리를 고쳐쓰는 개념이기 때문에 force push를 사용해야 하는 리스크가 발생하기 때문에 사용하지 않는다.
-```
+- 일반적인 상황이라면 revert를 사용해 커밋을 되돌리고 push해 원격 저장소에 반영한다.
+- 보안상에 문제가 되거나 내역을 남기면 안될 파일이라면 팀원과 상의 후 reset을 사용해 내역을 제거하고 force push한다.
+    ```
+    git log -g
+    git reset <commit_id>
+    git commit -m "새로운 커밋 메시지"
+    git push origin <branch_name> -f
+    
+    reset은 force push가 강제되므로, 동기화 문제를 위해 팀원들과 상의를 꼭 해야한다.
+    ```
 <br><br>
 
 ## Mercurial은 어떤 형상관리 시스템일까요? 어떤 장점이 있을까요?
