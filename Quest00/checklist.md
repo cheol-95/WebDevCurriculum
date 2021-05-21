@@ -76,30 +76,60 @@
 <br><br>
 
 ## git의 Object, Commit, Head, Branch, Tag는 어떤 개념일까요? git 시스템은 프로젝트의 히스토리를 어떻게 저장할까요?
+![Commit-Tree-Blob 관계](https://media.vlpt.us/images/kwonh/post/cecd0799-a0be-4f48-9763-9af46eee8054/%EC%BA%A1%EC%B2%98.JPG)
+Commit-Tree-Blob 관계
+
 - __Object__
     - git이 데이터를 관리하기 위해 사용하는 객체다.
-    - 아래 4종류로 구성되어있으며 ".git/objects"에 위치한다.
-        - blob, tree, commit, tag
+    - blob, tree, commit, tag로 구성되어있으며 ".git/objects"에 위치한다.
+    - git의 내부는 key-value 데이터베이스이며, 데이터의 SHA1 해시값은 키값으로 저장한다.
+    - 40자로 이루어진 SHA1 해시값의 앞 2자리를 디렉터리 명으로, 나머지 38자를 파일명으로 저장한다.
+
 - __Commit__
-    - git commit할 때 생성된다.
-    - commit history를 저장하는 Object다.
-    - author, committer, commit Date, commit message를 저장한다.
-    - 해당 커밋의 root tree object와 parent commit object의 정보를 저장한다.
+    - Staging Area에 있는 데이터의 스냅샷에 대한 포인터와 메타데이터를 포함하는 객체다.
+    - author, committer, commit Date, commit message, root tree object를 저장한다.
+    - 이전 커밋에 대한 포인터를 저장하고 있기 때문에, 무엇을 기준으로 변경되었는지 알 수 있다.
+
 - __Head__
-    - 현재 브랜치나 특정 커밋에 대한 참조가 있다.
-    - HEAD 분리를 통해 브랜치 대신에 커밋에 붙일 수 있다.
+    - 현재 작업중인 브랜치의 최종 커밋을 가리키는 포인터이다.
+    - checkout 명령어를 사용해 Branch와 분리할 수 있다.
+
 - __Branch__
-    - 작업 내역의 모음. 브랜치는 특정 커밋에 대한 참조이기 때문에 가볍고 빠르다.
+    - 특정 커밋을 가리키는 포인터다.
+
 - __Tag__
-    - 특정 commit이 중요하다고 생각하면 주석과 함께 tagging을 할 수 있다.
-    - 특정 commit에 tag를 달면 tag object가 생성된다.
-    - git push은 태그를 원격 서버로 전송하지 않기 때문에 명시적으로 전송해야 한다.
-        - ex) git push origin tagname
+    - Lightweight, Annotated 두 종류가 있다.
+    - __Lightweight__: 특정 커밋에 대한 포인터이다.
+        ```
+        git tag v1.0 -lw
+        git show v1.0 -lw 
+        ```
+    - __Annotated__: 특정 커밋에 대한 포인터, 작성자, 메시지, 작성일 GPG서명 등을로 담고있다.
+        ```
+        git tag -a v1.0 -m "태그 메시지"
+        git show v1.0
+        ```
+    - git push는 태그를 원격 서버로 전송하지 않기 때문에 명시적으로 전송해야 한다.
+        ```
+        git push origin v1.0
+        ```
+
+- __History__
+    - git 시스템은 스냅샷을 기반으로 히스토리를 관리한다.
+    - 내부적으로는 commit 객체에 존재하는 포인터들로 상태를 관리한다.
+        - tree: 현재 커밋의 파일 구조 표현
+        - author: 처음에 코드를 짜고 Commit한 사람
+        - committer: 가장 최근에 커밋을 수행한 사람
+        - commit date: 커밋한 날짜
+        - parent commit: 이전 커밋의 포인터로 스냅샷의 순서 파악
+
 - __Tree__
-    - 유닉스의 디렉토리에 대응하는 개념으로, git에 저장되는 object다.
-    - 파일명, 형식, 크기, 접근권한, 어느 디렉터리에 속하는지 등의 정보를 기록한다.
-- __Blob__
-    - 파일의 이름이나 형식등은 저장되지 않고 바이너리 데이터 자체만 저장하며, SHA1해시값 40글자로 구성되어있다.
+    - 유닉스의 디렉터리에 대응하는 개념으로, git에 저장되는 object다.
+    - blob들의 파일명, 형식, 크기, 접근권한, 어느 디렉터리에 속하는지의 정보를 기록한다.
+    - 디렉터리 안에는 여러 파일이나 서브 디렉터리가 들어갈 수 있는 것과 마찬가지로 tree는 재귀적으로 존재할 수 있다.
+
+- __Blob__ (Binary Large Object)
+    - 파일의 바이너리 데이터 자체만 저장하며, 메타 데이터는 저장되지 않는다.
     - 만약 이름이 다르고 내용이 같은 2개의 파일이 프로젝트 내에 있다면, 한개의 blob만 저장한다.
 <br><br><br><br>
 
