@@ -58,8 +58,9 @@
 - __branch__: 브랜치를 관리하는 명령어다.
     ```
     git branch <branch_name> : 브랜치 생성하기
+    git branch -l : 로컬 브랜치 목록보기
     git branch -r : 원격 브랜치 목록보기
-    git branch -a : 로컬 브랜치 목록보기
+    git branch -a : 로컬 브랜치 + 원격 브랜치 목록보기
     git branch -m <branch_name> <change_branch_name> : 브랜치 이름 바꾸기
     git branch -d <branch_name> : 브랜치 삭제하기
     ```
