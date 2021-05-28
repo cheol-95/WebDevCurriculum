@@ -1,0 +1,280 @@
+.header-title{
+    color:#62D375;
+    text-align: center;
+    margin: 65px 0 5px 0;
+}
+
+.header-title-a{
+    width: 0px;
+    height: 0px;
+}
+
+.header-title-img{
+    margin: 65px 0 15px 160px;
+    width: 180px;
+    height: 35px;
+}
+
+.container{
+    display:grid;
+    grid-template-rows: auto;
+}
+
+.container-item{
+    width: 500px;
+    margin: 0 auto;
+}
+
+.service{
+    display: flex;
+    flex-direction: row;
+}
+
+.service-left{
+    flex: none;
+    margin-right: auto;
+}
+
+.service-right{
+    flex: none;
+    margin-left: auto;
+}
+
+.service-item-image{
+    width: 13px;
+    height: 13px;
+}
+
+.search{
+    display: flex;
+    width: 550px;
+    margin: auto;
+    border: 1px solid #62D375;
+    border-radius: 5px;
+}
+
+.search-input{
+    flex-grow: 1;
+    margin-left: 3px;
+}
+
+.search-list{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 109px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.search-list > li{
+    flex: 33;
+    list-style: none;
+}
+
+.search-box-item{
+    margin-top: 9px;
+}
+
+.search-box-item-image{
+    width: 25px;
+    height: 25px;
+    margin-top: 8px;
+    margin-left: 6px;
+}
+
+.input-box{
+    border: 0;
+    /* flex-grow: 1; */
+    width: 95%;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.input-box::placeholder{
+    color: lightgray;
+}
+
+.pan{
+    width: 440px;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin-bottom: 90px;
+}
+
+.pan > li{
+    /* width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 8px; */
+}
+
+.pan-div{
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.pan > li > a{
+    text-decoration: none;
+    font-size: 8px;
+    color:black;
+}
+
+
+.pan > li > a > div > img{
+    margin-bottom: 2px;
+    width: 45x;
+    height: 45px;
+}
+
+.article{
+    border-radius: 8px;
+    border: 0.5px solid lightskyblue;
+    padding: 8px 0 8px 12px;
+    margin-bottom: 8px;
+}
+
+.weather-now{
+    display: flex;
+    flex-direction: row;
+}
+
+.w-n-left{
+    flex: 6;
+    display: flex;
+}
+
+.w-n-right{
+    width: 150px;
+    display: flex;
+    overflow: hidden;
+}
+
+.w-n-item{
+    margin: 8px 0 0 8px;
+}
+
+.w-n-icon{
+    width: 30px;
+    height: 30px;
+    margin-top: 1px;
+}
+
+.w-n-font{
+    font-size: 13px;
+    margin: 0px;
+    color: gray;
+}
+
+.w-n-now-font{
+    color: black;
+    font-size: 8px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.w-n-now-icon{
+    margin-top: 5px;
+    width: 42px;
+    height: 12px;
+}
+
+.weather-header{
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.weather-header-item{
+    margin: 5px 0 0 5px;
+}
+
+.weather-header-item1{
+    margin: 0 0 0 5px;
+    height: 15px;
+}
+
+.w-h-left{
+    flex:14;
+    display: flex;
+    align-items: flex-end;
+}
+.w-h-right{
+    flex:1;
+    margin-right: auto;
+}
+
+.w-h-r-img{
+    width: 14px;
+    height: 12px;
+}
+
+.weather-location{
+    font-size: 11px;
+    text-align: bottom;
+    color: lightslategray;
+}
+
+.weather-location-img{
+    width: 12px;
+    height: 12px;
+    /* padding-bottom: 3px; */
+}
+
+.weather-category{
+    flex-wrap: wrap;
+}
+
+.weather-category > ul{
+    padding: 0;
+    display: flex;
+    list-style: none;
+    /* font-size: 13px;
+    font-weight: 600; */
+    /* margin-top: 6px; */
+    color: rgb(111, 113, 119);
+}
+/* 
+.weather-category > ul > li{
+    background-color: #f4f6fb;
+    margin: 3px;
+    padding: 8px;
+}
+
+.weather-category > ul > a{
+    background-color: #f4f6fb;
+    margin: 3px;
+    padding: 8px;
+} */
+
+#weather-selected{
+    background-color: rgb(123, 149, 200);
+    color: white;
+}
+
+.
+/* .pan > li{
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 8px;
+}
+
+.pan > li > img{
+    margin-bottom: 2px;
+    width: 45px;
+    height: 45px;
+} */
