@@ -420,107 +420,112 @@
     text-decoration: none;
  }
 
- .a-right > a > div{
-     padding: 8px;
-     border-radius: 2px;
-     border: 1px solid rgb(96, 152, 217);
- }
+.a-right > a > div{
+    padding: 8px;
+    border-radius: 2px;
+    border: 1px solid rgb(96, 152, 217);
+}
 
- .webtoon{
+.webtoon{
     display: flex;
- }
+}
 
 .wt-text{
     flex: 14;
     font-weight: 700;
 }
 
- .wt-button{
-     flex: 1;
- }
+.wt-button{
+    flex: 1;
+}
 
- .wt-button > a > img{
+.wt-button > a > img{
     width: 14px;
     height: 12px;
     transform: rotate(180deg);
- }
+}
 
- .a-pan{
+.a-pan{
     color:rgb(69, 73, 76);
     font-size: 14px;
- }
+}
 
- .a-pan-header{
+.a-pan-header{
      padding-top: 5px;
     display: flex;
- }
+}
 
- .a-pan-header-left{
+.a-pan-header-left{
     flex: 8;
     color: black;
     font-size: 16px;
     font-weight: 700;
- }
+}
 
- .a-pan-header-right{
+.a-pan-header-right{
     flex: 1;
- }
+}
 
- .a-pan-select{
+.a-pan-header-right > a{
+    text-decoration: none;
+    color: #929294;
+}
+
+.a-pan-select{
      padding: 0;
      display: flex;
      flex-direction: row;
      flex-wrap: wrap;
      list-style: none;
- }
+}
 
- .a-pan-select > a{
+.a-pan-select > a{
     width: 48%;
     text-decoration: none;
     color: rgb(69, 73, 76);
     margin: 0 5px 5px 0;
     background-color: rgb(245, 247, 259);
- }
+}
 
- .a-pan-select > a > li{
+.a-pan-select > a > li{
      padding: 10px;
      display: flex;
      align-items: center;
- }
+}
 
- .a-pan-select > a > li > div{
+.a-pan-select > a > li > div{
     flex: 14;
     display: flex;
     align-items: center;
- }
+}
 
- .a-pan-icon{
+.a-pan-icon{
     margin: 0 8px;
     width: 22px;
     height: 22px;
- }
+}
 
- .arrow-right{
+.arrow-right{
     flex: 1;
     width: 13px;
     height: 11px;
     transform: rotate(90deg);
- }
+}
 
- .notice{
-     display: flex;
-     align-items: center;
-     font-weight: 500;
-     color: rgb(111, 113, 119);
- }
+.notice{
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: rgb(111, 113, 119);
+}
 
- .a-notice-box{
+.a-notice-box{
     padding: 3px 6px 2px 8px;
     font-size: 12px;
     color: #62D375;
     border: 1px solid #62D375;
     border-radius: 20px;
- }
+}
 
 .a-notice-text{
     font-size: 13px;
