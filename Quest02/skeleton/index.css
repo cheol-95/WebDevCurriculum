@@ -144,8 +144,8 @@
 }
 
 .article{
-    border-radius: 8px;
-    border: 0.5px solid lightskyblue;
+    border-radius: 2px;
+    border: 0.5px solid lightgray;
     padding: 8px 0 8px 12px;
     margin-bottom: 8px;
 }
@@ -280,17 +280,12 @@
 }
 
 .weather-weekly > ul > li{
-    margin: 3px 15px;
+    margin: 3px 6px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     list-style: none;
     text-align: center;
-}
-
-.w-w-vertical{
-    margin: 3px 0;
-    color: rgb(113, 139, 190);
 }
 
 .weather-weekly > ul > li > span{
@@ -299,8 +294,20 @@
 }
 
 .weather-weekly > ul > li > div{
-    font-size: 15px;
+    width:40px;
+    font-size: 13px;
     color:rgb(111, 113, 119)
+}
+
+.weather-weekly > ul > li > div > img{
+    width: 20px;
+    height: 20px;
+    margin: 8px 0;
+}
+
+.w-w-vertical{
+    margin: 3px 0;
+    color: rgb(113, 139, 190);
 }
 
 #weekly-selected{
@@ -309,29 +316,42 @@
     color: white;
 }
 
-.weather-weekly > ul > li > img{
-    width: 20px;
-    height: 20px;
-    margin: 8px 0;
-}
-
 .covid{
     display: flex;
     flex-direction: row;
 }
 
-.covid > div{
+.covid > a{
     padding-top: 6px;
-    flex: 49%;
+    flex: 50%;
+    text-decoration: none;
 }
 
-.covid > div > img{
+.covid > a > div{
+    display: flex;
+    align-items: center;
+}
+
+.covid > a > div > img{
     width: 20px;
     height: 20px;
+}
+
+.covid > a > div > span{
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 3px;
+    color:black;
+}
+
+.covid > a > div > div{
+    margin-top: 2px;
+    font-size: 12px;
+    color:rgb(111, 113, 119)
 }
 
 #covid-center{
     flex: 2%;
     padding: 0;
-    border-left: 1px solid black;
+    border-left: 1px solid lightgray;
 }
