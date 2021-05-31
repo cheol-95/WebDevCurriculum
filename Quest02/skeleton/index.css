@@ -4,12 +4,7 @@
     margin: 65px 0 5px 0;
 }
 
-.header-title-a{
-    width: 0px;
-    height: 0px;
-}
-
-.header-title-img{
+.header-title{
     margin: 65px 0 15px 160px;
     width: 180px;
     height: 35px;
@@ -18,6 +13,7 @@
 .container{
     display:grid;
     grid-template-rows: auto;
+    margin: 4px;
 }
 
 .container-item{
@@ -27,22 +23,60 @@
 
 .service{
     display: flex;
+    align-items: center;
     flex-direction: row;
 }
 
-.service-left{
-    flex: none;
+.service > a{
+    color:rgb(111, 113, 119);
+}
+
+.service-menu{
     margin-right: auto;
 }
 
-.service-right{
-    flex: none;
-    margin-left: auto;
+.service-menu-img{
+    margin-top: 6px;
+    width: 16px;
+    height: 16px;
 }
 
-.service-item-image{
-    width: 13px;
-    height: 13px;
+.service-qr{
+    font-size:13px;
+    font-weight: 600;
+    margin-right: 10px;
+    text-decoration: underline;
+    text-underline-position: under;
+}
+
+.service-npay{
+    width: 45px;
+    height: 25px;
+    margin-right: 7px;
+    display: flex;
+    align-items: center;
+    border-radius: 40px;
+    background-color: rgb(245, 247, 259);
+    text-decoration: none;
+}
+
+.service-npay-text{
+    margin: 0 0 0 9px;
+    font-size:11px;
+    font-weight: 600;
+}
+
+.service-desk{
+    width: 25px;
+    height: 25px;
+    background-color: rgb(245, 247, 259);
+    border-radius: 50%;
+}
+
+.service-desk-img{
+    margin: 5px 0 0 5px;
+    width: 14px;
+    height: 14px;
 }
 
 .search{
