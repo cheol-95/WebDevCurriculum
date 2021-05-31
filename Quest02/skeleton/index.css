@@ -125,7 +125,8 @@
 }
 
 .input-box::placeholder{
-    color: lightgray;
+    color:rgb(230, 230, 230);
+    font-size: 16px;
 }
 
 .pan{
