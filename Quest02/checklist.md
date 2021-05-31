@@ -152,6 +152,41 @@
 <br><br>
 
 
+# Review Comment
+### Naming
+- `상속`이나 `wt-text` 같은 방식보다 `.wetoon .text` 방식을 선호
+- `#id`사용은 지양하도록 한다.
+
+### HTML + CSS의 좋은선언 방법
+- 작업은 나눠서 하되, 번들링을 통해 HTML안에 CSS을 선언하도록 한다.
+
+<br>
+
+## reflow? repainting?
+### __reflow__
+- 어떠한 액션이나 이벤트에 의해 DOM 요소의 크기나 위치 등을 변경하면 해당 노드의 하위 노드와 상위 노드들을 포함하여 렌더 트리를 다시 계산한다.
+- 변경하려는 특정 요소뿐만 아니라 연관된 요소들까지 재계산을 하기 때문에 브라우저의 퍼포먼스를 저하시킨다.
+
+<br>
+
+### __repainting__
+- reflow 과정이 끝난 후 재생성된 랜더 트리를 다시 그리는 작업이다.
+- 수치와 상관없는 background-color, visibility, outline 등의 스타일 변경 시 reflow 과정을 거치지 않기때문에 부하가 적다.
+
+<br>
+
+### reflow의 최소화 
+- DOM Tree의 Depth를 최소화 한다.
+- JS를 통해 스타일 변화를 줄 경우, 가급적 한 번에 처리한다.
+    ```
+    e.target.style.width = "150px"; // reflow 발생
+    e.target.style.height = "300px"; // reflow 발생
+
+    ->
+
+    e.target.style = "width: 150px; height: 300px"; // reflow 발생
+    ```
+<br><br><br>
 
 ---
 # Note.
