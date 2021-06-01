@@ -15,6 +15,7 @@ _ | 2016 | ECMAScript2016 | 지수연산자(**), Array,includes()
 _ | 2017 | ECMAScript2017 | async/await, Object.entries/values,
 _ | 2018 | ECMAScript2018 | async iteration, promise.finally, object rest/spread
 _ | 2018 | ECMAScript2019 | flat, flatMap, Object.fromEntries()
+
 <br><br>
 
 ### 자바스크립트의 버전들을 가리키는 ES5, ES6, ES2016, ES2017 등은 무엇을 이야기할까요?
