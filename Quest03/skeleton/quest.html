@@ -36,12 +36,21 @@
 			let row1Squares = document.querySelectorAll('.row1 .square');
 			for(let node of row1Squares) {
 				/* TODO: node 변수를 어떻게 조작해야 할까요? */
+				node.addEventListener("click", e => {
+					let nextColor = e.target.style.backgroundColor === "yellow" ? "white" : "yellow";
+					node.style.background = nextColor;
+				});
 			}
 
 			let row2Squares = document.querySelectorAll('.row2 .square');
 			for(let node of row2Squares) {
 				/* TODO: node 변수를 어떻게 조작해야 할까요? */
+				node.addEventListener("click", () => {
+					node.classList.toggle('enabled');
+					// node.classList.contains('enabled') ? node.classList.remove('enabled') : node.classList.add('enabled');
+				});
 			}
 		</script>
+	<script src="printStars.js"></script>
 	</body>
 </html>
