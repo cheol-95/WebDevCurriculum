@@ -34,41 +34,40 @@
 
 		<script>
 			// let 선언
-			let row1Squares = document.querySelectorAll('.row1 .square');
-			for(let node of row1Squares) {
-				node.addEventListener('click', () => {
-					toggleBackground(node, 'yellow', 'white')
-				});
-			}
+			// let row1Squares = document.querySelectorAll('.row1 .square');
+			// for(let node of row1Squares) {
+			// 	node.addEventListener('click', () => {
+			// 		toggleBackground(node, 'yellow', 'white')
+			// 	});
+			// }
 
-			let row2Squares = document.querySelectorAll('.row2 .square');
-			for(let node of row2Squares) {
-				node.addEventListener('click', () => {
-					node.classList.toggle('enabled');
-				});
-			}
+			// let row2Squares = document.querySelectorAll('.row2 .square');
+			// for(let node of row2Squares) {
+			// 	node.addEventListener('click', () => {
+			// 		node.classList.toggle('enabled');
+			// 	});
+			// }
 
 			// // var 선언
-			// var row1Squares = document.querySelectorAll('.row1 .square');
-			// for(var node of row1Squares) {
-			// 	node.addEventListener("click", e => {
-			// 		toggleBackground(e, 'yellow', 'white')
-			// 	});
-			// }
+			var row1Squares = document.querySelectorAll('.row1 .square');
+			for(var node of row1Squares) {
+				node.addEventListener("click", () => {
+					function fn(node2) {
+						toggleBackground(node2, 'yellow', 'white')
+					}
+					fn(node);
+				});
+			}
 
-			// var row2Squares = document.querySelectorAll('.row2 .square');
-			// for(var node of row2Squares) {
-			// 	node.addEventListener("click", e => {
-			// 		e.target.classList.toggle('enabled');
-			// 	});
-			// }
+			var row2Squares = document.querySelectorAll('.row2 .square');
+			for(var node of row2Squares) {
+				node.addEventListener("click", e => {
+					e.target.classList.toggle('enabled');
+				});
+			}
 
-			function toggleBackground(obj, color1, color2) {
-				if (obj.style) {
-					obj.style.background = obj.style.background === color1 ? color2 : color1;
-				} else {
-					obj.target.style.background = obj.target.style.background === "yellow" ? "white" : "yellow";
-				}
+			function toggleBackground(node, color1, color2) {
+				node.style.background = obj.style.background === color1 ? color2 : color1;
 			}
 		</script>
 		<script src="printStars.js"></script>
