@@ -63,6 +63,7 @@ _ | 2018 | ECMAScript2019 | flat, flatMap, Object.fromEntries()
 ### 자바스크립트에서 반복문을 돌리는 방법은 어떤 것들이 있을까요?
 - for, for...in, for...of, while, do...while 등
 - for await of: 반복문 내부에서 실행되는 비동기 서비스들에 대한 순서를 보장한다.
+- 고차함수 중 forEach, map, filter, reduce 등이 있다.
 
 <br><br><br>
 
