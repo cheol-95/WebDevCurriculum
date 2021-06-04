@@ -141,11 +141,7 @@
     width: 110px;
 }
 
-.pan-div{
-    padding: 10px;
-}
-
-.pan > li > div > a{
+.pan > li > a{
     width: 45px;
     font-size: 8px;
     text-decoration: none;
@@ -153,11 +149,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center;    
+    padding: 10px;
 }
 
 
-.pan > li >  div > a > img{
+.pan > li > a > img{
     width: 45x;
     height: 45px;
 }
@@ -168,7 +165,7 @@
     margin: 8px;
 }
 
-.pan > li >  div > a> div{
+.pan > li > a > div{
     text-align: center;
 }
 
