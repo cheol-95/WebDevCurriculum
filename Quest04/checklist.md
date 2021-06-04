@@ -1,0 +1,107 @@
+# Quest 04. OOP의 기본
+
+## 객체지향 프로그래밍은 무엇일까요?
+- 프로그램 내에서 표현하고자 하는 실 세계(real world)의 일들을 객체를 사용해서 모델링 하고, 객체를 사용하지 않으면 불가능 혹은 불편할 일들을 쉽게 처리하는 방법을 사용하는 프로그래밍 방법론
+
+<br><br>
+### `#`로 시작하는프라이빗 필드는 왜 필요한 것일까요? 정보를 은폐하면 어떤 장점이 있을까요?
+- 내부 인터페이스(구현)와 외부 인터페이스를 분리하여 클래스 외부에서 해당 필드로의 접근을 제한하기 위해서 사용한다.
+- 정보를 은폐하면 데이터를 보호하고 오용을 방지할 수 있다.
+
+<br><br>
+### 다형성이란 무엇인가요? 다형성은 어떻게 코드 구조의 정리를 도와주나요?
+- 어떤 한 요소에 여러 개념을 넣어 놓는 것으로 일반적으로 오버라이딩이나 오버로딩을 의미한다. 하지만 js에서는 java환경에서와 같은 오버로딩을 지원하지 않는다.
+- 객체가 다른 상태에 따라 다른 행동을 해야 하는 경우에 사용된다.
+- 비지니스 로직과 객체의 생성과 연관 주입을 담당하는 로직을 분리할 수 있다.
+
+<br><br>
+### 상속이란 무엇인가요? 상속을 할 때의 장점과 단점은 무엇인가요?
+- 새로운 클래스가 기존의 클래스의 자료와 연산을 이용할 수 있게 하는 기능이다.
+- 상속을 통해서 프로그램의 요구에 맞추어 클래스를 생성할 수 있고 클래스 간의 종속 관계를 형성함으로써 객체를 조직화 할 수 있다.
+
+<br><br>
+### OOP의 합성(Composition)이란 무엇인가요? 합성이 상속에 비해 가지는 장점은 무엇인가요?
+- 기존 클래스가 새로운 클래스의 구성요소로 쓰인다.
+- 계층의 제한이 없기 때문에 쉽게 리팩토링하고 구조화를 위한 단순한 모델링이 가능하다.
+- 상속은 하위 클래스가 상위 클래스에 강하게 의존, 결합하기 때문에 변화에 유연하게 대처하기 어려워지는 반면, 합성은 상위 클래스가 변하여도 영향을 받지 않게 된다.
+```
+상속: A is a B
+합성: A has a B
+```
+
+<br><br>
+## 자바스크립트의 클래스는 어떻게 정의할까요?
+```
+class Person { //선언
+	#age = 10; //private 필드 선언 (초기화 가능)
+   constructor(firstName, lastName, age) { //생성자
+	   this.firstName = firstName;
+	   this.lastName = lastName;
+	   this.#age = age; //private 필드 할당
+   }
+
+   get fullName() { //Getter
+	   return this.firstName + this.lastName;
+   }
+
+   set fullName(value) { //Setter
+	   [this.firstName, this.lastName] = value.split(' ');
+   }
+
+   get age() {
+	   return this.#age;
+   }
+
+   printName() { // 메서드
+	   console.log(`Firstname is {}, Lastname is {}`);
+   }
+
+   static displayName = 'Person'; // 정적 속성
+}
+
+const person = new Person('Kang', 'Cheol', 100);
+console.log(person.firstName); // Kang
+console.log(person.lastName); // Cheol
+console.log(person.fullName); // KangCheol
+console.log(person.age); //  100
+
+person.fullName = 'knowre people'
+
+console.log(person.firstName); // knowre
+console.log(person.lastName); // people
+console.log(person.fullName); // knowrepeople
+```
+
+
+- __선언__
+    - 함수와 마찬가지로 선언식과 표현식이 있고, 표현식을 사용하면 호이스팅이 발생하지 않는다.
+- __class body__
+    - 중괄호로 묶여 있는 안쪽 부분으로, 메서드나 constructor와 같은 클래스 멤버를 정의한다.
+- __프로토타입 메서드__
+    - 인스턴스에서 호출 가능한 멤버함수이다.
+- __접근자 프로퍼티 (getter, setter)__
+    - 외부 코드에서는 일반적인 프로퍼티처럼 보이지만, 이 함수는 값을 획득하고 설정하는 역할을 담당한다.
+- __정적 메서드와 속성__
+    - `static`키워드를 사용해 선언하고 클래스의 인스턴스화 없이 호출된다. 인스턴스에서는 호출할 수 없다.
+    - __정적 메서드__: 어플리케이션을 위한 유틸리티함수를 생성하는데 주로 사용된다.
+    - __정적 속성__: 캐시, 고정 환경설정 또는 인스턴스 간에 복제할 필요가 없는 기타 데이터에 유용하다.
+
+<br><br>
+### 프로토타입 기반의 객체지향 프로그래밍은 무엇일까요?
+- 자바스크립트에서는 현재 존재하고 있는 객체를 프로토타입으로 사용하여, 해당 객체를 복제하여 재사용하는 것을 상속이라고 한다.
+- 원하는 프로퍼티를 찾기 위해 상위 프로토타입으로 반복해서 탐색하는것을 `프로토타입 체이닝`이라고 한다.
+
+<br><br>
+### 자바스크립트의 클래스는 이전의 프로토타입 기반의 객체지향의 구현과 어떤 관계를 가지고 있나요?
+- 클래스 구문은 프로토타입 기반 모델에 대한 syntax sugar로, 내부적으로는 프로토타입이 사용되고 있다.
+- 클래스는 함수이고, 함수는 객체이므로 프로토타입 상속 특성을 사용하여 확장할 수 있다.
+
+<br><br><br>
+
+# Advanced
+## 객체지향의 역사는 어떻게 될까요?
+- pass
+
+<br><br>
+## Smalltalk, Java, Go, Kotlin 등의 언어들로 넘어오면서 객체지향 패러다임 측면에서 어떤 발전이 있었을까요?
+- pass
