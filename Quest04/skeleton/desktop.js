@@ -26,6 +26,7 @@ const dragAndDrop = (e) => {
   };
 };
 
+// 드래그가 가능한 element
 class DragElement extends MakeElement {
   constructor(element) {
     super(element);
