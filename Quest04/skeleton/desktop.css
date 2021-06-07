@@ -41,8 +41,23 @@
 .window {
   width: 200px;
   height: 300px;
-  position: absolute;
   left: 200px;
   top: 200px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
   border: 1px solid black;
+  background: rgb(28, 86, 200);
+}
+
+.window .xbox {
+  margin: 4px 0 4px 175px;
+  width: 20px;
+}
+
+.window .textbox {
+  border-top: 1px solid black;
+  padding: 3px;
+  background: white;
+  flex: 1;
 }
