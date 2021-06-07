@@ -1,3 +1,4 @@
+// 다른 class에서 this를 사용하기 위해 Element 생성
 class MakeElement {
   constructor(element) {
     const newElement = document.createElement(element);
@@ -5,7 +6,9 @@ class MakeElement {
   }
 }
 
+// 드래그 이벤트
 const dragAndDrop = (e) => {
+  e.target.style.zIndex = 1000;
   const move = (pageX, pageY) => {
     e.target.style.left = pageX - e.offsetX + 'px';
     e.target.style.top = pageY - e.offsetY + 'px';
@@ -33,6 +36,7 @@ class DragElement extends MakeElement {
   }
 }
 
+// 아이콘
 class Icon extends DragElement {
   #id;
   #src;
@@ -49,29 +53,60 @@ class Icon extends DragElement {
   }
 }
 
+// 폴더 창 끄기버튼
+class XBox extends MakeElement {
+  #id;
+  #src = dummy.src.xbox;
+  constructor(id) {
+    super('img');
+    this.#id = id;
+
+    this.className = 'xbox';
+    this.src = this.#src;
+
+    this.onclick = (e) => {
+      Folder.deleteWindow(this.#id);
+    };
+  }
+}
+
+// 폴더 창
 class Window extends DragElement {
   #id;
+  #desktopId;
   constructor(desktopId, id) {
     super('div');
     this.#id = id;
-
+    this.#desktopId = desktopId;
     this.className = 'window';
-    this.innerHTML = `Tab: ${desktopId}<br>Forder: ${this.#id}`;
 
     this.setAttribute('id', 'window_' + this.#id);
+
+    this.#appendElements();
   }
+
+  #appendElements = () => {
+    this.#createXbox();
+    this.#createTextbox();
+  };
+
+  #createXbox = () => {
+    this.append(new XBox(this.#id));
+  };
+
+  #createTextbox = () => {
+    const textbox = new MakeElement('div');
+    textbox.className = 'textbox';
+    textbox.innerHTML = `Tab: ${this.#desktopId}<br>Forder: ${this.#id}`;
+    this.append(textbox);
+  };
 }
 
-class OpenElement extends MakeElement {
-  constructor(element) {
-    super(element);
-  }
-}
-
+// 폴더
 class Folder extends MakeElement {
   #id;
   #src;
-  #hasWindow = false;
+  #hasWindow;
   constructor(desktopId, id, src) {
     super('img');
     this.#id = id;
@@ -91,8 +126,17 @@ class Folder extends MakeElement {
       }
     };
   }
+
+  static deleteWindow(id) {
+    const targetWindow = document.getElementById('window_' + id);
+    targetWindow.remove();
+
+    const targetForder = document.getElementById('forder_' + id);
+    targetForder.#hasWindow = false;
+  }
 }
 
+// 상단 탭
 class Tab extends MakeElement {
   #id;
   constructor(id) {
@@ -114,6 +158,7 @@ class Tab extends MakeElement {
   }
 }
 
+// 바탕화면
 class Desktop extends MakeElement {
   #id;
   #iconCount;
@@ -126,31 +171,31 @@ class Desktop extends MakeElement {
 
     this.setAttribute('id', 'desktop_' + this.#id);
 
-    this.#MakeElement();
+    this.#appendElements();
     this.selected(selected);
   }
 
-  #MakeElement = () => {
-    this.#makeForder();
-    this.#makeIcon();
-    this.#makeTab();
+  #appendElements = () => {
+    this.#createForder();
+    this.#createIcon();
+    this.#createTab();
   };
 
-  #makeForder = () => {
+  #createForder = () => {
     for (let elementId = 0; elementId < this.#forderCount; elementId++) {
       const newForder = new Folder(this.#id, elementId, dummy.src.forder);
       this.append(newForder);
     }
   };
 
-  #makeIcon = () => {
+  #createIcon = () => {
     for (let elementId = 0; elementId < this.#iconCount; elementId++) {
       const newIcon = new Icon(elementId, dummy.src.icon);
       this.append(newIcon);
     }
   };
 
-  #makeTab = () => {
+  #createTab = () => {
     const newTab = new Tab(this.#id);
     const tabBar = document.querySelector('.tabbar');
     tabBar.append(newTab);
