@@ -1,18 +1,63 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="./desktop.css">
-		<script src="./desktop.js"></script>
-	</head>
-	<body>
-		<section class="desktop">
-		</section>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./desktop.css" />
+    <script src="./desktop.js"></script>
+  </head>
+  <body class="layout">
+    <nav>
+      <ul class="tabbar"></ul>
+    </nav>
 
-		<script>
-			let myDesktop = new Desktop(
-				/* TODO: myDesktop 인스턴스의 생성자의 변수로 무엇이 들어가야 할까요? */
-			);
-		</script>
-	</body>
+    <section class="desktop"></section>
+
+    <script>
+      const size = {
+        icon: {
+          height: 60,
+          top: 50,
+        },
+      };
+
+      const dummy = {
+        currentTab: 0,
+        src: {
+          icon: 'https://image.rocketpunch.com/company/5466/naver_logo.png?s=400x400&t=inside',
+          forder: 'https://image.flaticon.com/icons/png/512/716/716784.png',
+        },
+        tabs: [
+          {
+            id: 0,
+            forderCount: 2,
+            iconCount: 2,
+            selected: true,
+          },
+          {
+            id: 1,
+            forderCount: 4,
+            iconCount: 3,
+            selected: false,
+          },
+          {
+            id: 2,
+            forderCount: 1,
+            iconCount: 1,
+            selected: false,
+          },
+          {
+            id: 3,
+            forderCount: 7,
+            iconCount: 6,
+            selected: false,
+          },
+        ],
+      };
+
+      dummy.tabs.forEach((v) => {
+        const myDesktop = new Desktop(v.id, v.forderCount, v.iconCount, v.selected);
+        document.querySelector('.desktop').append(myDesktop);
+      });
+    </script>
+  </body>
 </html>

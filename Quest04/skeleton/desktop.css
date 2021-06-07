@@ -1,1 +1,48 @@
 /* TODO: 자유롭게 바탕화면 시스템의 CSS를 만들어 보세요! */
+.layout {
+  margin: 0px;
+}
+
+.tabbar {
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  border-bottom: 1px solid black;
+}
+
+.tabbar .tab {
+  width: 8%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  text-decoration: none;
+  border-right: 1px solid lightgray;
+}
+
+.icon {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  left: 105px;
+}
+
+.forder {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  left: 25px;
+}
+
+.window {
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  left: 200px;
+  top: 200px;
+  border: 1px solid black;
+}
