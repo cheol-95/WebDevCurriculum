@@ -104,7 +104,7 @@ class Window extends DragElement {
 }
 
 // 폴더
-class Folder extends MakeElement {
+class Folder extends DragElement {
   #id;
   #src;
   #hasWindow;
