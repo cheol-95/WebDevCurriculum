@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="stylesheet" href="/style.css">
-		<script src="/notepad.js"></script>
-	</head>
-	<body>
-		<!-- TODO: 이 곳을 채워 클라이언트를 만들어 보세요 -->
-		<script>
-			let notepad = new Notepad();
-		</script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="notepad.js"></script>
+  </head>
+  <body class="layout">
+    <nav class="explorer">좌측 explorer</nav>
+
+    <section class="tabbar">상단 탭</section>
+
+    <section class="notepad">코드 뷰</section>
+
+    <script>
+      init();
+      let notepad = new Notepad();
+    </script>
+  </body>
 </html>
