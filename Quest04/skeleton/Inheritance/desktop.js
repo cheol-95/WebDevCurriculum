@@ -98,7 +98,7 @@ class Window extends DragElement {
   #createTextbox = () => {
     const textbox = new MakeElement('div');
     textbox.className = 'textbox';
-    textbox.innerHTML = `Tab: ${this.#desktopId}<br>Forder: ${this.#id}`;
+    textbox.innerHTML = `Tab: ${this.#desktopId}<br>Folder: ${this.#id}`;
     this.append(textbox);
   };
 }
@@ -113,10 +113,10 @@ class Folder extends DragElement {
     this.#id = id;
     this.#src = src;
 
-    this.className = 'forder';
+    this.className = 'folder';
     this.style.top += size.icon.top + this.#id * size.icon.height + 'px';
 
-    this.setAttribute('id', 'forder_' + this.#id);
+    this.setAttribute('id', 'folder_' + this.#id);
     this.setAttribute('src', this.#src);
 
     this.ondblclick = () => {
@@ -132,8 +132,8 @@ class Folder extends DragElement {
     const targetWindow = document.getElementById('window_' + id);
     targetWindow.remove();
 
-    const targetForder = document.getElementById('forder_' + id);
-    targetForder.#hasWindow = false;
+    const targetFolder = document.getElementById('folder_' + id);
+    targetFolder.#hasWindow = false;
   }
 }
 
@@ -163,12 +163,12 @@ class Tab extends MakeElement {
 class Desktop extends MakeElement {
   #id;
   #iconCount;
-  #forderCount;
-  constructor(id, forderCount, iconCount, selected) {
+  #folderCount;
+  constructor(id, folderCount, iconCount, selected) {
     super('div');
     this.#id = id;
     this.#iconCount = iconCount;
-    this.#forderCount = forderCount;
+    this.#folderCount = folderCount;
 
     this.setAttribute('id', 'desktop_' + this.#id);
 
@@ -177,15 +177,15 @@ class Desktop extends MakeElement {
   }
 
   #appendElements = () => {
-    this.#createForder();
+    this.#createFolder();
     this.#createIcon();
     this.#createTab();
   };
 
-  #createForder = () => {
-    for (let elementId = 0; elementId < this.#forderCount; elementId++) {
-      const newForder = new Folder(this.#id, elementId, dummy.src.forder);
-      this.append(newForder);
+  #createFolder = () => {
+    for (let elementId = 0; elementId < this.#folderCount; elementId++) {
+      const newFolder = new Folder(this.#id, elementId, dummy.src.folder);
+      this.append(newFolder);
     }
   };
 

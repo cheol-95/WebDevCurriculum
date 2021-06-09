@@ -24,31 +24,31 @@
         currentTab: 0,
         src: {
           icon: 'https://image.rocketpunch.com/company/5466/naver_logo.png?s=400x400&t=inside',
-          forder: 'https://image.flaticon.com/icons/png/512/716/716784.png',
+          folder: 'https://image.flaticon.com/icons/png/512/716/716784.png',
           xbox: 'https://image.flaticon.com/icons/png/512/1828/1828843.png',
         },
         tabs: [
           {
             id: 0,
-            forderCount: 2,
+            folderCount: 2,
             iconCount: 2,
             selected: true,
           },
           {
             id: 1,
-            forderCount: 4,
+            folderCount: 4,
             iconCount: 3,
             selected: false,
           },
           {
             id: 2,
-            forderCount: 1,
+            folderCount: 1,
             iconCount: 1,
             selected: false,
           },
           {
             id: 3,
-            forderCount: 7,
+            folderCount: 7,
             iconCount: 6,
             selected: false,
           },
@@ -56,7 +56,7 @@
       };
 
       dummy.tabs.forEach((v) => {
-        const myDesktop = new Desktop(v.id, v.forderCount, v.iconCount, v.selected);
+        const myDesktop = new Desktop(v.id, v.folderCount, v.iconCount, v.selected);
         document.querySelector('.desktop').append(myDesktop);
       });
     </script>
