@@ -87,6 +87,7 @@
   - 오리진(domain/port/protocol)만 같다면 url 경로는 달라도 동일한 결과를 볼 수 있다.
 - Key, Value는 각 문자에 2바이트를 할당하는 UTF-16 DOMString의 형태로 저장한다.
 - 정수 키는 자동으로 문자열로 변환된다.
+- 개발자 도구 - Application - Storage 로 확인하거나 콘솔로 확인할 수 있다.
 
 ```
 myLocalStorage = window.localStorage; // 접근 및 할당
