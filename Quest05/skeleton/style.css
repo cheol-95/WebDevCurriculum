@@ -5,7 +5,7 @@
   grid-template-rows: 30px min-content;
 }
 
-.nav {
+.layout-nav {
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
