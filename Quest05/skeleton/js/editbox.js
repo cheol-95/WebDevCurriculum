@@ -1,10 +1,11 @@
 // 텍스트 박스 관련
 class EditBox {
   #editBox;
-  currentFile;
+  #currentFile;
   constructor() {
     [this.#editBox] = document.getElementsByClassName('editbox');
     this.#editBox.setAttribute('id', `editBox`);
+
     this.#editBox.setText = this.setText;
     this.#editBox.setEditable = this.setEditable;
 
@@ -23,11 +24,14 @@ class EditBox {
       this.innerHTML = '';
       this.setEditable(false);
     } else if (this.currentFile !== fileName) {
+      document.getElementById('tab_' + fileName).style.background = 'blue';
       this.innerHTML = NotepadStorage.getItem(fileName);
       this.setEditable(true);
     }
     this.currentFile = fileName;
   }
+
+  setCurrentFile;
 
   setEditable(state) {
     this.setAttribute('contenteditable', state);

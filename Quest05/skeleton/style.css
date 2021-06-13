@@ -20,8 +20,18 @@
   border-right: 1px solid black;
 }
 
-.explorers-sub {
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
   background: rgb(220, 220, 220);
+}
+
+.tools .bt {
+  font-size: 12px;
+  margin: 0 3px;
+  /* height: 20px; */
 }
 
 .explorers .file {

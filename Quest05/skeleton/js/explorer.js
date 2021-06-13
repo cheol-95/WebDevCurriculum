@@ -11,11 +11,21 @@ class Explorers {
   }
 
   #init() {
+    this.#setToolsEvent();
     this.#setLocalFiles();
   }
 
+  #setToolsEvent() {
+    // const tools = document.querySelectorAll('file tools');
+    document.querySelectorAll('.bt').forEach((v) => {
+      if (v.className === 'bt create') {
+        console.log('asdf');
+      }
+    });
+  }
+
   #setLocalFiles() {
-    const localFiles = NotepadStorage.getFileNames();
+    localFiles = NotepadStorage.getFileNames();
     localFiles.forEach((fileName) => {
       this.#setFile(fileName);
     });
@@ -30,8 +40,9 @@ class Explorers {
   #setFile(id) {
     const newLi = this.#getLi();
     const newFile = new File(id);
-    newLi.append(newFile);
+
     this.#explorers.append(newLi);
+    newLi.append(newFile);
   }
 
   #newFile() {
