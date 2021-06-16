@@ -1,8 +1,6 @@
 class NotepadStorage {
-  constructor() {
-    if (!localStorage.getItem('notepad')) {
-      localStorage.setItem('notepad', []);
-    }
+  static makeFileName(fileName) {
+    return dummy.fileIdPrefix + fileName;
   }
 
   static getFileNames() {
@@ -15,10 +13,19 @@ class NotepadStorage {
   }
 
   static getItem(fileName) {
-    return localStorage.getItem(dummy.fileIdPrefix + fileName);
+    const parsedName = this.makeFileName(fileName);
+    return localStorage.getItem(parsedName);
   }
 
   static setItem(fileName, text) {
-    localStorage.setItem(dummy.fileIdPrefix + fileName, text);
+    const parsedName = this.makeFileName(fileName);
+    localStorage.setItem(parsedName, text);
+  }
+
+  static removeItem(fileName) {
+    const parsedName = this.makeFileName(fileName);
+    localStorage.removeItem(parsedName);
   }
 }
+
+// saveAsFile

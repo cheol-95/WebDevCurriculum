@@ -1,42 +1,58 @@
 class TabBar {
-  #tabBar;
+  #tabBar = document.getElementsByClassName('tabbar')[0];
   constructor() {
-    [this.#tabBar] = document.getElementsByClassName('tabbar');
-
-    this.#tabBar.setAttribute('id', `tabBar`);
-
-    this.#setHandler();
+    this.#tabBar.id = 'tabBar';
+    this.#tabBar.currentTab = null;
+    this.#setHandler(this.#tabBar);
 
     return this.#tabBar;
   }
 
-  #hasTab(id) {
-    const tabName = 'tab_' + id;
-    for (let i = 0; i < this.childNodes.length; i++) {
-      if (tabName === this.childNodes[i].id) {
-        return true;
-      }
+  #setHandler(tabBar) {
+    tabBar.hasTab = this.hasTab;
+    tabBar.addTab = this.addTab;
+    tabBar.updateTab = this.updateTab;
+    tabBar.removeTab = this.removeTab;
+    tabBar.setFocus = this.setFocus;
+  }
+
+  addTab(fileName) {
+    if (!document.getElementById('tab_' + fileName)) {
+      this.append(new Tab(fileName));
     }
-    return false;
+    this.setFocus(fileName);
   }
 
-  #setHandler() {
-    this.#tabBar.hasTab = this.#hasTab;
-    this.#tabBar.addTab = this.addTab;
-    this.#tabBar.removeTab = this.removeTab;
+  updateTab(target, newFileName) {
+    const targetTab = document.getElementById('tab_' + target);
+
+    this.replaceChild(new Tab(newFileName), targetTab);
+    this.setFocus(newFileName);
   }
 
-  addTab(id) {
-    if (!this.hasTab(id)) {
-      this.append(new Tab(id));
-    }
-    document.getElementById('editBox').setText(id);
-  }
-
-  removeTab(id) {
-    document.getElementById('tab_' + id).remove();
+  removeTab(fileName) {
+    document.getElementById('tab_' + fileName).remove();
 
     const nextTab = this.lastChild ? this.lastChild.id.slice(4) : null;
-    document.getElementById('editBox').setText(nextTab);
+    this.setFocus(nextTab);
+  }
+
+  setFocus(fileName) {
+    const newTab = document.getElementById('tab_' + fileName);
+    if (newTab === this.currentTab) {
+      return;
+    }
+
+    if (newTab) {
+      newTab.style.background = 'rgb(230, 230, 230)';
+    }
+
+    if (this.currentTab && newTab !== this.currentTab) {
+      this.currentTab.style.background = 'white';
+      this.currentTab.lastChild.setXBox();
+    }
+
+    this.currentTab = newTab;
+    document.getElementById('editBox').setText(fileName);
   }
 }

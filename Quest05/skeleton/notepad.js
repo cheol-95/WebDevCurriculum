@@ -1,7 +1,8 @@
 const dummy = {
   fileIdPrefix: 'edit_',
   src: {
-    xbox: 'https://image.flaticon.com/icons/png/512/1828/1828843.png',
+    xbox: 'https://image.flaticon.com/icons/png/512/0/39.png',
+    exclamation: 'https://image.flaticon.com/icons/png/512/3521/3521964.png',
   },
 };
 
@@ -20,6 +21,7 @@ const init = () => {
 };
 
 class Notepad {
+  #menu;
   #tabBar;
   #editBox;
   #explorers;
@@ -27,5 +29,6 @@ class Notepad {
     this.#editBox = new EditBox();
     this.#tabBar = new TabBar();
     this.#explorers = new Explorers();
+    this.#menu = new ContextMenu();
   }
 }

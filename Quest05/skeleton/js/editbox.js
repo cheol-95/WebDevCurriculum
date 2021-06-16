@@ -1,37 +1,44 @@
 // 텍스트 박스 관련
 class EditBox {
-  #editBox;
-  #currentFile;
+  #editBox = document.getElementsByClassName('editbox')[0];
   constructor() {
-    [this.#editBox] = document.getElementsByClassName('editbox');
-    this.#editBox.setAttribute('id', `editBox`);
+    this.#editBox.id = 'editBox';
+    this.#editBox.fileName = null;
 
-    this.#editBox.setText = this.setText;
-    this.#editBox.setEditable = this.setEditable;
+    this.#init(this.#editBox);
+    this.#addEvent(editBox);
+  }
 
-    this.#addEvent();
+  #init(editBox) {
+    editBox.getText = this.getText;
+    editBox.setText = this.setText;
+    editBox.setEditable = this.setEditable;
   }
 
   #addEvent() {
     this.#editBox.addEventListener('input', () => {
-      // 스택, 저장 사용
-      console.log(this.#editBox.innerHTML);
+      const fileName = document.getElementById('tabBar').currentTab.fileName;
+      const indicator = document.getElementById('indicator_' + fileName);
+      indicator.setExclamation();
     });
   }
 
-  setText(fileName) {
-    if (!fileName) {
-      this.innerHTML = '';
-      this.setEditable(false);
-    } else if (this.currentFile !== fileName) {
-      document.getElementById('tab_' + fileName).style.background = 'blue';
-      this.innerHTML = NotepadStorage.getItem(fileName);
-      this.setEditable(true);
-    }
-    this.currentFile = fileName;
+  getText() {
+    return this.innerText;
   }
 
-  setCurrentFile;
+  setText(fileName) {
+    let text = '',
+      state = false;
+
+    if (fileName) {
+      text = NotepadStorage.getItem(fileName);
+      state = true;
+    }
+
+    this.innerText = text;
+    this.setEditable(state);
+  }
 
   setEditable(state) {
     this.setAttribute('contenteditable', state);
