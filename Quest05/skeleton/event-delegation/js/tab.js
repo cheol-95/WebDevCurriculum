@@ -1,4 +1,3 @@
-// 탭
 class Tab {
   #tab = document.createElement('a');
   constructor(fileName) {
@@ -19,10 +18,6 @@ class Tab {
   }
 
   #addEvent() {
-    this.#tab.addEventListener('click', () => {
-      document.getElementById('tabBar').setFocus(this.#tab.fileName);
-    });
-
     this.#tab.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       document.getElementById('tabBar').setFocus(this.#tab.fileName);
@@ -54,7 +49,7 @@ class Indicator {
 
     this.#init();
 
-    this.#addEvent();
+    this.#addEvent(this.#indicator);
     return this.#indicator;
   }
 
@@ -63,14 +58,21 @@ class Indicator {
     this.#indicator.setXBox = this.setXBox;
   }
 
-  #addEvent() {
-    const removeTab = (e) => {
-      e.stopPropagation();
-      const deleteTabName = this.#indicator.parentElement.fileName;
-      document.getElementById('tabBar').removeTab(deleteTabName);
+  #addEvent(indicator) {
+    const mouseOver = (e) => {
+      if (e.target.status === 'xbox') {
+        return;
+      }
+      e.target.src = dummy.src.xbox;
+      e.target.addEventListener('mouseout', mouseOut);
     };
 
-    this.#indicator.addEventListener('click', removeTab);
+    const mouseOut = (e) => {
+      e.target.src = dummy.src[e.target.status];
+      e.target.removeEventListener('mouseout', mouseOut);
+    };
+
+    indicator.addEventListener('mouseover', mouseOver);
   }
 
   setExclamation() {

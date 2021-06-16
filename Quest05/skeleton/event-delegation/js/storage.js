@@ -27,5 +27,3 @@ class NotepadStorage {
     localStorage.removeItem(parsedName);
   }
 }
-
-// saveAsFile

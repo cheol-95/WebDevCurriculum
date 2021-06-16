@@ -6,7 +6,7 @@ class EditBox {
     this.#editBox.fileName = null;
 
     this.#init(this.#editBox);
-    this.#addEvent(editBox);
+    this.#composition(this.#editBox);
   }
 
   #init(editBox) {
@@ -15,12 +15,8 @@ class EditBox {
     editBox.setEditable = this.setEditable;
   }
 
-  #addEvent() {
-    this.#editBox.addEventListener('input', () => {
-      const fileName = document.getElementById('tabBar').currentTab.fileName;
-      const indicator = document.getElementById('indicator_' + fileName);
-      indicator.setExclamation();
-    });
+  #composition() {
+    Object.assign(editBox, new EditBoxEvent());
   }
 
   getText() {
@@ -28,19 +24,28 @@ class EditBox {
   }
 
   setText(fileName) {
-    let text = '',
-      state = false;
-
     if (fileName) {
-      text = NotepadStorage.getItem(fileName);
-      state = true;
+      this.innerText = NotepadStorage.getItem(fileName);
+      this.setEditable(true);
+    } else {
+      this.innerText = '';
+      this.setEditable(false);
     }
-
-    this.innerText = text;
-    this.setEditable(state);
   }
 
   setEditable(state) {
     this.setAttribute('contenteditable', state);
   }
+}
+
+class EditBoxEvent {
+  constructor() {
+    this.oninput = this.#oninput;
+  }
+
+  #oninput = () => {
+    const fileName = document.getElementById('tabBar').currentFile;
+    const indicator = document.getElementById('indicator_' + fileName);
+    indicator.setExclamation();
+  };
 }

@@ -2,22 +2,46 @@ class TabBar {
   #tabBar = document.getElementsByClassName('tabbar')[0];
   constructor() {
     this.#tabBar.id = 'tabBar';
-    this.#tabBar.currentTab = null;
-    this.#setHandler(this.#tabBar);
+    this.#tabBar.currentFile = null;
 
+    this.#addEvent(this.#tabBar);
+    this.#setHandler(this.#tabBar);
     return this.#tabBar;
   }
 
-  #setHandler(tabBar) {
-    tabBar.hasTab = this.hasTab;
+  #addEvent(tabBar) {
+    const clickEvent = (e) => {
+      if (e.target.id === 'tabBar') {
+        return;
+      }
+
+      const fileName = e.target.closest('.tab').fileName;
+      if (e.target.className === 'indicator') {
+        tabBar.removeTab(fileName);
+      } else {
+        tabBar.setFocus(fileName);
+      }
+    };
+
+    tabBar.addEventListener('click', clickEvent);
+  }
+
+  removeTab(fileName) {
+    document.getElementById('tab_' + fileName).remove();
+    const nextFile = this.lastChild ? this.lastChild.fileName : null;
+    this.setFocus(nextFile);
+  }
+
+  #setHandler() {
     tabBar.addTab = this.addTab;
+    tabBar.setFocus = this.setFocus;
     tabBar.updateTab = this.updateTab;
     tabBar.removeTab = this.removeTab;
-    tabBar.setFocus = this.setFocus;
+    tabBar.isChildren = this.isChildren;
   }
 
   addTab(fileName) {
-    if (!document.getElementById('tab_' + fileName)) {
+    if (!this.isChildren(fileName)) {
       this.append(new Tab(fileName));
     }
     this.setFocus(fileName);
@@ -25,34 +49,36 @@ class TabBar {
 
   updateTab(target, newFileName) {
     const targetTab = document.getElementById('tab_' + target);
-
     this.replaceChild(new Tab(newFileName), targetTab);
     this.setFocus(newFileName);
-  }
-
-  removeTab(fileName) {
-    document.getElementById('tab_' + fileName).remove();
-
-    const nextTab = this.lastChild ? this.lastChild.id.slice(4) : null;
-    this.setFocus(nextTab);
+    targetTab.remove();
   }
 
   setFocus(fileName) {
-    const newTab = document.getElementById('tab_' + fileName);
-    if (newTab === this.currentTab) {
+    if (fileName === this.currentFile) {
       return;
     }
 
-    if (newTab) {
-      newTab.style.background = 'rgb(230, 230, 230)';
+    if (fileName) {
+      const nextTab = document.getElementById('tab_' + fileName);
+      nextTab.style.background = 'rgb(230, 230, 230)';
     }
 
-    if (this.currentTab && newTab !== this.currentTab) {
-      this.currentTab.style.background = 'white';
-      this.currentTab.lastChild.setXBox();
+    const currentTab = document.getElementById('tab_' + this.currentFile);
+    if (currentTab) {
+      currentTab.style.background = 'white';
+      currentTab.lastChild.setXBox();
     }
 
-    this.currentTab = newTab;
+    this.currentFile = fileName;
     document.getElementById('editBox').setText(fileName);
+  }
+
+  isChildren(fileName) {
+    const childNames = Object.values(this.childNodes).map((v) => v.fileName);
+    if (childNames.includes(fileName)) {
+      return true;
+    }
+    return false;
   }
 }

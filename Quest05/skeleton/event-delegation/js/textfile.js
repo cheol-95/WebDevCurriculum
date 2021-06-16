@@ -3,11 +3,11 @@ class TextFile {
   #file = document.createElement('a');
   constructor(fileName) {
     this.#file.fileName = fileName;
-    this.#file.innerHTML = fileName;
-    this.#file.className = 'anchor';
 
-    this.#file.setAttribute('id', `file_${fileName}`);
-    this.#file.setAttribute('href', `#`);
+    this.#file.id = 'file_' + fileName;
+    this.#file.href = '#';
+    this.#file.className = 'anchor';
+    this.#file.innerHTML = fileName;
 
     this.#addEvent();
     return this.#file;

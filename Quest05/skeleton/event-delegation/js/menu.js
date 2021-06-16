@@ -1,83 +1,138 @@
 class ContextMenu {
+  #item = Object.values(dummy.menu);
   #menu;
   constructor() {
     this.#menu = document.createElement('div');
-
     this.#menu.id = 'contextMenu';
-    this.#menu.targetName = null;
+    this.#menu.targetFile = null;
 
-    this.#setEscapeEvent(this.#menu);
-    this.#setMenu(this.#menu);
-
-    this.#menu.callMenu = this.callMenu;
+    this.#init(this.#menu);
+    this.#composition(this.#menu);
     document.body.append(this.#menu);
   }
 
-  #setEscapeEvent(menu) {
-    document.addEventListener('click', (e) => {
-      menu.style.display = 'none';
-    });
+  #init(menu) {
+    this.#setMenu(menu);
+    menu.callMenu = this.callMenu;
   }
 
-  #setMenu(menu) {
-    this.#saveMenu(menu);
-    this.#saveAsMenu(menu);
-    this.#deleteMenu(menu);
-  }
-
-  #getMenuElement(text) {
+  #getMenuElement(menuName) {
     const newMenu = document.createElement('a');
+    newMenu.id = menuName;
     newMenu.className = 'menu';
-    newMenu.innerText = text;
+    newMenu.innerText = menuName;
     newMenu.href = '#';
-
     return newMenu;
   }
 
-  #saveMenu(menu) {
-    const saveFile = () => {
-      document.getElementById('explorers').saveFile(menu.targetName);
-    };
-
-    const saveMenu = this.#getMenuElement('저장');
-    saveMenu.addEventListener('click', saveFile);
-    menu.append(saveMenu);
+  #setMenu(menu) {
+    this.#item.forEach((menuName) => {
+      menu.append(this.#getMenuElement(menuName));
+    });
   }
 
-  #saveAsMenu(menu) {
-    const saveAsFile = () => {
-      const newFileName = prompt('저장할 파일 이름을 입력하세요');
-      if (NotepadStorage.getFileNames().includes(newFileName)) {
-        alert('이미 존재하는 파일 이름입니다.');
-      } else if ('' === newFileName) {
-        alert('공백은 허용되지 않습니다.');
-      } else {
-        document.getElementById('explorers').updateFileName(menu.targetName, newFileName);
-      }
-    };
-
-    const saveAsMenu = this.#getMenuElement('다른 이름으로 저장');
-    saveAsMenu.addEventListener('click', saveAsFile);
-    menu.append(saveAsMenu);
-  }
-
-  #deleteMenu(menu) {
-    const deleteFile = () => {
-      if (confirm(`${menu.targetName}을 삭제하시겠습니까?`)) {
-        document.getElementById('explorers').deleteFile(menu.targetName);
-      }
-    };
-
-    const deleteMenu = this.#getMenuElement('삭제');
-    deleteMenu.addEventListener('click', deleteFile);
-    menu.append(deleteMenu);
+  #composition(menu) {
+    Object.assign(menu, new MenuEvent(menu));
   }
 
   callMenu(e) {
     this.style.display = 'block';
     this.style.left = e.pageX + 'px';
     this.style.top = e.pageY + 'px';
-    this.targetName = e.target.fileName;
-    console.log('e.target.fileName: ', e.target.fileName);
+    this.targetFile = e.target.fileName;
+
+    const invisible = () => {
+      this.style.display = 'none';
+      document.removeEventListener('click', invisible);
+    };
+
+    document.addEventListener('click', invisible);
+  }
+}
+
+class MenuEvent {
+  constructor() {
+    this.#composition();
+    this.onclick = this.#clickEvent;
+  }
+
+  #composition() {
+    const saveEvent = new SaveFile();
+    const saveAsEvent = new SaveAsFile();
+    const deleteEvent = new DeleteFile();
+    Object.assign(this, saveEvent, saveAsEvent, deleteEvent);
+  }
+
+  #clickEvent = (e) => {
+    const clickMenu = e.target.id;
+    if (clickMenu === dummy.menu.save) {
+      this.saveFile(e);
+    } else if (clickMenu === dummy.menu.saveAs) {
+      this.saveAsFile(e);
+    } else if (clickMenu === dummy.menu.delete) {
+      this.deleteFile(e);
+    }
+  };
+}
+
+class SaveFile {
+  constructor() {
+    this.saveFile = this.#saveFile;
+  }
+
+  #saveFile(e) {
+    const targetFile = e.currentTarget.targetFile;
+    const text = document.getElementById('editBox').getText();
+
+    document.getElementById('indicator_' + targetFile).setXBox();
+    NotepadStorage.setItem(targetFile, text);
+    alert('저장 완료');
+  }
+}
+
+class SaveAsFile {
+  constructor() {
+    this.saveAsFile = this.#saveAsFile;
+    this.validation = this.validation;
+  }
+
+  #saveAsFile(e) {
+    const newFileName = prompt('저장할 파일 이름을 입력하세요');
+    const targetFile = e.currentTarget.targetFile;
+    const text = document.getElementById('editBox').getText();
+
+    if (!this.validation(newFileName)) {
+      return;
+    }
+    NotepadStorage.setItem(newFileName, text);
+    NotepadStorage.removeItem(targetFile);
+    document.getElementById('explorers').updateFileName(targetFile, newFileName);
+    document.getElementById('tabBar').updateTab(targetFile, newFileName);
+    alert('다른 이름으로 저장 완료');
+  }
+
+  validation = (newFileName) => {
+    if (NotepadStorage.getFileNames().includes(newFileName)) {
+      alert('이미 존재하는 파일 이름입니다.');
+    } else if (newFileName === '') {
+      alert('공백은 허용되지 않습니다.');
+    } else if (newFileName) {
+      return true;
+    }
+  };
+}
+
+class DeleteFile {
+  constructor() {
+    this.deleteFile = this.#deleteFile;
+  }
+
+  #deleteFile(e) {
+    const targetFile = e.currentTarget.targetFile;
+    if (confirm(`${targetFile}을 삭제하시겠습니까?`)) {
+      NotepadStorage.removeItem(targetFile);
+      document.getElementById('file_' + targetFile).parentElement.remove();
+      document.getElementById('tabBar').removeTab(targetFile);
+    }
   }
 }

@@ -5,18 +5,15 @@ class Explorers {
     this.#explorers.id = 'explorers';
 
     this.#init();
-
-    return this.#explorers;
+    // return this.#explorers;
   }
 
   #init() {
     this.#setTools();
     this.#setLocalFiles();
-    this.#explorers.getListElement = this.getListElement;
     this.#explorers.newFile = this.newFile;
-    this.#explorers.saveFile = this.saveFile;
-    this.#explorers.deleteFile = this.deleteFile;
     this.#explorers.updateFileName = this.updateFileName;
+    this.#explorers.getListElement = this.getListElement;
   }
 
   #setTools() {
@@ -51,17 +48,12 @@ class Explorers {
     if (fileName === '') {
       alert('공백은 허용되지 않습니다.');
       return;
+    } else if (fileName === null) {
+      return;
     }
     const newFile = this.getListElement(fileName);
     this.append(newFile);
-
     NotepadStorage.setItem(fileName, '');
-  }
-
-  saveFile(target) {
-    const text = document.getElementById('editBox').getText();
-    NotepadStorage.setItem(target, text);
-    alert('저장 완료');
   }
 
   updateFileName(target, newFileName) {
@@ -69,16 +61,5 @@ class Explorers {
     targetFile.id = 'file_' + newFileName;
     targetFile.fileName = newFileName;
     targetFile.innerText = newFileName;
-
-    document.getElementById('tabBar').updateTab(target, newFileName);
-
-    this.saveFile(newFileName);
-    NotepadStorage.removeItem(target);
-  }
-
-  deleteFile(target) {
-    NotepadStorage.removeItem(target);
-    document.getElementById('file_' + target).parentElement.remove();
-    document.getElementById('tabBar').removeTab(target);
   }
 }
