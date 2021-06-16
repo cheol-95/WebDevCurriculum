@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./js/textfile.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/tab.js"></script>
+    <script src="./js/tabbar.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/editbox.js"></script>
+    <script src="./js/tools.js"></script>
+    <script src="./js/explorer.js"></script>
+    <script src="notepad.js"></script>
+  </head>
+  <body class="layout">
+    <nav class="layout-nav">
+      <ul class="explorers"></ul>
+    </nav>
+
+    <section class="tabbar"></section>
+
+    <section class="editbox"></section>
+
+    <script>
+      init();
+      let notepad = new Notepad();
+    </script>
+  </body>
+</html>
