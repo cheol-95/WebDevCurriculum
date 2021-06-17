@@ -3,7 +3,6 @@ class Explorers {
   #explorers = document.getElementsByClassName('explorers')[0];
   constructor() {
     this.#explorers.id = 'explorers';
-
     this.#init();
   }
 
@@ -27,6 +26,11 @@ class Explorers {
     });
   }
 
+  #setFile(fileName) {
+    const newFile = this.getListElement(fileName);
+    this.#explorers.append(newFile);
+  }
+
   getListElement(fileName) {
     const newList = document.createElement('li');
     newList.className = 'file';
@@ -35,11 +39,6 @@ class Explorers {
     newList.append(newFile);
 
     return newList;
-  }
-
-  #setFile(fileName) {
-    const newFile = this.getListElement(fileName);
-    this.#explorers.append(newFile);
   }
 
   newFile() {
