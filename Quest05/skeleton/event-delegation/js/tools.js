@@ -4,7 +4,6 @@ class Tools {
     this.#toolBox.className = 'tools';
 
     this.#setTools(this.#toolBox);
-
     return this.#toolBox;
   }
 
@@ -19,13 +18,13 @@ class Tools {
   }
 
   #setCreateButton(toolBox) {
+    const click = (e) => {
+      e.target.closest('.explorers').newFile();
+    };
+
     const createButton = this.#getButton();
     createButton.innerHTML = '새 파일';
-
-    createButton.addEventListener('click', () => {
-      document.getElementById('explorers').newFile();
-    });
-
+    createButton.onclick = click;
     toolBox.append(createButton);
   }
 }
