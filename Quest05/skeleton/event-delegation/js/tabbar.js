@@ -10,7 +10,7 @@ class TabBar {
   }
 
   #composition(tabBar) {
-    Object.assign(tabBar, new TabBarEvent(), new Mouseover());
+    Object.assign(tabBar, new TabBarEvent());
   }
 
   #setHandler() {
@@ -74,6 +74,7 @@ class TabBarEvent {
   constructor() {
     this.onclick = this.#clickEvent;
     this.oncontextmenu = this.#callMenu;
+    Object.assign(this, new MouseoverEvent());
   }
 
   #clickEvent = (e) => {
@@ -99,7 +100,7 @@ class TabBarEvent {
   };
 }
 
-class Mouseover {
+class MouseoverEvent {
   constructor() {
     this.onmouseover = this.#mouseOver;
   }
