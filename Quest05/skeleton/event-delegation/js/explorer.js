@@ -5,7 +5,6 @@ class Explorers {
     this.#explorers.id = 'explorers';
 
     this.#init();
-    // return this.#explorers;
   }
 
   #init() {

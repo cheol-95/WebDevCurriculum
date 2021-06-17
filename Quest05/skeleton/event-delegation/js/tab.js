@@ -18,11 +18,12 @@ class Tab {
   }
 
   #addEvent() {
-    this.#tab.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      document.getElementById('tabBar').setFocus(this.#tab.fileName);
-      document.getElementById('contextMenu').callMenu(e);
-    });
+    this.#tab.addEventListener('contextmenu', this.#callMenu);
+  }
+
+  #callMenu(e) {
+    document.getElementById('tabBar').setFocus(e.target.fileName);
+    document.getElementById('contextMenu').callMenu(e);
   }
 
   #setTabName() {
@@ -48,8 +49,7 @@ class Indicator {
     this.#indicator.status = 'xbox';
 
     this.#init();
-
-    this.#addEvent(this.#indicator);
+    this.#composition(this.#indicator);
     return this.#indicator;
   }
 
@@ -58,21 +58,8 @@ class Indicator {
     this.#indicator.setXBox = this.setXBox;
   }
 
-  #addEvent(indicator) {
-    const mouseOver = (e) => {
-      if (e.target.status === 'xbox') {
-        return;
-      }
-      e.target.src = dummy.src.xbox;
-      e.target.addEventListener('mouseout', mouseOut);
-    };
-
-    const mouseOut = (e) => {
-      e.target.src = dummy.src[e.target.status];
-      e.target.removeEventListener('mouseout', mouseOut);
-    };
-
-    indicator.addEventListener('mouseover', mouseOver);
+  #composition(indicator) {
+    Object.assign(indicator, new Mouseover());
   }
 
   setExclamation() {
@@ -88,4 +75,23 @@ class Indicator {
       this.status = 'xbox';
     }
   }
+}
+
+class Mouseover {
+  constructor() {
+    this.onmouseover = this.#mouseOver;
+  }
+
+  #mouseOver = (e) => {
+    if (e.target.status === 'xbox') {
+      return;
+    }
+    e.target.src = dummy.src.xbox;
+    e.target.addEventListener('mouseout', this.#mouseOut);
+  };
+
+  #mouseOut = (e) => {
+    e.target.src = dummy.src[e.target.status];
+    e.target.removeEventListener('mouseout', this.#mouseOut);
+  };
 }
