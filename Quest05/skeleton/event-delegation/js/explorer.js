@@ -47,12 +47,14 @@ class Explorers {
     if (fileName === '') {
       alert('공백은 허용되지 않습니다.');
       return;
-    } else if (fileName === null) {
+    } else if (NotepadStorage.getFileNames().includes(fileName)) {
+      alert('이미 존재하는 이름입니다.');
       return;
+    } else if (fileName !== null) {
+      const newFile = this.getListElement(fileName);
+      this.append(newFile);
+      NotepadStorage.setItem(fileName, '');
     }
-    const newFile = this.getListElement(fileName);
-    this.append(newFile);
-    NotepadStorage.setItem(fileName, '');
   }
 
   updateFileName(target, newFileName) {
