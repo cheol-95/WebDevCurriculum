@@ -22,6 +22,7 @@ class Tab {
   }
 
   #callMenu(e) {
+    e.preventDefault();
     document.getElementById('tabBar').setFocus(e.target.fileName);
     document.getElementById('contextMenu').callMenu(e);
   }
