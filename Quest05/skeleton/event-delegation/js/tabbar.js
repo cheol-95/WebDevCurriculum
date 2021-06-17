@@ -4,42 +4,14 @@ class TabBar {
     this.#tabBar.id = 'tabBar';
     this.#tabBar.currentFile = null;
 
-    this.#addEvent(this.#tabBar);
+    // this.#addEvent(this.#tabBar);
     this.#setHandler(this.#tabBar);
+    this.#composition(this.#tabBar);
     return this.#tabBar;
   }
 
-  #addEvent(tabBar) {
-    const clickEvent = (e) => {
-      if (e.target.id === 'tabBar') {
-        return;
-      }
-
-      const fileName = e.target.closest('.tab').fileName;
-      if (e.target.className === 'indicator') {
-        tabBar.removeTab(fileName);
-      } else {
-        tabBar.setFocus(fileName);
-      }
-    };
-
-    const callMenu = (e) => {
-      const targetTab = e.target.closest('.tab');
-      if (targetTab) {
-        e.preventDefault();
-        document.getElementById('tabBar').setFocus(targetTab.fileName);
-        document.getElementById('contextMenu').callMenu(e);
-      }
-    };
-
-    tabBar.onclick = clickEvent;
-    tabBar.contextmenu = callMenu;
-  }
-
-  removeTab(fileName) {
-    document.getElementById('tab_' + fileName).remove();
-    const nextFile = this.lastChild ? this.lastChild.fileName : null;
-    this.setFocus(nextFile);
+  #composition(tabBar) {
+    Object.assign(tabBar, new TabBarEvent(), new Mouseover());
   }
 
   #setHandler() {
@@ -48,6 +20,12 @@ class TabBar {
     tabBar.updateTab = this.updateTab;
     tabBar.removeTab = this.removeTab;
     tabBar.isChildren = this.isChildren;
+  }
+
+  removeTab(fileName) {
+    document.getElementById('tab_' + fileName).remove();
+    const nextFile = this.lastChild ? this.lastChild.fileName : null;
+    this.setFocus(nextFile);
   }
 
   addTab(fileName) {
@@ -91,4 +69,52 @@ class TabBar {
     }
     return false;
   }
+}
+
+class TabBarEvent {
+  constructor() {
+    this.onclick = this.#clickEvent;
+    this.oncontextmenu = this.#callMenu;
+  }
+
+  #clickEvent = (e) => {
+    if (e.target.id === 'tabBar') {
+      return;
+    }
+
+    const fileName = e.target.closest('.tab').fileName;
+    if (e.target.className === 'indicator') {
+      e.currentTarget.removeTab(fileName);
+    } else {
+      e.currentTarget.setFocus(fileName);
+    }
+  };
+
+  #callMenu = (e) => {
+    const targetTab = e.target.closest('.tab');
+    if (targetTab) {
+      e.preventDefault();
+      document.getElementById('tabBar').setFocus(targetTab.fileName);
+      document.getElementById('contextMenu').callMenu(e);
+    }
+  };
+}
+
+class Mouseover {
+  constructor() {
+    this.onmouseover = this.#mouseOver;
+  }
+
+  #mouseOver = (e) => {
+    if (e.target.className !== 'indicator' || e.target.status === 'xbox') {
+      return;
+    }
+    e.target.src = dummy.src.xbox;
+    e.target.addEventListener('mouseout', this.#mouseOut);
+  };
+
+  #mouseOut = (e) => {
+    e.target.src = dummy.src[e.target.status];
+    e.target.removeEventListener('mouseout', this.#mouseOut);
+  };
 }

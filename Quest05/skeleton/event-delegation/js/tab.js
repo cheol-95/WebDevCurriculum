@@ -39,17 +39,12 @@ class Indicator {
     this.#indicator.status = 'xbox';
 
     this.#init();
-    this.#composition(this.#indicator);
     return this.#indicator;
   }
 
   #init() {
     this.#indicator.setExclamation = this.setExclamation;
     this.#indicator.setXBox = this.setXBox;
-  }
-
-  #composition(indicator) {
-    Object.assign(indicator, new Mouseover());
   }
 
   setExclamation() {
@@ -65,23 +60,4 @@ class Indicator {
       this.status = 'xbox';
     }
   }
-}
-
-class Mouseover {
-  constructor() {
-    this.onmouseover = this.#mouseOver;
-  }
-
-  #mouseOver = (e) => {
-    if (e.target.status === 'xbox') {
-      return;
-    }
-    e.target.src = dummy.src.xbox;
-    e.target.addEventListener('mouseout', this.#mouseOut);
-  };
-
-  #mouseOut = (e) => {
-    e.target.src = dummy.src[e.target.status];
-    e.target.removeEventListener('mouseout', this.#mouseOut);
-  };
 }
