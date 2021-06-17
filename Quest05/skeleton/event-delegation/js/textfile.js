@@ -9,24 +9,37 @@ class TextFile {
     this.#file.className = 'anchor';
     this.#file.innerHTML = fileName;
 
-    this.#addEvent();
+    this.#init(this.#file);
+    this.#composition(this.#file);
     return this.#file;
   }
 
-  #addEvent() {
-    this.#file.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-
-      this.#setTab();
-      document.getElementById('contextMenu').callMenu(e);
-    });
-
-    this.#file.addEventListener('click', () => {
-      this.#setTab();
-    });
+  #init(file) {
+    file.setTab = this.setTab;
   }
 
-  #setTab() {
-    document.getElementById('tabBar').addTab(this.#file.fileName);
+  #composition(file) {
+    Object.assign(file, new FileEvent());
   }
+
+  setTab() {
+    document.getElementById('tabBar').addTab(this.fileName);
+  }
+}
+
+class FileEvent {
+  constructor() {
+    this.onclick = this.#click;
+    this.oncontextmenu = this.#contextMenu;
+  }
+
+  #click = (e) => {
+    e.target.setTab();
+  };
+
+  #contextMenu = (e) => {
+    e.preventDefault();
+    e.target.setTab();
+    document.getElementById('contextMenu').callMenu(e);
+  };
 }
