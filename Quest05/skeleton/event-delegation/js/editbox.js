@@ -16,7 +16,7 @@ class EditBox {
   }
 
   #composition() {
-    Object.assign(editBox, new EditBoxEvent());
+    Object.assign(editBox, new InputEvent());
   }
 
   getText() {
@@ -24,6 +24,7 @@ class EditBox {
   }
 
   setText(fileName) {
+    this.fileName = fileName;
     if (fileName) {
       this.innerText = NotepadStorage.getItem(fileName);
       this.setEditable(true);
@@ -38,14 +39,13 @@ class EditBox {
   }
 }
 
-class EditBoxEvent {
+class InputEvent {
   constructor() {
     this.oninput = this.#oninput;
   }
 
-  #oninput = () => {
-    const fileName = document.getElementById('tabBar').currentFile;
-    const indicator = document.getElementById('indicator_' + fileName);
+  #oninput = (e) => {
+    const indicator = document.getElementById('indicator_' + e.target.fileName);
     indicator.setExclamation();
   };
 }
