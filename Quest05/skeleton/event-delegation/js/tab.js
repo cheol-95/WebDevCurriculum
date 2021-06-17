@@ -14,17 +14,6 @@ class Tab {
   #init() {
     this.#setTabName();
     this.#setIndicator();
-    this.#addEvent();
-  }
-
-  #addEvent() {
-    this.#tab.addEventListener('contextmenu', this.#callMenu);
-  }
-
-  #callMenu(e) {
-    e.preventDefault();
-    document.getElementById('tabBar').setFocus(e.target.fileName);
-    document.getElementById('contextMenu').callMenu(e);
   }
 
   #setTabName() {

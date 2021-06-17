@@ -23,7 +23,17 @@ class TabBar {
       }
     };
 
-    tabBar.addEventListener('click', clickEvent);
+    const callMenu = (e) => {
+      const targetTab = e.target.closest('.tab');
+      if (targetTab) {
+        e.preventDefault();
+        document.getElementById('tabBar').setFocus(targetTab.fileName);
+        document.getElementById('contextMenu').callMenu(e);
+      }
+    };
+
+    tabBar.onclick = clickEvent;
+    tabBar.contextmenu = callMenu;
   }
 
   removeTab(fileName) {
