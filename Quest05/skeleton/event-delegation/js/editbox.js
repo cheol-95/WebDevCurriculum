@@ -1,8 +1,7 @@
 // 텍스트 박스 관련
 class EditBox {
-  #editBox = document.getElementsByClassName('editbox')[0];
+  #editBox = document.getElementById('editBox');
   constructor() {
-    this.#editBox.id = 'editBox';
     this.#editBox.fileName = null;
 
     this.#init(this.#editBox);
@@ -15,7 +14,7 @@ class EditBox {
     editBox.setEditable = this.setEditable;
   }
 
-  #composition() {
+  #composition(editBox) {
     Object.assign(editBox, new InputEvent());
   }
 

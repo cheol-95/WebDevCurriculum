@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="style.css" />
-    <script src="./js/textfile.js"></script>
     <script src="./js/menu.js"></script>
     <script src="./js/tab.js"></script>
     <script src="./js/tabbar.js"></script>
@@ -24,12 +23,19 @@
       </ul>
     </nav>
 
-    <section class="tabbar"></section>
+    <section id="tabBar">
+      <template id="tb-tab">
+        <li class="tab">
+          <a class="anchor"></a>
+          <img class="indicator"></img>
+        </li>
+      </template>
+    </section>
 
-    <section class="editbox"></section>
+    <section id="editBox"></section>
 
     <script>
-      let notepad = new Notepad();
+      new Notepad();
     </script>
   </body>
 </html>

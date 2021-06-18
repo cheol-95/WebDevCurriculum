@@ -1,9 +1,10 @@
 class TabBar {
-  #tabBar = document.getElementsByClassName('tabbar')[0];
+  status;
+  #tabBar = document.getElementById('tabBar');
   constructor() {
-    this.#tabBar.id = 'tabBar';
     this.#tabBar.currentFile = null;
 
+    this.status = null;
     this.#setHandler(this.#tabBar);
     this.#composition(this.#tabBar);
     return this.#tabBar;
@@ -13,30 +14,36 @@ class TabBar {
     Object.assign(tabBar, new TabBarEvent());
   }
 
-  #setHandler() {
+  #setHandler(tabBar) {
     tabBar.addTab = this.addTab;
     tabBar.setFocus = this.setFocus;
     tabBar.updateTab = this.updateTab;
     tabBar.removeTab = this.removeTab;
-    tabBar.isChildren = this.isChildren;
+    tabBar.getTabElement = this.getTabElement;
+  }
+
+  getTabElement(fileName) {
+    return new Tab(fileName);
   }
 
   removeTab(fileName) {
-    document.getElementById('tab_' + fileName).remove();
-    const nextFile = this.lastChild ? this.lastChild.fileName : null;
+    this.querySelector('#tab_' + fileName).remove();
+
+    const nextFile = this.querySelector('li') ? this.querySelector('li').fileName : null;
     this.setFocus(nextFile);
   }
 
   addTab(fileName) {
-    if (!this.isChildren(fileName)) {
-      this.append(new Tab(fileName));
+    if (!this.querySelector('#tab_' + fileName)) {
+      const newTab = this.getTabElement(fileName);
+      this.append(newTab);
     }
     this.setFocus(fileName);
   }
 
-  updateTab(target, newFileName) {
-    const targetTab = document.getElementById('tab_' + target);
-    this.replaceChild(new Tab(newFileName), targetTab);
+  updateTab(targetName, newFileName) {
+    const targetTab = this.querySelector('#' + targetName);
+    this.replaceChild(this.getTabElement(newFileName), targetTab);
     this.setFocus(newFileName);
     targetTab.remove();
   }
@@ -46,27 +53,22 @@ class TabBar {
       return;
     }
 
-    if (fileName) {
-      const nextTab = document.getElementById('tab_' + fileName);
+    const nextTab = this.querySelector('#tab_' + fileName);
+    if (nextTab) {
       nextTab.style.background = 'rgb(230, 230, 230)';
     }
 
-    const currentTab = document.getElementById('tab_' + this.currentFile);
+    const currentTab = this.querySelector('#tab_' + this.currentFile);
     if (currentTab) {
       currentTab.style.background = 'white';
-      currentTab.lastChild.setXBox();
+
+      const indicator = currentTab.querySelector('img');
+      indicator.src = dummy.src.xbox;
+      indicator.status = 'xbox';
     }
 
     this.currentFile = fileName;
     document.getElementById('editBox').setText(fileName);
-  }
-
-  isChildren(fileName) {
-    const childNames = Object.values(this.childNodes).map((v) => v.fileName);
-    if (childNames.includes(fileName)) {
-      return true;
-    }
-    return false;
   }
 }
 
@@ -78,15 +80,12 @@ class TabBarEvent {
   }
 
   #clickEvent = (e) => {
-    if (e.target.id === 'tabBar') {
-      return;
-    }
-
     const fileName = e.target.closest('.tab').fileName;
-    if (e.target.className === 'indicator') {
-      e.currentTarget.removeTab(fileName);
-    } else {
+
+    if (e.target.className === 'anchor') {
       e.currentTarget.setFocus(fileName);
+    } else if (e.target.className === 'indicator') {
+      e.currentTarget.removeTab(fileName);
     }
   };
 
