@@ -100,3 +100,35 @@ myLocalStorage.removeItem(key);
 
 myLocalStorage.clear(); // 전체 삭제
 ```
+
+<br><br><br>
+
+# Note
+
+## Template
+
+- 사용될 때마다 매번 재생성하지 않아도 된다.
+- 페이지 로딩 시에는 사용되지 않도록 하지만 런타임에는 인스턴스화가 가능하다.
+- 실제로 적용되기 전의 템플릿은 "외부 문서"로 간주되어 스타일이나 스크립트가 실행되지 않는다.
+
+  ```
+  [html]
+  <template id="mytemplate">
+    <img src="" alt="great image">
+    <div class="comment"></div>
+  </template>
+
+
+  [js]
+  const template = document.querySelector('#mytemplate')
+  template.content.querySelector('img').src = 'logo.png';
+
+  const clone = document.importNode(template.content, true);
+  document.body.appendChild(clone);
+  ```
+
+- Function
+  - Node.cloneNode(state): 노드 복사 (자식 노드 복사유무)
+  - Node.importNode(state): 외부 문서의 노드를 복사, 기능은 cloneNode와 동일
+
+## customEvent
