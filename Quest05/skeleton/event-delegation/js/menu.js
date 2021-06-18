@@ -39,7 +39,7 @@ class ContextMenu {
     this.style.display = 'block';
     this.style.left = e.pageX + 'px';
     this.style.top = e.pageY + 'px';
-    this.targetFile = e.target.fileName;
+    this.targetFile = e.target.id;
 
     const invisible = () => {
       this.style.display = 'none';
@@ -106,7 +106,7 @@ class SaveAsFile {
     }
     NotepadStorage.setItem(newFileName, text);
     NotepadStorage.removeItem(targetFile);
-    document.getElementById('explorers').updateFileName(targetFile, newFileName);
+    document.getElementById('explorer').updateFileName(targetFile, newFileName);
     document.getElementById('tabBar').updateTab(targetFile, newFileName);
     alert('다른 이름으로 저장 완료');
   }
@@ -130,9 +130,9 @@ class DeleteFile {
   #deleteFile(e) {
     const targetFile = e.currentTarget.targetFile;
     if (confirm(`${targetFile}을 삭제하시겠습니까?`)) {
-      NotepadStorage.removeItem(targetFile);
-      document.getElementById('file_' + targetFile).parentElement.remove();
+      document.getElementById(targetFile).parentElement.remove();
       document.getElementById('tabBar').removeTab(targetFile);
+      NotepadStorage.removeItem(targetFile);
     }
   }
 }

@@ -19,7 +19,7 @@ class Notepad {
   constructor() {
     this.#editBox = new EditBox();
     this.#tabBar = new TabBar();
-    this.#explorers = new Explorers();
+    this.#explorers = new Explorer();
     this.#menu = new ContextMenu();
   }
 }

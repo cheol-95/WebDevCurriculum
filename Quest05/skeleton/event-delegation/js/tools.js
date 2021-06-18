@@ -19,7 +19,7 @@ class Tools {
 
   #setCreateButton(toolBox) {
     const click = (e) => {
-      e.target.closest('.explorers').newFile();
+      e.target.closest('#explorer').addFile();
     };
 
     const createButton = this.#getButton();

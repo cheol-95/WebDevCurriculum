@@ -1,27 +1,27 @@
 // 좌측 디렉토리
-class Explorers {
-  #explorers = document.getElementsByClassName('explorers')[0];
+class Explorer {
+  #explorer = document.querySelector('#explorer');
   constructor() {
-    this.#explorers.id = 'explorers';
-    this.#init(this.#explorers);
-    this.#composition(this.#explorers);
+    this.#init(this.#explorer);
+    this.#composition(this.#explorer);
   }
 
-  #init(explorers) {
+  #init(explorer) {
     this.#setTools();
     this.#setLocalFiles();
-    explorers.newFile = this.newFile;
-    explorers.updateFileName = this.updateFileName;
-    explorers.getListElement = this.getListElement;
+    explorer.addFile = this.addFile;
+    explorer.getFileElement = this.getFileElement;
+    explorer.updateFileName = this.updateFileName;
+    explorer.getListElement = this.getListElement;
   }
 
-  #composition(explorers) {
-    Object.assign(explorers, new ExplorersEvent());
+  #composition(explorer) {
+    Object.assign(explorer, new ExplorerEvent());
   }
 
   #setTools() {
     const newTools = new Tools();
-    this.#explorers.append(newTools);
+    this.#explorer.append(newTools);
   }
 
   #setLocalFiles() {
@@ -32,21 +32,21 @@ class Explorers {
   }
 
   #setFile(fileName) {
-    const newFile = this.getListElement(fileName);
-    this.#explorers.append(newFile);
+    const clone = this.getFileElement(fileName);
+    this.#explorer.append(clone);
   }
 
-  getListElement(fileName) {
-    const newList = document.createElement('li');
-    const newFile = new TextFile(fileName);
+  getFileElement(fileName) {
+    const template = document.querySelector('#ex-file');
+    const a = template.content.querySelector('a');
+    a.id = fileName;
+    a.textContent = fileName;
 
-    newList.className = 'file';
-    newList.append(newFile);
-    return newList;
+    return document.importNode(template.content, true);
   }
 
-  newFile() {
-    const validation = (fileName) => {
+  addFile() {
+    const saveValidation = (fileName) => {
       if (fileName === '') {
         alert('공백은 허용되지 않습니다.');
       } else if (NotepadStorage.getFileNames().includes(fileName)) {
@@ -56,23 +56,22 @@ class Explorers {
       }
     };
 
-    const fileName = prompt('파일 이름을 입력하세요');
-    if (validation(fileName)) {
-      const newFile = this.getListElement(fileName);
-      this.append(newFile);
-      NotepadStorage.setItem(fileName, '');
+    const newFileName = prompt('파일 이름을 입력하세요');
+    if (saveValidation(newFileName)) {
+      this.append(this.getFileElement(newFileName));
+      NotepadStorage.setItem(newFileName, '');
     }
   }
 
   updateFileName(target, newFileName) {
-    const targetFile = document.getElementById('file_' + target);
-    targetFile.id = 'file_' + newFileName;
+    const targetFile = document.getElementById(target);
+    targetFile.id = newFileName;
     targetFile.fileName = newFileName;
     targetFile.innerText = newFileName;
   }
 }
 
-class ExplorersEvent {
+class ExplorerEvent {
   constructor() {
     this.onclick = this.#click;
     this.oncontextmenu = this.#contextMenu;
@@ -80,14 +79,14 @@ class ExplorersEvent {
 
   #click = (e) => {
     if (e.target.className === 'anchor') {
-      document.getElementById('tabBar').addTab(e.target.fileName);
+      document.getElementById('tabBar').addTab(e.target.id);
     }
   };
 
   #contextMenu = (e) => {
     if (e.target.className === 'anchor') {
       e.preventDefault();
-      document.getElementById('tabBar').addTab(e.target.fileName);
+      document.getElementById('tabBar').addTab(e.target.id);
       document.getElementById('contextMenu').callMenu(e);
     }
   };
