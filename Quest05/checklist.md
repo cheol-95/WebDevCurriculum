@@ -131,4 +131,29 @@ myLocalStorage.clear(); // 전체 삭제
   - Node.cloneNode(state): 노드 복사 (자식 노드 복사유무)
   - Node.importNode(state): 외부 문서의 노드를 복사, 기능은 cloneNode와 동일
 
+<br><br>
+
 ## customEvent
+
+- customEvent: 생성, detail이라는 기본값 설정
+
+```
+const helloEvent = new CustomEvent("hello", {
+    detail: { name: "보라" },
+    bubbles: true
+  })
+```
+
+- addEventListener: 리스너 등록
+
+```
+document.addEventListener("hello", (e) => {
+  alert("Hello from " + e.target.tarName) // Hello from H1
+})
+```
+
+- dispatchEvent: 실행
+
+```
+elem.dispatchEvent(helloEvent)
+```
