@@ -1,8 +1,10 @@
 class ContextMenu {
+  #menu;
+  #templateMenu;
   #item = Object.values(dummy.menu);
-  #menu = document.getElementById('contextMenu');
-  constructor() {
-    this.#menu.targetFile = null;
+  constructor([menu, templateMenu]) {
+    this.#menu = menu;
+    this.#templateMenu = templateMenu;
 
     this.#init(this.#menu);
     this.#composition(this.#menu);
@@ -11,6 +13,7 @@ class ContextMenu {
 
   #init(menu) {
     this.#setMenu(menu);
+    menu.targetFile = null;
     menu.callMenu = this.callMenu;
   }
 
@@ -22,7 +25,7 @@ class ContextMenu {
   }
 
   #getMenuElement(menuName) {
-    const template = document.getElementById('menu');
+    const template = this.#templateMenu;
     const clone = template.content.cloneNode(true);
 
     const a = clone.querySelector('.menu');

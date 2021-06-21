@@ -1,7 +1,8 @@
 // 텍스트 박스 관련
 class EditBox {
-  #editBox = document.getElementById('editBox');
-  constructor() {
+  #editBox;
+  constructor(editBox) {
+    this.#editBox = editBox;
     this.#editBox.fileName = null;
 
     this.#init(this.#editBox);

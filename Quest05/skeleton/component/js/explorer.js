@@ -1,14 +1,17 @@
-// 좌측 디렉토리
 class Explorer {
-  #explorer = document.querySelector('#explorer');
-  constructor() {
+  #explorer;
+  #templateFile;
+  constructor([explorer, templateFile]) {
+    this.#explorer = explorer;
+    this.#templateFile = templateFile;
+
     this.#init(this.#explorer);
     this.#composition(this.#explorer);
     return this.#explorer;
   }
 
   #init(explorer) {
-    new Tools();
+    new Tools(explorer);
     this.#setLocalFiles();
     explorer.addFile = this.addFile;
     explorer.removeFile = this.removeFile;
@@ -38,7 +41,7 @@ class Explorer {
   }
 
   getFileElement(fileName) {
-    const template = document.querySelector('#ex-file');
+    const template = this.#templateFile;
     const clone = template.content.cloneNode(true);
 
     const li = clone.querySelector('li');

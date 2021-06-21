@@ -1,14 +1,14 @@
 class Tab {
   #tab;
-  constructor(fileName) {
-    this.#tab = this.#clone();
+  constructor([fileName, templateTab]) {
+    this.#tab = this.#clone(templateTab);
 
     this.#init(fileName);
     return this.#tab;
   }
 
-  #clone() {
-    const template = document.querySelector('#tb-tab');
+  #clone(templateTab) {
+    const template = templateTab;
     return template.content.cloneNode(true);
   }
 

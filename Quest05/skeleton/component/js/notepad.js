@@ -12,26 +12,40 @@ const dummy = {
 };
 
 class Notepad {
-  #notepad = document.querySelector('.layout');
-  #menu = new ContextMenu();
-  #tabBar = new TabBar();
-  #editBox = new EditBox();
-  #explorer = new Explorer();
-  constructor() {
-    this.#init();
+  #notepad;
+  #menu;
+  #tabBar;
+  #editBox;
+  #explorer;
+  constructor(notepad) {
+    this.#notepad = notepad;
+
+    this.#init(this.#notepad);
+    this.#addEvent(this.#notepad);
+    this.#setTemplate();
   }
 
-  #init() {
-    this.#notepad.addEventListener('newFile', this.#newFile);
-    this.#notepad.addEventListener('saveFile', this.#saveFile);
-    this.#notepad.addEventListener('saveAsFile', this.#saveAsFile);
-    this.#notepad.addEventListener('deleteFile', this.#deleteFile);
-    this.#notepad.addEventListener('callMenu', this.#callMenu);
-    this.#notepad.addEventListener('clickFile', this.#clickFile);
-    this.#notepad.addEventListener('updateEditBox', this.#updateEditBox);
+  #init(notepad) {
+    this.#editBox = new EditBox(notepad.querySelector('#editBox'));
+    this.#explorer = new Explorer(notepad.querySelectorAll('#explorer, #t-ex-file'));
+    this.#menu = new ContextMenu(notepad.querySelectorAll('#contextMenu, #t-menu'));
+    this.#tabBar = new TabBar(notepad.querySelectorAll('#tabBar, #t-tb-tab'));
   }
 
-  #newFile = (e) => {
+  #addEvent(notepad) {
+    notepad.className = 'layout';
+    notepad.addEventListener('newFile', this.#newFile);
+    notepad.addEventListener('saveFile', this.#saveFile);
+    notepad.addEventListener('saveAsFile', this.#saveAsFile);
+    notepad.addEventListener('deleteFile', this.#deleteFile);
+    notepad.addEventListener('callMenu', this.#callMenu);
+    notepad.addEventListener('clickFile', this.#clickFile);
+    notepad.addEventListener('updateEditBox', this.#updateEditBox);
+  }
+
+  #setTemplate() {}
+
+  #newFile = () => {
     const newFileName = prompt('파일 이름을 입력하세요');
     if (!this.#fileNameValidation(newFileName)) {
       return;

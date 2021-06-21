@@ -10,14 +10,12 @@ body {
   grid-template-rows: 30px min-content;
 }
 
-.layout-nav {
+#explorer {
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 4;
-}
 
-#explorer {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -25,13 +23,13 @@ body {
   border-right: 1px solid black;
 }
 
-.tools {
+#tools {
   height: 29px;
   background: rgb(220, 220, 220);
   border-bottom: 1px solid black;
 }
 
-.tools .button {
+#tools .button {
   font-size: 14px;
   margin: 3px;
 }

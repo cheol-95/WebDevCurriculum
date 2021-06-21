@@ -11,42 +11,41 @@
     <script src="./js/editbox.js"></script>
     <script src="./js/tools.js"></script>
     <script src="./js/explorer.js"></script>
+
   </head>
   <body>
-    <div id="notepad" class="layout">
-      <nav class="layout-nav">
-        <ul id="explorer">
-          <li id="tools" class="tools">
-            <button id="newFile" class="button">새 파일</button>
-          </li>
-          
-          <template id="ex-file">
-            <li class="list">
-              <a class="anchor" href="#"> </a>
-            </li>
-          </template>
-        </ul>
-      </nav>
+    <div id="notepad">
+      <ul id="explorer">
+        <li id="tools">
+          <button id="newFile" class="button">새 파일</button>
+        </li>
+      </ul>
       
-      <section id="tabBar">
-        <template id="tb-tab">
-          <li class="tab">
-            <a class="anchor"></a>
-            <img class="indicator"></img>
-          </li>
-        </template>
-      </section>
-      
+      <section id="tabBar"></section>
       <section id="editBox"></section>
+      <div id="contextMenu" ></div>
       
-      <div id="contextMenu" >
-        <template id="menu">
-          <a class="menu"></a>
-        </template>
-      </div>
-
+      
+      
+      <template id="t-ex-file">
+        <li class="list">
+          <a class="anchor" href="#"> </a>
+        </li>
+      </template>
+      
+      <template id="t-tb-tab">
+        <li class="tab">
+          <a class="anchor"></a>
+          <img class="indicator"></img>
+        </li>
+      </template>
+      
+      <template id="t-menu">
+        <a class="menu"></a>
+      </template>
+      
       <script>
-        new Notepad();
+        const notepad = new Notepad(document.getElementById('notepad'))
       </script>
     </div>
   </body>

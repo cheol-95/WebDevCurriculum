@@ -1,7 +1,8 @@
 class TabBar {
-  #tabBar = document.getElementById('tabBar');
-  constructor() {
-    this.#tabBar.currentFile = null;
+  #tabBar;
+  constructor([tabBar, templateTab]) {
+    this.#tabBar = tabBar;
+    this.#tabBar.templateTab = templateTab;
 
     this.#init(this.#tabBar);
     this.#composition(this.#tabBar);
@@ -13,6 +14,7 @@ class TabBar {
   }
 
   #init(tabBar) {
+    tabBar.currentFile = null;
     tabBar.addTab = this.addTab;
     tabBar.setFocus = this.setFocus;
     tabBar.updateTab = this.updateTab;
@@ -22,7 +24,7 @@ class TabBar {
   }
 
   getTabElement(fileName) {
-    return new Tab(fileName);
+    return new Tab([fileName, this.templateTab]);
   }
 
   removeTab(fileName) {
@@ -67,7 +69,7 @@ class TabBar {
     }
 
     this.currentFile = fileName;
-    document.getElementById('editBox').setText(fileName);
+    this.nextElementSibling.setText(fileName);
   }
 
   setIndicator(fileName, state) {

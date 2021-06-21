@@ -1,6 +1,7 @@
 class Tools {
-  #toolBox = document.getElementById('tools');
-  constructor() {
+  #toolBox;
+  constructor(explorer) {
+    this.#toolBox = explorer.querySelector('#tools');
     this.#init(this.#toolBox);
   }
 
