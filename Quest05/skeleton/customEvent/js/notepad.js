@@ -22,67 +22,75 @@ class Notepad {
   }
 
   #init() {
-    this.#notepad.addEventListener('newFile', (e) => {
-      const newFileName = prompt('파일 이름을 입력하세요');
-      if (!this.#fileNameValidation(newFileName)) {
-        return;
-      }
-
-      this.#explorer.addFile(newFileName);
-      NotepadStorage.setItem(newFileName, '');
-    });
-
-    this.#notepad.addEventListener('saveFile', (e) => {
-      const { fileName } = e.detail;
-      const text = this.#editBox.getText();
-
-      NotepadStorage.setItem(fileName, text);
-      this.#tabBar.setIndicator(fileName, 'xbox');
-      alert('저장 완료');
-    });
-
-    this.#notepad.addEventListener('saveAsFile', (e) => {
-      const newFileName = prompt('저장할 파일 이름을 입력하세요');
-      if (!this.#fileNameValidation(newFileName)) {
-        return;
-      }
-      const { fileName: oldFileName } = e.detail;
-      const text = this.#editBox.getText();
-
-      NotepadStorage.setItem(newFileName, text);
-      NotepadStorage.removeItem(oldFileName);
-
-      this.#tabBar.updateTab(oldFileName, newFileName);
-      this.#explorer.updateFileName(oldFileName, newFileName);
-      alert('다른 이름으로 저장 완료');
-    });
-
-    this.#notepad.addEventListener('deleteFile', (e) => {
-      const { fileName } = e.detail;
-
-      if (confirm(`${fileName}을 삭제하시겠습니까?`)) {
-        this.#tabBar.removeTab(fileName);
-        this.#explorer.removeFile(fileName);
-        NotepadStorage.removeItem(fileName);
-      }
-    });
-
-    this.#notepad.addEventListener('callMenu', (e) => {
-      this.#tabBar.addTab(e.detail.fileName);
-      this.#menu.callMenu(e.detail);
-    });
-
-    this.#notepad.addEventListener('clickFile', (e) => {
-      const fileName = e.target.fileName;
-      this.#tabBar.addTab(fileName);
-      this.#editBox.setText(fileName);
-    });
-
-    this.#notepad.addEventListener('updateEditBox', (e) => {
-      const { fileName } = e.detail;
-      this.#tabBar.setIndicator(fileName, 'exclamation');
-    });
+    this.#notepad.addEventListener('newFile', this.#newFile);
+    this.#notepad.addEventListener('saveFile', this.#saveFile);
+    this.#notepad.addEventListener('saveAsFile', this.#saveAsFile);
+    this.#notepad.addEventListener('deleteFile', this.#deleteFile);
+    this.#notepad.addEventListener('callMenu', this.#callMenu);
+    this.#notepad.addEventListener('clickFile', this.#clickFile);
+    this.#notepad.addEventListener('updateEditBox', this.#updateEditBox);
   }
+
+  #newFile = (e) => {
+    const newFileName = prompt('파일 이름을 입력하세요');
+    if (!this.#fileNameValidation(newFileName)) {
+      return;
+    }
+
+    this.#explorer.addFile(newFileName);
+    NotepadStorage.setItem(newFileName, '');
+  };
+
+  #saveFile = (e) => {
+    const { fileName } = e.detail;
+    const text = this.#editBox.getText();
+
+    NotepadStorage.setItem(fileName, text);
+    this.#tabBar.setIndicator(fileName, 'xbox');
+    alert('저장 완료');
+  };
+
+  #saveAsFile = (e) => {
+    const newFileName = prompt('저장할 파일 이름을 입력하세요');
+    if (!this.#fileNameValidation(newFileName)) {
+      return;
+    }
+    const { fileName: oldFileName } = e.detail;
+    const text = this.#editBox.getText();
+
+    NotepadStorage.setItem(newFileName, text);
+    NotepadStorage.removeItem(oldFileName);
+
+    this.#tabBar.updateTab(oldFileName, newFileName);
+    this.#explorer.updateFileName(oldFileName, newFileName);
+    alert('다른 이름으로 저장 완료');
+  };
+
+  #deleteFile = (e) => {
+    const { fileName } = e.detail;
+
+    if (confirm(`${fileName}을 삭제하시겠습니까?`)) {
+      this.#tabBar.removeTab(fileName);
+      this.#explorer.removeFile(fileName);
+      NotepadStorage.removeItem(fileName);
+    }
+  };
+
+  #callMenu = (e) => {
+    this.#tabBar.addTab(e.detail.fileName);
+    this.#menu.callMenu(e.detail);
+  };
+
+  #clickFile = (e) => {
+    const fileName = e.target.fileName;
+    this.#tabBar.addTab(fileName);
+    this.#editBox.setText(fileName);
+  };
+
+  #updateEditBox = (e) => {
+    const { fileName } = e.detail;
+    this.#tabBar.setIndicator(fileName, 'exclamation');
+  };
 
   #fileNameValidation = (fileName) => {
     if (NotepadStorage.getFileNames().includes(fileName)) {
