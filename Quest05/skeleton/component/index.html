@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./js/notepad.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/tab.js"></script>
+    <script src="./js/tabbar.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/editbox.js"></script>
+    <script src="./js/tools.js"></script>
+    <script src="./js/explorer.js"></script>
+  </head>
+  <body>
+    <div id="notepad" class="layout">
+      <nav class="layout-nav">
+        <ul id="explorer">
+          <li id="tools" class="tools">
+            <button id="newFile" class="button">새 파일</button>
+          </li>
+          
+          <template id="ex-file">
+            <li class="list">
+              <a class="anchor" href="#"> </a>
+            </li>
+          </template>
+        </ul>
+      </nav>
+      
+      <section id="tabBar">
+        <template id="tb-tab">
+          <li class="tab">
+            <a class="anchor"></a>
+            <img class="indicator"></img>
+          </li>
+        </template>
+      </section>
+      
+      <section id="editBox"></section>
+      
+      <div id="contextMenu" >
+        <template id="menu">
+          <a class="menu"></a>
+        </template>
+      </div>
+
+      <script>
+        new Notepad();
+      </script>
+    </div>
+  </body>
+</html>
