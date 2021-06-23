@@ -241,7 +241,7 @@
 ## HTTP는 어떻게 동작할까요?
 
 - TCP/IP 위에서 동작하는 프로토콜로, 소통은 평문 메시지(ASCII)로 이루어진다.
-- 기본적인 구조는 클라이언트의 요청과 서버의 응답이다.
+- 기본적인 구조는 클라이언트의 요청과 서버의 응답이며, `stateless` 하다.
 - 요청
   - HTTP Method, url, version을 명시해 요청하고 헤더에 요청에 관련한 메타데이터를 첨부한다.
 - 응답
@@ -337,34 +337,94 @@ traceroute to www.google.com (172.217.174.100), 64 hops max, 52 byte packets
 
 ## Wireshark를 통해 www.google.com 으로 요청을 날렸을 때 어떤 TCP 패킷이 오가는지 확인해 보세요.
 
-<br>
-
 ### TCP 패킷을 주고받는 과정은 어떻게 되나요?
 
-- pass
+1. 3 Way Handshake
+   | Source | Destination | protocol | info |
+   | ------ | ----------- | -------- | ---- |
+   | 10.180.191.51 | 172.217.175.110 | TCP | 56213 -> 80 [SYN] |
+   | 172.217.175.110 | 10.180.191.51 | TCP | 80 -> 56213 [SYN, ACK] |
+   | 10.180.191.51 | 172.217.175.110 | TCP | 56213 -> 80 [ACK] |
+
+<br>
+
+2. HTTP 통신
+   | Source | Destination | protocol | info |
+   | ------ | ----------- | -------- | ---- |
+   | 10.180.191.51 | 172.217.175.110 | HTTP | GET / HTTP/1.1 |
+   | 172.217.175.110 | 10.180.191.51 | HTTP | HTTP/1.1 301 Moved Permanetly (text/html) |
+
+<br>
+
+3. 4 Way Handshake
+   | Source | Destination | protocol | info |
+   | ------ | ----------- | -------- | ---- |
+   | 172.217.175.110 | 10.180.191.51 | TCP | 80 -> 56213 [FIN ACK] |
+   | 10.180.191.51 | 172.217.175.110 | TCP | 56213 -> 80 [ACK] |
+   | 10.180.191.51 | 172.217.175.110 | TCP | 56213 -> 80 [FIN ACK] |
+   | 172.217.175.110 | 10.180.191.51 | TCP | 80 -> 56213 [ACK] |
+
+<br>
+
+- 질문: 아래와 같은 결과가 나올때도 있던데 이건 어떤 경우인가요?
+  | Source | Destination | protocol | info |
+  | --------------- | --------------- | -------- | --------------------- |
+  | 172.217.175.110 | 10.180.191.51 | TCP | 80 -> 56213 [FIN ACK] |
+  | 10.180.191.51 | 172.217.175.110 | TCP | 56213 -> 80 [FIN ACK] |
 
 <br>
 
 ### 각각의 패킷에 어떤 정보들이 담겨 있나요?
 
-- pass
+- Ethernet
+  - Source, Destination의 MAC Address
+  - IP 버전(IPv4)
+- IP
+  - 데이터그램이 속한 프로토콜 버전
+  - 헤더와 데이터의 길이를 합한 Total Length
+  - Protocol
+  - Source, Destination의 IP Address
+- TCP
+
+  - Source, Destination의 Port
+  - Sequence Number: 송신된 데이터의 순서번호, TCP 세그먼트에 대한 식별자
+  - Acknowledgement Number: 수신된 바이트 수 + ACK, 다음 번에 기대되는 순차번호를 표시
+  - HeaderLength: 헤더 크기
+  - Window: TCP 수신 버퍼의 바이트 크기 -> 수신자가 사용 가능한 버퍼 공간
+  - CheckSum: TCP PDU 전체와 IP 계층의 헤더 중 후반부 12바이트(IP주소)에 대한 오류 검출 코드
+  - Flag
+
+    - SYN: 연결 요청 시 사용되며 Seq Num 초기값을 알린다.
+    - ACK: 확인 응답 패킷
+    - FIN: 트랜젝션 종료
+
+  - Seq, Ack Number 계산법
+    | Client | Direction | Server|
+    |:-:|:-:|:-:|
+    |seq:1, ack:1 , len:1325| --> | -|
+    |-| <-- | seq:1, ack:1326 , len:410|
+    |seq:1326, ack:411 , len:0| --> | -|
 
 <br>
 <br>
 
 ## telnet 명령을 통해 http://www.google.com/ URL에 HTTP 요청을 날려 보세요.
 
-<br>
-
 ### 어떤 헤더들이 있나요?
-
-- pass
-
-<br>
 
 ### 그 헤더들은 어떤 역할을 하나요?
 
-- pass
+- Date: HTTP 메시지 생성시간
+- Cache-Control: 쿠키/ 캐시 관련 정보
+- Content-type: 미디어 타입 정보
+- Expires: 리소스의 유효 기간
+- Server: 서버 정보
+- X-XSS-Protection: XSS 공격을 감지 할 때 페이지 로드를 중지
+- X-Frame-Option: 해당 페이지를 `<frame>` 또는 `<iframe>`, `<object>`에서 렌더링 할 수 있는지 여부를 나타냄
+- Set-Cookie: 서버에서 클라이언트에게 받은 세션 쿠기 정보를 설정
+- Access-Ranges: 부분 요청의 지원을 알리기 위해 서버에 의해 사용되는 표식. 이 헤더가 존재하면 브라우저는 처음부터 다시 다운로드를 시작하지 않고, 중단된 다운로드는 재개한다.
+- Vary: 캐시 된 응답을 이후 요청들에서 대신 사용할 수 있는지 결정함
+- Transfer-Encoding: 사용자에게 entity를 안전하게 전송하기 위해 사용하는 인코딩 방식을 지정
 
 <br>
 <br>
@@ -382,3 +442,7 @@ traceroute to www.google.com (172.217.174.100), 64 hops max, 52 byte packets
 ## TCP/IP 외에 전세계적인 네트워크를 구성하기 위한 다른 방식도 제안된 바 있을까요?
 
 - pass
+
+# 질문
+
+- 361 Line
