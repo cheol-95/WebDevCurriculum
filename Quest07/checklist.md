@@ -44,10 +44,9 @@
 
   - 동시에 복수의 DNS 질의 요청을 비동기적으로 처리하기 위한 C 라이브러리이다.
 
-- 스레드를 사용하지 않도록 설계되지만, fork나 cluster를 사용해서 다수의 코어에 로드 밸런싱이 가능하도록 할 수 있다.
+- 멀티 스레드를 사용하지 않도록 설계되지만, fork나 cluster를 사용해서 다수의 코어에 로드 밸런싱이 가능하도록 할 수 있다.
 
-<br>
-<br>
+<br><br>
 
 ## npm이 무엇인가요?
 
@@ -148,11 +147,12 @@
       | version1 - version2 | >=version1 <=version2|
       | range1 \|\| range2 | range1 또는 range2 충족|
       | \_ | 모든 버전과 일치|
-      | http://... | 버전 범위 대신 tarball URL 지정 |
+      | http://... | 버전 범위 대신 URL or tarball URL 지정 |
       | git... | Git url을 종속성으로 지정하며 기본값은 master |
-      | user/repo | 버전 범위 대신 tarball URL 지정 |
       | tag | npm dist-tag 로 태그된 특정한 버전 |
       | local path | 로컬 오프라인 개발용으로 사용 |
+
+      \* tarball? 여러 파일을 하나로 묶어주는 tar 압축 파일
 
   - `devDependencies`
     - `--save-dev / --dev`로 설치되며, 개발 프로세스중에 필요한 모든 종속성을 포함한다.
@@ -186,23 +186,23 @@
 
 - `npm run` script를 사용하지 않고 로컬에 설치된 패키지를 실행 시키는 명령어이다.
 
-<br>
+<br><br>
 
 ## npm 패키지를 `-g` 옵션을 통해 글로벌로 저장하는 것과 그렇지 않은 것은 어떻게 다른가요?
 
-- 시스템 디렉토리(usr/lib/node_modules)에 설치되며, 다른 프로젝트에서도 사용할 수 있다.
+- 시스템 디렉토리에 설치되며, 다른 프로젝트에서도 사용할 수 있다.
 - 옵션을 사용하지 않는다면, 현재 디렉토리의 node_modules에 설치된다.
 
-<br>
+<br><br>
 
 ## 자바스크립트 코드에서 다른 파일의 코드를 부르는 시도들은 지금까지 어떤 것이 있었을까요?
 
 - 서버사이드에 포커스를 맞춘 CommonJS
 - 브라우저에 포커스를 맞춘 AMD
-- RequireJS: AMD의 명세를 구체화
+- UMD
 - ES Modules
 
-<br>
+<br><br>
 
 ## CommonJS 대신 ES Modules가 등장한 이유는 무엇일까요?
 
@@ -210,46 +210,65 @@
 - 간단한 문법
 - 실제 객체/ 함수 바인딩 -> 순환 참조 관리 유용
 - 정적 분석이 가능해서 트리 쉐이킹이 쉬워졌다.
+  - 트리 쉐이킹: 번들링 시 불필요한 코드를 제거하는 것
 
-<br>
+<br><br>
 
 ## ES Modules는 기존의 require()와 동작상에 어떤 차이가 있을까요?
 
-- `CommonJS`의 require()는 동기로 이루어진다. 따라서 promise나 콜백 호출을 리턴하지 않는다 require()은 디스크로부터 읽어서 그 즉시 스크립트를 실행한다. 따라서 스스로 I/O나 부수효과를 실행하고 module.exports에 설정되어 있는 값을 리턴한다.
+- `CommonJS`: require()는 동기로 이루어진다.
+  - 전체 export 객체가 내보낼 때 복사되므로, 나중에 export하는 모듈이 해당 값을 변경해도 반영되지 않는다.
+  - `동작순서`
+    1. promise나 콜백 호출을 리턴하지 않고, 디스크로부터 읽어서 그 즉시 스크립트를 실행한다.
+    2. 인스턴스화 하고 평가한다.
+    3. I/O 등 부수효과를 실행하고 module.exports에 설정되어 있는 값을 리턴한다.
 
-- `ES Modules`는 모듈 로더를 비동기 환경에서 실행한다. 먼저 가져온 스크립트를 바로 실행하지 않고, import/ export구문을 찾아서 스크립트를 파싱한다. 그 다음 가져온 스크립트를 비동기로 다운로드 하여 파싱한 다음 dependencies의 모듈 그래프를 만들어 낸다. 스크립트는 실행될 준비를 마치게 되며, 그 스크립트에 의존하고 있는 스크립트들도 실행 할 준비를 마치면 마침내 실행된다.
-- `ES Modules` 모듈 내의 모든 자식 스크립트들은 병렬로 다운로드 되지만, 실행은 순차적으로 진행된다.
-- 기본적으로 `use strict`모드가 적용되며, this가 global이 아닌 독립된 스코프를 가진다.
+<br>
 
-- 순환참조의 경우 `CommonJS`의 경우 {}, `ES Modules`의 경우 에러가 발생한다.
-  <br>
+- `ES Modules`: 모듈 로더를 비동기 환경에서 실행한다.
+  - 라이브 바인딩을 사용해 export, import 모두 메모리의 같은 위치를 가리킨다. 즉, export 한 모듈에서 값을 변경하면 해당 변경 내용이 import 한 모듈에 반영된다. 역으로는 불가능하다.
+  - 모듈 로더는 모듈맵을 이용해서 캐시를 관리하기 때문여, 해당 모듈을 여러 모듈이 의존해도 한번만 로드된다.
+  - 기본적으로 `use strict`모드가 적용되며, this가 global이 아닌 독립된 스코프를 가진다.
+  - `동작순서`
+    1. 구성 - 모든 파일을 찾아 다운로드하고 모듈 레코드로 구문분석한다.
+    2. 인스턴스화 - export 된 값을 모두 배치하기 위해 메모리에 있는 공간들을 찾는다. 이후 export와 import들이 이런 메모리 공간을 가리키도록 한다. 이를 `linking`이라고 한다.
+    3. 평가 - 코드를 실행하여 상자의 값을 변수의 실제 값으로 체운다.
+       ![](https://hacks.mozilla.org/files/2018/03/07_3_phases-768x282.png)
+
+<br>
+
+| commonJS                                         | ES Modules                                   |
+| ------------------------------------------------ | -------------------------------------------- |
+| 프로그램 언제 어디서나 호출할 수 있다.           | 항상 파일의 시작 부분에서 실행된다.          |
+| require문을 사용하여 코드를 직접 실행할 수 있다. | --input-type 플래그를 사용한다.              |
+| .js확장자로 사용한다.                            | .mjs 혹은 package.json 설정을 통해 사용한다. |
+| 순환참조: {}                                     | 순환참조: Reference Error                    |
+
+<br><br><br>
 
 ## CommonJS는 할 수 있으나 ES Modules가 할 수 없는 일에는 어떤 것이 있을까요?
 
-- CommonJS는 호출된 모듈이 즉시 실행되고, ES Modules는 순차적으로 실행되는 차이가 있다.
+- `CommonJS`는 모듈 지정자에 변수를 사용할 수 있다.
+- `CommonJS`는 다음 모듈을 보기 전에 현재 모듈의 모들 코드가 실행된다. 즉, 모듈 resolution을 수행할 때 변수에 값이 있다.
 
 <br>
+
+- `ES Modules`는 resolution을 하기 전에 전체 모듈 그래프를 작성하기 때문에 위와 다르게 동작한다.
+- 대신 동적 import를 사용해 구현할 수 있다.
+
+<br><br>
 
 ## node.js ES Modules를 사용하려면 어떻게 해야할까요? ES Modules 기반의 코드에서 CommonJS 기반의 패키지를 불러오려면 어떻게 해야 할까요? 그 반대는 어떻게 될까요?
 
 - node.js에서 ES Modules 사용법
 
-  - `package.json`에 `type: module` 옵션을 넣는 방법이 있다.
+  - `package.json`에 `type: module` 옵션을 넣는 방법
+  - 호출하고자 하는 js파일의 확장자를 `mjs`로 변경하는 방법
 
 - ES Modules에서 CommonJS 사용법
 
-  - default import만 가능하다.
-
-    ```
-    import _ from './lodash.cjs' (O)
-
-    import { shuffle } from './lodash.cjs' (X)
-
-    import _ from './lodash.cjs'
-    const { shuffle } = _
-
-    위 방법은 tree shaking이 되지 않으므로 번들링 시 사이즈가 커진다.
-    ```
+  - 호출하고자 하는 js파일의 확장자를 `cjs`로 변경하는 방법
+  - import로 호출하는 방법
 
 - CommonJS에서 ES Modules 사용법
   - CommonJS는 Top Level에서 await을 지원하지 않기 때문에 아래와 같이 사용
@@ -272,9 +291,3 @@
   - 의존성 없이 실행할 수 있는 파일 하나로 배포되며, 의존성 검사기와 코드 포매터를 내장하고 있다.
 
 <br><br><br>
-
-# Note
-
-tarball?
-정적 분석
-this가 global이 아닌 독립된 스코프를 가진다.
