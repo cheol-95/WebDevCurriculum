@@ -1,0 +1,11 @@
+{
+  "name": "esm-my-project",
+  "type": "module",
+  "dependencies": {
+    "cjs-package": "file:../cjs-package",
+    "esm-package": "file:../esm-package"
+  },
+  "scripts": {
+    "start": "node index.mjs"
+  }
+}

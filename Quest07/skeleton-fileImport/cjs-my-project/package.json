@@ -1,0 +1,7 @@
+{
+  "name": "cjs-my-project",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  }
+}

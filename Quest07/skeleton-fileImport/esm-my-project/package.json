@@ -1,0 +1,7 @@
+{
+  "name": "esm-my-project",
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs"
+  }
+}

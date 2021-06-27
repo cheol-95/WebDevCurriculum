@@ -1,0 +1,5 @@
+{
+  "name": "esm-package",
+  "type": "module",
+  "main": "index.mjs"
+}

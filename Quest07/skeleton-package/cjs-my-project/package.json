@@ -1,0 +1,11 @@
+{
+  "name": "cjs-my-project",
+  "type": "commonjs",
+  "dependencies": {
+    "cjs-package": "file:../cjs-package",
+    "esm-package": "file:../esm-package"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
