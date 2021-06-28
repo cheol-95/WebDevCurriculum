@@ -7,8 +7,8 @@
 | 목적              | 요청 (Read)     | 생성, 수정 (Create)                                    |
 | 데이터 위치       | url_queryString | request_body                                           |
 | 데이터 길이       | url 길이로 한정 | 제한이 없다                                            |
-| 데이터 타입       | string          | string이지만, Content-Type 헤더를 사용해 다양하게 사용 |
-| 보안              | 취약            | 상대적으로 안전                                        |
+| 데이터 타입       | string          | string/ binary 등, 데이터 형식은 content-type으로 명시 |
+| 보안              | 취약            | 상대적으로 안전하지만 취약한건 동일                    |
 | 캐싱              | 지원            | 미지원                                                 |
 | 브라우저 히스토리 | O               | X                                                      |
 | 멱등성            | O               | X                                                      |
