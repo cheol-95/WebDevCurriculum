@@ -1,6 +1,6 @@
 import { CustomWriteFile, CustomReadFile } from '../util/asyncFile.mjs';
 
-const imagePath = './static/image/tmp.jpg';
+const imagePath = './static/image/pic.jpg';
 
 export const picUpload = (req, res) => {
   req.on('end', async () => {
