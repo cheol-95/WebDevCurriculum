@@ -154,16 +154,19 @@
 - 사용할 수 있는 HTTP Method의 수가 적다.
 - `개인적으로는 self-descriptive messages, HATEOAS에 대한 이해가 부족해서인지 쉽지 않은 제약이라고 생각했습니다.`
 
-![그런 REST API로 괜찮은가](https://slides.com/eungjun/rest)
+[그런 REST API로 괜찮은가](https://slides.com/eungjun/rest)
 
 <br><br><br>
 
 ## CORS란 무엇인가요? 이러한 기능이 왜 필요할까요?
 
-pass
+- pass
+
 <br><br>
 
 ## CORS는 어떻게 구현될까요?
+
+- pass
 
 <br><br><br>
 
