@@ -55,8 +55,7 @@
 ### Postman에서 POST 요청을 보내는 여러 가지 방법(form-data, x-www-form-urlencoded, raw, binary) 각각은 어떤 용도를 가지고 있나요?
 
 - raw
-  - `application/json`로, 모든 형식의 텍스트를 업로드 할 수 있다.
-  - JSON, XML, HTML 등에 사용된다.
+  - JSON, XML, HTML 등 모든 형식의 텍스트를 업로드 할 수 있다.
 - binary
   - 비 텍스트 데이터 (비디오, 오디오, 이미지 등 기타 바이너리 데이터-파일)에 사용된다.
 - form-data
