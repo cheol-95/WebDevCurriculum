@@ -11,8 +11,8 @@
 
 ### 콜백을 통해 비동기적 작업을 할 때의 불편한 점은 무엇인가요?
 
-- 가독성이 매우 떨어진다.
-- 작성한 코드와 실제 동작하는 코드의 순서가 의도했던대로 동작하지 않는 불편함이 생긴다. -> 복잡성 증가
+- 가독성이 떨어진다.
+- 동기로 동작하는 코드에 비해 직관성이 떨어진다. -> 복잡성 증가
 
 <br><br>
 
@@ -50,7 +50,7 @@
 - `await`
   - async function 내부에서 Promise가 처리될 때까지 `async함수의 실행을 일시 정지`하고, Promise가 fulfill되면 async함수를 일시 정지한 부분부터 실행한다.
   - 이때 await문의 반환값은 Promise에서 fulfill된 값이고, reject되면 throw한다.
-  - await연산자 다음에 나오는 문의 값이 Promise가 아니면 해당 값을 resolved Promise로 변환시킨다.
+  - await연산자 다음에 나오는 문의 값이 Promise가 아니면 해당 값을 `resolved Promise`로 변환시킨다.
 
 <br>
 
@@ -152,7 +152,7 @@
 
 - 표준이 존재하지 않는다.
 - 사용할 수 있는 HTTP Method의 수가 적다.
-- `개인적으로는 self-descriptive messages, HATEOAS에 대한 이해가 부족해서인지 쉽지 않은 제약이라고 생각했습니다.`
+- `개인적으로는 self-descriptive messages, HATEOAS가 지키기 까다로운 제약이라고 생각했습니다.`
 
 [그런 REST API로 괜찮은가](https://slides.com/eungjun/rest)
 
@@ -160,13 +160,41 @@
 
 ## CORS란 무엇인가요? 이러한 기능이 왜 필요할까요?
 
-- pass
+- `Cross-Origin Resource Sharing`의 약자로 번역하면 `교차 출처 리소스 공유`이다.
+- 브라우저가 리소스 로드를 허용해야 하는 origin 이외의 다른 origin을 서버가 나타낼 수 있도록 하는 HTTP 헤더 기반 메커니즘이다.
+- 기본적으로 웹은 보안을 위해서 SOP(Same-Origin Policy)라는 정책을 지켜야 하는데, 예외 조항으로 CORS를 사용해 다른 출처의 리소스를 얻어올 수 있다.
+  - `origin`이란, Protocol, Host, Port의 묶음을 의미한다.
 
 <br><br>
 
 ## CORS는 어떻게 구현될까요?
 
-- pass
+CORS는 서버에 구현된 스펙이 아니라 브라우저에 구현되어 있는 스펙이기 때문에, 리소스의 출처에 따라 응답을 파기하는것은 브라우저에서 진행한다. 따라서 서버측 에서는 정상적으로 응답을 했다는 로그를 남긴다.
+
+- `Preflight Request`
+
+  > 1.  가장 일반적인 방식으로, 브라우저는 요청을 한번에 보내지 않고 예비 요청과 본 요청으로 나누어서 서버로 전송한다.
+  > 2.  이때 본 요청을 보내기 전에 보내는 예비 요청을 preflight라고 부는 것이며, 이 예비 요청에는 HTTP 메소드 중 OPTIONS 메소드가 사용된다.
+  > 3.  서버는 자신이 허용하는 것과 금지하고 있는 것에 대한 정보를 응답 헤더에 담아서 브라우저에게 전달한다.
+  > 4.  이후 브라우저는 자신이 보낸 예비 요청과 서버가 응답에 담아준 허용 정책을 비교한 후, 이 요청을 보내는 것이 안전하다고 판단되면 같은 엔드포인트로 다시 본 요청을 보내게 된다.
+
+    <img src="https://evan-moon.github.io/static/c86699252752391939dc68f8f9a860bf/21b4d/cors-preflight.png" width="550px" height="350px">
+
+<br><br>
+
+- `Simple Request`
+
+  > 1.  단순 요청은 예비 요청을 보내지 않고 바로 서버에게 본 요청부터 보낸다.
+  > 2.  서버가 이에 대한 응답의 헤더에 `Access-Control-Allow-Origin`을 내려준다.
+  > 3.  브라우저에서 CORS 정책 위반 여부를 검사한다.
+
+- Simple Request 단순해 보이지만 여러 제약사항이 있어 사용하기 까다롭다.
+
+  > 1.  요청의 메소드는 GET, HEAD, POST 중 하나여야 한다.
+  > 2.  Accept, Accept-Language, Content-Language, Content-Type, DPR, Downlink, Save-Data, Viewport-Width, Width를 제외한 헤더를 사용하면 안된다.
+  > 3.  만약 Content-Type를 사용하는 경우에는 application/x-www-form-urlencoded, multipart/form-data, text/plain만 허용된다.
+
+    <img src="https://evan-moon.github.io/static/d8ed6519e305c807c687032ff61240f8/21b4d/simple-request.png" width="550px" height="270px">
 
 <br><br><br>
 
