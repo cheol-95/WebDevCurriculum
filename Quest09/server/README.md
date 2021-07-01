@@ -5,7 +5,7 @@
 - Request
 
   ```
-  GET {URL}/file
+  GET /file
   ```
 
 <br>
@@ -22,7 +22,7 @@
 - Request
 
   ```
-  GET {URL}/file/:fileName
+  GET /file/:fileName
   ```
 
 <br>
@@ -39,7 +39,7 @@
 - Request
 
   ```
-  POST {URL}/file
+  POST /file
 
   body: {
     "fileName": string
@@ -61,7 +61,7 @@
 - Request
 
   ```
-  PUT {URL}/file/:fileName
+  POST /file/:fileName
 
   body: {
     "newFileName": string,
@@ -84,7 +84,7 @@
 - Request
 
   ```
-  PUT {URL}/file/:fileName
+  PUT /file/:fileName
 
   body: {
     "text": string
@@ -105,7 +105,7 @@
 - Request
 
   ```
-  DELETE {URL}/file/:fileName
+  DELETE /file/:fileName
   ```
 
 <br>
@@ -120,9 +120,9 @@
 
 | 동작               | Method | Path                 | Body                                           | Content-Type |
 | ------------------ | ------ | -------------------- | ---------------------------------------------- | ------------ |
-| 파일목록 조회      | GET    | {url}/file           | -                                              | -            |
-| 파일 조회          | GET    | {url}/file/:filename | -                                              | -            |
-| 파일 생성          | POST   | {url}/file           | { "fileName": 파일명 }                         | json         |
-| 다른 이름으로 저장 | PUT    | {url}/file/:filename | { "newFileName": 새로운 파일명, "text": 내용 } | - json       |
-| 파일 수정          | PUT    | {url}/file/:fileName | { "text" : 내용 }                              | json         |
-| 파일 삭제          | DELETE | {url}/file/:fileName | -                                              | -            | -->
+| 파일목록 조회      | GET    | /file           | -                                              | -            |
+| 파일 조회          | GET    | /file/:filename | -                                              | -            |
+| 파일 생성          | POST   | /file           | { "fileName": 파일명 }                         | json         |
+| 다른 이름으로 저장 | PUT    | /file/:filename | { "newFileName": 새로운 파일명, "text": 내용 } | - json       |
+| 파일 수정          | PUT    | /file/:fileName | { "text" : 내용 }                              | json         |
+| 파일 삭제          | DELETE | /file/:fileName | -                                              | -            | -->
