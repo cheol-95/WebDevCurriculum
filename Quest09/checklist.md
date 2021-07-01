@@ -198,6 +198,27 @@ CORS는 서버에 구현된 스펙이 아니라 브라우저에 구현되어 있
 
 <br><br><br>
 
+# Advanced
+
+### fetch API는 구현할 수 없지만 XMLHttpRequest로는 구현할 수 있는 기능이 있을까요?
+
+pass
+
+<br><br>
+
+### REST 이전에는 HTTP API에 어떤 패러다임들이 있었을까요? REST의 대안으로는 어떤 것들이 제시되고 있을까요?
+
+pass
+
+<br><br>
+
+# Quest 관련
+
+1. 일정산출
+   - 7/1 [서버] API 명세, 아키텍처 선정, 기능 구현
+   - 7/2 [서버 & 클라이언트] 서버 마무리, 3000번 서버 생성 및 static 적용
+   - 7/5 코드 최적화 및 리뷰 요청
+
 ### 참고
 
 [비동기 프로그래밍](https://asfirstalways.tistory.com/348)
