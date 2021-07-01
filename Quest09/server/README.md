@@ -42,7 +42,7 @@
   POST /file
 
   body: {
-    "fileName": string
+    "newFileName": string
   }
 
   ```
