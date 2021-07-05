@@ -3,7 +3,6 @@ export const asyncWrap = (fn) => {
     try {
       await fn(req, res, next);
     } catch (err) {
-      console.log('에러!! : ', err);
       next(err);
     }
   };
