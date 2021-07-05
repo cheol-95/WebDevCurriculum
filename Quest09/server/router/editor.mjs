@@ -10,5 +10,5 @@ editorRouter.post('/', asyncWrap(controller.createFile));
 
 editorRouter.get('/:fileName', asyncWrap(controller.getFile));
 editorRouter.post('/:fileName', asyncWrap(controller.saveAsFile));
-editorRouter.put('/:fileName', asyncWrap(controller.updateFile));
+editorRouter.put('/:fileName', asyncWrap(controller.saveFile));
 editorRouter.delete('/:fileName', asyncWrap(controller.deleteFile));
