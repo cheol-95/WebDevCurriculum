@@ -1,18 +1,15 @@
-const ErrorEnum = Object.freeze({
-  ENOENT: {
-    status: 404,
-    message: '파일이 존재하지 않습니다',
-  },
-  EXISTS: {
-    status: 400,
-    message: '이미 존재하는 파일명 입니다',
-  },
-});
+import validErrorHandler from './validation.mjs';
+import fsErrorHandler from './fs.mjs';
 
 export const errorHandler = (err, req, res, next) => {
+  // Common Error Logic ?
+
+  if (err.from === 'validError') {
+    return validErrorHandler(err, res);
+  }
+
   if (err.code) {
-    const { status, message } = ErrorEnum[err.code];
-    return res.status(status).json(message);
+    return fsErrorHandler(err, res);
   }
 
   next(err);
