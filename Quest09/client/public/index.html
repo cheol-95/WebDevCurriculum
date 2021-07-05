@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <script type="module">
+      import Notepad from './js/notepad.mjs';
+
+      const parent = document.querySelector('body');
+      parent.append(new Notepad());
+    </script>
+  </body>
+</html>
