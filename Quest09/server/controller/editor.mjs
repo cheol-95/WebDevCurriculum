@@ -1,7 +1,6 @@
 import * as editService from '../service/editor.mjs';
 
 export const getFileList = async (req, res) => {
-  // validation
   const fileList = await editService.getFileList();
   return res.status(200).json({
     fileList,
