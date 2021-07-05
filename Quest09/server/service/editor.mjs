@@ -3,14 +3,12 @@ import config from '../config/config.mjs';
 
 const { FILEPATH } = config;
 
-const isExist = (fileName) => {
-  if (existsSync(makeFilePath(fileName))) {
-    throw { code: 'EXISTS' };
-  }
+const filePath = (fileName) => {
+  return FILEPATH + fileName + '.txt';
 };
 
-const makeFilePath = (fileName) => {
-  return FILEPATH + fileName + '.txt';
+const isExist = (fileName) => {
+  return existsSync(filePath(fileName));
 };
 
 export const getFileList = async () => {
@@ -21,25 +19,37 @@ export const getFileList = async () => {
 };
 
 export const getFile = async (fileName) => {
-  const data = await fsp.readFile(makeFilePath(fileName));
+  const data = await fsp.readFile(filePath(fileName));
   return data.toString();
 };
 
 export const createFile = async (fileName) => {
-  isExist(fileName);
-  await fsp.writeFile(makeFilePath(fileName), '');
+  if (isExist(fileName) === true) {
+    throw { code: 'EXISTS' };
+  }
+
+  await fsp.writeFile(filePath(fileName), '');
 };
 
 export const saveFile = async (fileName, data) => {
-  await fsp.writeFile(makeFilePath(fileName), data);
+  if (isExist(fileName) === false) {
+    throw { code: 'ENOENT' };
+  }
+
+  await fsp.writeFile(filePath(fileName), data);
 };
 
 export const renameFile = async (oldFileName, newFileName) => {
-  const oldFile = makeFilePath(oldFileName);
-  const newFile = makeFilePath(newFileName);
+  if (isExist(newFileName) === true) {
+    throw { code: 'EXISTS' };
+  }
+
+  const oldFile = filePath(oldFileName);
+  const newFile = filePath(newFileName);
+
   await fsp.rename(oldFile, newFile); // DB의 파일명만 변경할 예정
 };
 
 export const deleteFile = async (deleteFileName) => {
-  await fsp.unlink(makeFilePath(deleteFileName));
+  await fsp.unlink(filePath(deleteFileName));
 };
