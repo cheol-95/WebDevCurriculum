@@ -202,13 +202,16 @@ CORS는 서버에 구현된 스펙이 아니라 브라우저에 구현되어 있
 
 ### fetch API는 구현할 수 없지만 XMLHttpRequest로는 구현할 수 있는 기능이 있을까요?
 
-pass
-
-<br><br>
+- `404, 500 Error` 컨트롤을 지원한다.
+- `connection timeout`을 지정할 수 있다.
+- `xhr.abort()`를 통한 요청취소를 지원한다.
+- 파일 업로드와 같은 긴 시간을 소요하는 작업의 progress를 알 수 있다.
+- <br><br>
 
 ### REST 이전에는 HTTP API에 어떤 패러다임들이 있었을까요? REST의 대안으로는 어떤 것들이 제시되고 있을까요?
 
-pass
+- REST 이전: SOAP, RMI, Corba, DEC, DCOM
+- REST 대안: GraphQL, gRPC
 
 <br><br>
 
@@ -218,6 +221,8 @@ pass
    - 7/1 [서버] API 명세, 아키텍처 선정, 기능 구현
    - 7/2 [서버 & 클라이언트] 서버 마무리, 3000번 서버 생성 및 static 적용
    - 7/5 코드 최적화 및 리뷰 요청
+
+<br><br>
 
 ### 참고
 
