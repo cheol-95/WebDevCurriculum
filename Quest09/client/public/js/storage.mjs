@@ -29,37 +29,32 @@ export default class NotepadStorage {
       });
 
       if (res.status !== 201) {
-        throw new Error();
+        throw { msg: await res.json() };
       }
 
       this.fileData[newFileName] = '';
     } catch (err) {
-      alert('파일 생성 에러');
+      err.msg ? alert(err.msg) : alert('파일 생성 에러');
       throw err;
     }
   }
 
   async getFile(fileName) {
-    if (this.fileData[fileName] !== null) {
-      return this.fileData[fileName];
-    }
-
     try {
+      if (this.fileData[fileName] !== null) {
+        return this.fileData[fileName];
+      }
+
       const res = await fetch(dummy.fileUrl + fileName);
       if (res.status === 404) {
-        throw new Error(404);
+        throw { msg: await res.json() };
       }
 
-      const body = await res.json();
-
-      this.setFileData(fileName, body.data);
-      return body.data;
+      const { data } = await res.json();
+      this.fileData[fileName] = data;
+      return data;
     } catch (err) {
-      if (err.message === '404') {
-        alert('존재하지 않는 파일입니다');
-      } else {
-        alert('파일 로드 에러');
-      }
+      err.msg ? alert(err.msg) : alert('파일 로드 에러');
       throw err;
     }
   }
@@ -77,13 +72,13 @@ export default class NotepadStorage {
       });
 
       if (res.status !== 200) {
-        throw new Error();
+        throw { msg: await res.json() };
       }
 
-      this.setFileData(fileName, text);
+      this.fileData[fileName] = text;
       alert('파일 저장 완료');
     } catch (err) {
-      alert('파일 저장 실패');
+      err.msg ? alert(err.msg) : alert('파일 저장 실패');
       throw err;
     }
   }
@@ -102,15 +97,15 @@ export default class NotepadStorage {
       });
 
       if (res.status !== 200) {
-        throw new Error();
+        throw { msg: await res.json() };
       }
 
-      this.setFileData(newFileName, text);
+      this.fileData[newFileName] = text;
       delete this.fileData[oldFileName];
 
       alert('다른 이름으로 저장 완료');
     } catch (err) {
-      alert('저장 실패');
+      err.msg ? alert(err.msg) : alert('저장 실패');
       throw err;
     }
   }
@@ -122,18 +117,13 @@ export default class NotepadStorage {
       });
 
       if (res.status !== 200) {
-        throw new Error();
+        throw { msg: await res.json() };
       }
 
       delete this.fileData[fileName];
-
       alert('파일 삭제 완료');
     } catch (err) {
-      alert('파일 삭제 실패');
+      err.msg ? alert(err.msg) : alert('파일 삭제 실패');
     }
-  }
-
-  setFileData(fileName, data) {
-    this.fileData[fileName] = data;
   }
 }
