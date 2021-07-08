@@ -8,8 +8,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', express.static('./public'));
+app.use('/notepad', (req, res, next) => {
+  res.sendFile(path.resolve() + '/public/html/notepad.html');
+});
+
 app.use('/', (req, res, next) => {
-  res.sendFile(path.resolve() + '/public/index.html');
+  res.sendFile(path.resolve() + '/public/html/login.html');
 });
 
 app.listen(PORT, () => {

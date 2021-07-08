@@ -4,6 +4,9 @@ import config from '../config/config.mjs';
 const { FILEPATH } = config;
 
 const filePath = (fileName) => {
+  if (['/', '.'].some((x) => fileName.includes(x))) {
+    throw Error;
+  }
   return FILEPATH + fileName + '.txt';
 };
 

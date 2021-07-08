@@ -1,33 +1,6 @@
 import Joi from 'joi';
 
-const setValidError = (err, next) => {
-  err.from = 'validError';
-  err.status = 422;
-
-  const [detail] = err.details;
-
-  switch (detail.type) {
-    case 'any.required':
-      err.label = detail.path[0];
-      err.message = `값을 입력하세요`;
-      break;
-
-    case 'string.base':
-      err.label = detail.context.label;
-      err.message = `문자만 입력 가능합니다`;
-      break;
-
-    case 'string.empty':
-      err.label = detail.context.label;
-      err.message = `공백은 허용되지 않습니다`;
-      break;
-
-    default:
-      err.label = detail.path[0] ? detail.path[0] : detail.context.label;
-      err.message = `잘못된 값입니다.`;
-  }
-  next(err);
-};
+import setValidError from './validError.mjs';
 
 export const getFile = async (req, res, next) => {
   try {

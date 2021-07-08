@@ -1,8 +1,9 @@
+import express from 'express';
+
 import { asyncWrap } from '../lib/asyncWrap.mjs';
 import * as validation from '../lib/validation/editor.mjs';
 import * as controller from '../controller/editor.mjs';
 
-import express from 'express';
 export const editorRouter = express.Router();
 
 editorRouter.get('/', asyncWrap(controller.getFileList));

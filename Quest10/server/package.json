@@ -10,14 +10,14 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "devDependencies": {
-    "nodemon": "^2.0.9"
-  },
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.9",
+    "uninstall": "*",
     "uuid": "^8.3.2"
   }
 }
