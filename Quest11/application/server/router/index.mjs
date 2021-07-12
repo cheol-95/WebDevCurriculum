@@ -1,8 +1,8 @@
 import express from 'express';
-import { editorRouter } from './editor.mjs';
-import { authRouter } from './auth.mjs';
+import { fileRouter } from './file.mjs';
+import { userRouter } from './user.mjs';
 
 export const router = express.Router();
 
-router.use('/file', editorRouter);
-router.use('/auth', authRouter);
+router.use('/file', fileRouter);
+router.use('/user', userRouter);

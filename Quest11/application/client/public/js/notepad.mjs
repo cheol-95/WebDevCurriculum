@@ -12,22 +12,20 @@ export default class Notepad {
   #explorer;
   #storage;
   #fileList;
-
+  status;
   constructor() {
     this.#init();
     this.#addEvent();
-
     return this.#notepad;
   }
 
   async #init() {
     this.#setDOM();
     this.#storage = new NotepadStorage();
+    this.#fileList = await this.#storage.getFileList();
     this.#editBox = new EditBox(this.#notepad.querySelector('#editBox'), this.#storage);
     this.#menu = new ContextMenu(this.#notepad.querySelector('#contextMenu'));
     this.#tabBar = new TabBar(this.#notepad.querySelector('#tabBar'));
-
-    this.#fileList = await this.#storage.getFileList();
     this.#explorer = new Explorer(this.#notepad.querySelector('#explorer'), this.#fileList);
   }
 
@@ -59,29 +57,24 @@ export default class Notepad {
     this.#notepad.addEventListener('clickFile', this.#clickFile);
     this.#notepad.addEventListener('clickTab', this.#clickTab);
     this.#notepad.addEventListener('setIndicator', this.#setIndicator);
+    this.#notepad.addEventListener('logout', this.#logout);
     window.addEventListener('beforeunload', this.#closeEvent);
   }
 
   #closeEvent = () => {
+    if (this.#tabBar && this.#tabBar.currentFile !== '') {
+      localStorage.setItem('edt_cur_tab', this.#tabBar.currentFile);
+    }
+
     Object.keys(localStorage).forEach((fileName) => {
       if (/^edt_f_/.test(fileName)) {
         localStorage.removeItem(fileName);
       }
     });
-
-    localStorage.setItem('edt_cur_tab', this.#tabBar.currentFile);
   };
 
   async #logout() {
     await this.#storage.logout();
-
-    localStorage.removeItem('edt_tabs');
-    localStorage.removeItem('edt_cur_tab');
-    this.#fileList.forEach((fileName) => {
-      localStorage.removeItem('edt_f_' + fileName);
-    });
-
-    location.href = '/';
   }
 
   #clickTools = async (e) => {

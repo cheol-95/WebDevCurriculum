@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import setValidError from './validError.mjs';
+import { ValidError } from '../../error/errorClass/validation.mjs';
 
 export const login = async (req, res, next) => {
   try {
@@ -12,6 +12,6 @@ export const login = async (req, res, next) => {
     await bodySchema.validateAsync(req.body);
     next();
   } catch (err) {
-    setValidError(err, next);
+    next(new ValidError(err));
   }
 };

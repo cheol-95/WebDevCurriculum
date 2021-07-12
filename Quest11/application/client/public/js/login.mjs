@@ -2,7 +2,7 @@ export default class Login {
   #idBox;
   #pwBox;
   #submit;
-  #loginUrl = 'http://localhost:8000/auth/login/';
+  #loginUrl = 'http://localhost:8000/user/login/';
   constructor() {
     this.#init();
   }
@@ -36,15 +36,16 @@ export default class Login {
         body: JSON.stringify({ id, pw }),
       });
 
+      const body = await res.json();
       if (res.status === 200) {
+        localStorage.removeItem('edt_cur_tab');
+        localStorage.jwt = body.jwt;
         location.href = '/notepad';
       } else {
-        console.log('res: ', res);
-        throw { msg: await res.json() };
+        throw body;
       }
     } catch (err) {
-      console.log('err: ', err);
-      alert(err.msg);
+      alert(err.message);
     }
   };
 

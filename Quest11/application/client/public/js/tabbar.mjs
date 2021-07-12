@@ -9,6 +9,7 @@ const dummy = {
 
 export default class TabBar {
   #tabBar;
+  currentFile = '';
   constructor(tabBar) {
     this.#tabBar = tabBar;
 
@@ -45,13 +46,15 @@ export default class TabBar {
 
   #setTabs() {
     const tabs = JSON.parse(localStorage.getItem('edt_tabs'));
-    for (const fileName of tabs) {
-      this.#tabBar.addTab(fileName);
-    }
+    if (tabs.length > 0) {
+      for (const fileName of tabs) {
+        this.#tabBar.addTab(fileName);
+      }
 
-    const curTab = localStorage.getItem('edt_cur_tab');
-    if (curTab !== 'null') {
-      this.#tabBar.setFocus(curTab);
+      const curTab = localStorage.getItem('edt_cur_tab');
+      if (curTab !== 'null') {
+        this.#tabBar.setFocus(curTab);
+      }
     }
   }
 

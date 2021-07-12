@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import setValidError from './validError.mjs';
+import { ValidError } from '../../error/errorClass/validation.mjs';
 
 export const getFile = async (req, res, next) => {
   try {
@@ -11,7 +11,7 @@ export const getFile = async (req, res, next) => {
     await paramSchema.validateAsync(req.params);
     next();
   } catch (err) {
-    setValidError(err, next);
+    throw new ValidError(err);
   }
 };
 
@@ -24,7 +24,7 @@ export const createFile = async (req, res, next) => {
     await bodySchema.validateAsync(req.body);
     next();
   } catch (err) {
-    setValidError(err, next);
+    throw new ValidError(err);
   }
 };
 
@@ -42,7 +42,7 @@ export const saveFile = async (req, res, next) => {
     await bodySchema.validateAsync(req.body);
     next();
   } catch (err) {
-    setValidError(err, next);
+    throw new ValidError(err);
   }
 };
 
@@ -61,7 +61,7 @@ export const saveAsFile = async (req, res, next) => {
     await bodySchema.validateAsync(req.body);
     next();
   } catch (err) {
-    setValidError(err, next);
+    throw new ValidError(err);
   }
 };
 
@@ -74,6 +74,6 @@ export const deleteFile = async (req, res, next) => {
     await paramSchema.validateAsync(req.params);
     next();
   } catch (err) {
-    setValidError(err, next);
+    throw new ValidError(err);
   }
 };

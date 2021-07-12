@@ -1,1 +1,0 @@
-[{"session_id":"","user_id":"test1"},{"session_id":"c74b0bff-4fb8-4246-957e-89a1b3303796","user_id":"test2"},{"session_id":"","user_id":"test3"}]

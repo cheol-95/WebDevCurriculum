@@ -34,7 +34,9 @@ export default class Explorer {
 
   async #setFiles(fileList) {
     fileList.forEach((fileName) => {
-      this.#setFile(fileName);
+      if (fileName) {
+        this.#setFile(fileName);
+      }
     });
   }
 
