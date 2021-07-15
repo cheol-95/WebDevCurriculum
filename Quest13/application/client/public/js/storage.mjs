@@ -20,7 +20,9 @@ export default class NotepadStorage {
       const query = {
         query: `
         query {
-          files
+          files {
+            name
+          }
         }
       `,
       };
@@ -30,7 +32,7 @@ export default class NotepadStorage {
         throw body.errors;
       }
 
-      return body.data.files;
+      return body.data.files.map((file) => file.name);
     } catch (errors) {
       this.#errorHandler(errors[0], '파일목록을 로드하는데 실패했습니다');
     }
