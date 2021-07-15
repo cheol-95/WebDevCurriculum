@@ -11,8 +11,8 @@ export default {
   },
   JWT: {
     secret: 'knowre',
-    // expires: 1000 * 60 * 15, // 15분
-    expires: 200, // 15분
+    expires: 1000 * 60 * 15, // 15분
+    // expires: 1,
   },
   SSL: {
     key: fs.readFileSync('../openssl/localhost.key'),
