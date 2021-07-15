@@ -1,6 +1,6 @@
 import Dao from '../../dao/index.mjs';
 import { getDigest } from '../../lib/auth.mjs';
-import { CustomError } from '../../error/error/custom.mjs';
+import { ApolloError } from 'apollo-server-errors';
 import * as validation from '../../lib/validation/user.mjs';
 import { getAccessToken } from '../../lib/auth.mjs';
 
@@ -19,13 +19,13 @@ export default {
       });
 
       if (!row) {
-        throw new CustomError(404, '조회된 유저가 없습니다');
+        throw new ApolloError('조회된 유저가 없습니다');
       }
 
       const { id, salt, password } = row.dataValues;
       const { digest } = await getDigest(userPw, salt);
       if (digest !== password) {
-        throw new CustomError(404, '비밀번호가 틀렸습니다');
+        throw new ApolloError('비밀번호가 틀렸습니다');
       }
 
       return await getAccessToken(id);

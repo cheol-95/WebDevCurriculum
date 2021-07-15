@@ -44,14 +44,21 @@ export default class Login {
       });
 
       if (body.errors) {
-        throw body.errors;
+        throw body.errors[0];
       }
 
       localStorage.removeItem('edt_cur_tab');
       localStorage.jwt = body.data.login;
       location.href = '/notepad';
-    } catch (errors) {
-      alert(errors[0].message);
+    } catch (err) {
+      if (err.extensions.code === 'UNAUTHENTICATED') {
+        alert('세션이 만료되었습니다\n다시 로그인 해주세요');
+        this.logout();
+      } else if (err.extensions) {
+        alert(err.message);
+      } else {
+        alert(defaultMsg);
+      }
     }
   };
 
