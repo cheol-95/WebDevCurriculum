@@ -10,12 +10,12 @@ export default {
     files: async (parent, args, { user }) => {
       try {
         const rows = await fileDao.findAll({
-          attributes: ['name'],
+          attributes: ['name', 'text'],
           where: {
             owner: user.id,
           },
         });
-        return rows.map((row) => row.dataValues.name);
+        return rows.map((row) => row.dataValues);
       } catch (err) {
         throw new DaoError(err);
       }

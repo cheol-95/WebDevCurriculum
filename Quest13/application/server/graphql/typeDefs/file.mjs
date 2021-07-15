@@ -7,7 +7,7 @@ export default gql`
   }
 
   type Query {
-    files: [String]
+    files: [File]
     file(fileName: String): File
   }
   extend type Mutation {
