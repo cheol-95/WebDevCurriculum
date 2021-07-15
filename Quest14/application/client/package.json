@@ -1,0 +1,16 @@
+{
+  "name": "editor-client_tmp",
+  "version": "1.0.0",
+  "description": "editor web client",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
