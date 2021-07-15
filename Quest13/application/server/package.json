@@ -1,0 +1,27 @@
+{
+  "name": "edit-server",
+  "version": "1.0.0",
+  "description": "editor api server",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "nodemon index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@apollo/gateway": "^0.33.0",
+    "apollo-server": "^3.0.0",
+    "apollo-server-express": "^3.0.0",
+    "crypto-js": "^4.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
+    "sequelize": "^6.6.5",
+    "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2"
+  }
+}
