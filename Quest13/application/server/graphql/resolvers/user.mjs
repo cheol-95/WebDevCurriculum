@@ -25,7 +25,7 @@ export default {
       const { id, salt, password } = row.dataValues;
       const { digest } = await getDigest(userPw, salt);
       if (digest !== password) {
-        throw new ApolloError('비밀번호가 틀렸습니다');
+        throw new ApolloError('비밀번호가 틀립니다');
       }
 
       return await getAccessToken(id);
