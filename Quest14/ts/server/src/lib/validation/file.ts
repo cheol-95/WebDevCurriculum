@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 import { inputError } from '../../error/error/validation';
 
-export const getFile = async (fileName: string) => {
+export const getFile = async (fileName: string): Promise<void> => {
   try {
     const schema = Joi.object({
       fileName: Joi.string().required(),
@@ -14,7 +14,7 @@ export const getFile = async (fileName: string) => {
   }
 };
 
-export const createFile = async (newFileName: string) => {
+export const createFile = async (newFileName: string): Promise<void> => {
   try {
     const schema = Joi.object({
       newFileName: Joi.string().required(),
@@ -26,7 +26,7 @@ export const createFile = async (newFileName: string) => {
   }
 };
 
-export const saveFile = async (fileName: string, text: string) => {
+export const saveFile = async (fileName: string, text: string): Promise<void> => {
   try {
     const schema = Joi.object({
       fileName: Joi.string().required(),
@@ -39,7 +39,11 @@ export const saveFile = async (fileName: string, text: string) => {
   }
 };
 
-export const saveAsFile = async (oldFileName: string, newFileName: string, text: string) => {
+export const saveAsFile = async (
+  oldFileName: string,
+  newFileName: string,
+  text: string
+): Promise<void> => {
   try {
     const schema = Joi.object({
       oldFileName: Joi.string().required(),
@@ -53,7 +57,7 @@ export const saveAsFile = async (oldFileName: string, newFileName: string, text:
   }
 };
 
-export const deleteFile = async (fileName: string) => {
+export const deleteFile = async (fileName: string): Promise<void> => {
   try {
     const schema = Joi.object({
       fileName: Joi.string().required(),

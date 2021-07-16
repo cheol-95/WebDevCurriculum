@@ -5,7 +5,7 @@ import { Request } from 'express';
 import config from '../config/config';
 import { AuthError } from '../error/error/auth';
 
-export const jwtVerify = async (req: Request) => {
+export const jwtVerify = async (req: Request): Promise<any> => {
   const authorization = req.headers.authorization;
   if (!authorization) {
     return null;

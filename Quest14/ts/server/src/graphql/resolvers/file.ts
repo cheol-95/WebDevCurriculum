@@ -2,9 +2,24 @@ import { File } from '../../dao';
 import { DaoError } from '../../error/error/dao';
 import * as validation from '../../lib/validation/file';
 
+interface FileArgs {
+  fileName: string;
+  text: string;
+  oldFileName: string;
+  newFileName: string;
+}
+
+interface UserContext {
+  id: number;
+}
+
 export default {
   Query: {
-    files: async (parent: any, args: any, { user }: { user: any }) => {
+    files: async (
+      parent: any,
+      args: FileArgs,
+      { user }: { user: UserContext }
+    ): Promise<string[]> => {
       try {
         const rows = await File.findAll({
           attributes: ['name', 'text'],
@@ -17,7 +32,7 @@ export default {
         throw DaoError(err);
       }
     },
-    file: async (parent: any, args: any, { user }: { user: any }) => {
+    file: async (parent: any, args: FileArgs, { user }: { user: UserContext }): Promise<any> => {
       const { fileName } = args;
       await validation.getFile(fileName);
 
@@ -37,7 +52,11 @@ export default {
   },
 
   Mutation: {
-    createFile: async (parent: any, args: any, { user }: { user: any }) => {
+    createFile: async (
+      parent: any,
+      args: FileArgs,
+      { user }: { user: UserContext }
+    ): Promise<boolean> => {
       const { fileName } = args;
       await validation.createFile(fileName);
 
@@ -53,7 +72,11 @@ export default {
       }
     },
 
-    saveFile: async (parent: any, args: any, { user }: { user: any }) => {
+    saveFile: async (
+      parent: any,
+      args: FileArgs,
+      { user }: { user: UserContext }
+    ): Promise<boolean> => {
       const { fileName, text } = args;
       await validation.saveFile(fileName, text);
 
@@ -74,7 +97,11 @@ export default {
         throw DaoError(err);
       }
     },
-    saveAsFile: async (parent: any, args: any, { user }: { user: any }) => {
+    saveAsFile: async (
+      parent: any,
+      args: FileArgs,
+      { user }: { user: UserContext }
+    ): Promise<boolean> => {
       const { oldFileName, newFileName, text } = args;
       await validation.saveAsFile(oldFileName, newFileName, text);
 
@@ -96,7 +123,11 @@ export default {
         throw DaoError(err);
       }
     },
-    deleteFile: async (parent: any, args: any, { user }: { user: any }) => {
+    deleteFile: async (
+      parent: any,
+      args: FileArgs,
+      { user }: { user: UserContext }
+    ): Promise<boolean> => {
       const { fileName } = args;
       await validation.deleteFile(fileName);
 

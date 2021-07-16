@@ -5,9 +5,15 @@ import { getDigest } from '../../lib/auth';
 import * as validation from '../../lib/validation/user';
 import { getAccessToken } from '../../lib/auth';
 
+interface UserArgs {
+  userId: string;
+  userPw: string;
+}
+
 export default {
   Mutation: {
-    login: async (parent: any, { userId, userPw }: { userId: string; userPw: string }) => {
+    login: async (parent: any, args: UserArgs): Promise<string> => {
+      const { userId, userPw } = args;
       validation.login(userId, userPw);
 
       const row = await User.findOne({
