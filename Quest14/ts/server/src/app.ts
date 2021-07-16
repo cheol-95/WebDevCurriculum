@@ -16,14 +16,7 @@ app.get('/', (req, res) => {
   res.send('Hello');
 });
 
-apolloServer.start().then(() => {
-  apolloServer.applyMiddleware({
-    app,
-    cors: {
-      origin: config.CORS['Access-Control-Allow-Origin'],
-    },
-  });
-});
+apolloServer(app);
 
 const httpServer = https.createServer(SSL, app);
 httpServer.listen(PORT, () => {

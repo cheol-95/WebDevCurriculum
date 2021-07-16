@@ -1,7 +1,9 @@
+import { Express } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 
 import { jwtVerify } from '../lib/auth';
+import config from '../config/config';
 
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
@@ -14,9 +16,17 @@ const apolloServer = new ApolloServer({
     return { user: await jwtVerify(req) };
   },
   formatError: (err: any) => {
-    // 에러 후속처리?
     throw err;
   },
 });
 
-export default apolloServer;
+export default async (app: Express) => {
+  await apolloServer.start();
+
+  apolloServer.applyMiddleware({
+    app,
+    cors: {
+      origin: config.CORS['Access-Control-Allow-Origin'],
+    },
+  });
+};
