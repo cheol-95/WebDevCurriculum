@@ -92,8 +92,8 @@
 
   ```
   var testArray = ['Test'];
-  function testFn(testArray) {
-    for (var i = 0; i < testArray.length; i++) { // 에러!
+  function testFunction(testArray) {
+    for (var i = 0; i < testArray.length; i++) { // 인자없이 실행됐기 때문에 testArray === undefined -> 에러!
       console.log(testArray[i])
     }
   }
