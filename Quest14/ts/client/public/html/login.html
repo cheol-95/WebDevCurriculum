@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <script type="module">
+      import Login from './js/login.js';
+      const login = new Login();
+    </script>
+  </head>
+  <body>
+    <div id="loginPopup">
+      <div class="title">
+        <p class="text">Login</p>
+      </div>
+
+      <div class="form">
+        <p class="text-id">ID</p>
+        <input type="text" class="id" id="id" />
+
+        <p class="text-pw">PW</p>
+        <input type="password" class="pw" id="pw" />
+
+        <button class="submit">로그인</button>
+      </div>
+    </div>
+  </body>
+</html>

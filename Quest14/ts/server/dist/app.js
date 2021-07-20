@@ -16,14 +16,7 @@ app.use(cors_1.cors);
 app.get('/', (req, res) => {
     res.send('Hello');
 });
-index_1.default.start().then(() => {
-    index_1.default.applyMiddleware({
-        app,
-        cors: {
-            origin: config_1.default.CORS['Access-Control-Allow-Origin'],
-        },
-    });
-});
+index_1.default(app);
 const httpServer = https_1.default.createServer(SSL, app);
 httpServer.listen(PORT, () => {
     /* eslint-disable-next-line no-console */

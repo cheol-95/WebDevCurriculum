@@ -26,7 +26,8 @@ const validation = __importStar(require("../../lib/validation/user"));
 const auth_2 = require("../../lib/auth");
 exports.default = {
     Mutation: {
-        login: async (parent, { userId, userPw }) => {
+        login: async (parent, args) => {
+            const { userId, userPw } = args;
             validation.login(userId, userPw);
             const row = await user_1.User.findOne({
                 attributes: ['id', 'salt', 'password'],
