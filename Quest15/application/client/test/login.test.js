@@ -8,11 +8,13 @@ describe('로그인 페이지', () => {
   });
 
   test('타이틀 === Login', async () => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
     const title = await page.title();
     expect(title).toBe('Login');
   });
 
   test('로그인 성공 후 페이지 이동 확인', async () => {
+    await new Promise((resolve) => setTimeout(resolve, 100));
     await login(page);
     const title = await page.title();
     expect(title).toBe('Notepad');
