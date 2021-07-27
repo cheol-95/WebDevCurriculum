@@ -6,7 +6,7 @@ phases:
       node: 16
   pre_build:
     commands:
-      - echo Pre_build phase...
+      - echo Pre_build phase..
       - cd Quest-16-B/application/client
   build:
     commands:
