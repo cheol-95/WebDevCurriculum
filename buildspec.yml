@@ -7,15 +7,15 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
-      - cd Quest-16-B/application/client
   build:
     commands:
       - echo Build started on `date`
-      - npm run build
+      - docker build -t client_test:0.1 ./Quest16-B/application/client/dockerfile
+      - docker build -t server_test:0.1 ./Quest16-B/application/server/dockerfile
   post_build:
     commands:
-      - docker build -t client_build_test:0.3 .
-      - docker save client_build_test:0.3 > client.tar
+      - docker save client_test:0.1 > client-1.tar
+      - docker save server_test:0.1 > server-1.tar
       - echo Build completed on `date`
 artifacts:
   files:
