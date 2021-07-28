@@ -3,12 +3,11 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: latest
       docker: 19
   pre_build:
     commands:
       - echo Pre_build phase..
-      - npm install
+      - sudo apt install npm
       - npm i -g lerna
       - npm i -g eslint
   build:
