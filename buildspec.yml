@@ -10,7 +10,6 @@ phases:
       - npm install
       - npm i -g lerna
       - npm i -g eslint
-      - npm i -g eslint-plugin-jsx-a11y@latest
   build:
     commands:
       - echo Build started on `date`
