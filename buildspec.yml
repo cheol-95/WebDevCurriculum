@@ -1,10 +1,9 @@
+version: 0.2
+
 phases:
   install:
     runtime-versions:
       nodejs: latest
-    commands:
-      - aws --version
-      - $(aws ecr get-login --no-include-email --region ap-northeast-2)
   pre_build:
     commands:
       - echo Pre_build phase..
@@ -15,11 +14,16 @@ phases:
       - echo Build started on `date`
       - npm run clean
       - npm run build
-      - docker build -t client_test ./packages/client
-      - docker tag client_test:latest 558661889689.dkr.ecr.ap-northeast-2.amazonaws.com/kcweb:latest
-      - docker push 558661889689.dkr.ecr.ap-northeast-2.amazonaws.com/kcweb:latest
-      - echo Writing image definitions file...
+      - docker build -t client_test:0.3 ./packages/client
+      - docker build -t server_test:0.3 ./packages/server
+      - docker save client_test:0.3 > client-0.3.tar
+      - docker save server_test:0.3 > server-0.3.tar
   post_build:
     commands:
       - docker images
+      - ls -al
       - echo Build completed on `date`
+artifacts:
+  files:
+    - client-0.3-tar
+    - server-0.3-tar
