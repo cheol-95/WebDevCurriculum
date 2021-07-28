@@ -25,5 +25,5 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - client-0.3-tar
-    - server-0.3-tar
+    - './client-0.3-tar'
+    - './server-0.3-tar'
