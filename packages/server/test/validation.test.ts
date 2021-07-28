@@ -1,4 +1,4 @@
-import { login } from '../src/lib/validation/user';
+import login from '../src/lib/validation/user';
 import * as fileValidation from '../src/lib/validation/file';
 
 describe('유효성 검사', () => {

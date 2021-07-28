@@ -1,6 +1,6 @@
 import { Request } from 'express';
 
-import { User } from '../src/dao/user';
+import User from '../src/dao/user';
 import { jwtVerify, getAccessToken, getDigest } from '../src/lib/auth';
 
 describe('권한 테스트', () => {
