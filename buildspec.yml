@@ -4,6 +4,7 @@ phases:
   install:
     runtime-versions:
       nodejs: latest
+      docker: 19
   pre_build:
     commands:
       - echo Pre_build phase..
