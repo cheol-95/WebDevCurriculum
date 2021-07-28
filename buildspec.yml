@@ -17,6 +17,10 @@ phases:
       - npm run build
   post_build:
     commands:
+      - docker build -t client_test:0.3 ./packages/client/dockerfile
+      - docker build -t server_test:0.3 ./packages/server/dockerfile
+      - docker save client_test:0.3 > client-0.3.tar
+      - docker save server_test:0.3 > server-0.3.tar
       - echo Build completed on `date`
 artifacts:
   files:
