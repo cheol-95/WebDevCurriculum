@@ -7,6 +7,8 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
+      - npm install
+      - npm i -g lerna
   build:
     commands:
       - echo Build started on `date`
