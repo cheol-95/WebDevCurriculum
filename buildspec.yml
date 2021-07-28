@@ -14,8 +14,8 @@ phases:
       - echo Build started on `date`
       - npm run clean
       - npm run build
-      - docker build -t client_test:0.3 ./packages/client/dockerfile
-      - docker build -t server_test:0.3 ./packages/server/dockerfile
+      - docker build -t client_test:0.3 ./packages/client
+      - docker build -t server_test:0.3 ./packages/server
       - docker save client_test:0.3 > client-0.3.tar
       - docker save server_test:0.3 > server-0.3.tar
 
