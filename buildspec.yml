@@ -21,3 +21,6 @@ phases:
 artifacts:
   files:
     - '**/*'
+  exclude-paths:
+    - '_old*'
+    - 'Quest*'
