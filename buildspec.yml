@@ -9,6 +9,7 @@ phases:
       - echo Pre_build phase..
       - npm install
       - npm i -g lerna
+      - npm i -g eslint
   build:
     commands:
       - echo Build started on `date`
