@@ -7,25 +7,24 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
-      # - npm i -g lerna
-      # - npm i -g eslint
+      - npm i -g lerna
+      - npm i -g eslint
   build:
     commands:
       - echo Build started on `date`
-      # - npm run clean
-      # - npm run build
-      # - docker build -t client_test:0.3 ./packages/client
-      # - docker build -t server_test:0.3 ./packages/server
-      # - docker save client_test:0.3 > client-0.3.tar
-      # - docker save server_test:0.3 > server-0.3.tar
+      - npm run clean
+      - npm run build
+      - docker build -t client_test:0.3 ./packages/client
+      - docker build -t server_test:0.3 ./packages/server
+      - docker save client_test:0.3 > client-0.3.tar
+      - docker save server_test:0.3 > server-0.3.tar
   post_build:
     commands:
-      # - docker images
+      - docker images
       - touch test.tar
       - ls -al
       - echo Build completed on `date`
 artifacts:
   files:
-    # - target/client-0.3-tar
-    # - target/server-0.3-tar
-    - 'test.tar'
+    - 'client-0.3.tar'
+    - 'server-0.3.tar'
