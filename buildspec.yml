@@ -21,11 +21,11 @@ phases:
   post_build:
     commands:
       # - docker images
-      - touch test.js
+      - touch test.tar
       - ls -al
       - echo Build completed on `date`
 artifacts:
   files:
     # - target/client-0.3-tar
     # - target/server-0.3-tar
-    - 'test.js'
+    - 'test.tar'
