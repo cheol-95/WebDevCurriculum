@@ -7,21 +7,26 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - npm i -g lerna
       - npm i -g eslint
+      - npm run clean
+      - npm run build
   build:
     commands:
       - echo Build started on `date`
-      - npm run clean
-      - npm run build
       - docker build -t client_test:0.3 ./packages/client
       - docker build -t server_test:0.3 ./packages/server
-      - docker save client_test:0.3 > client-0.3.tar
-      - docker save server_test:0.3 > server-0.3.tar
+
+      - docker tag client_test:0.3 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/client_test:0.3
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/client_test:0.3
+
+      - docker tag server_test:0.3 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/server_test:0.3
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/server_test:0.3
+
   post_build:
     commands:
       - docker images
-      - touch test.tar
       - ls -al
       - echo Build completed on `date`
 artifacts:
