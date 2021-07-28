@@ -1,10 +1,12 @@
-export default class EditBox {
+export default class EditBox extends HTMLElement {
     constructor(editBox, storage) {
+        super();
         this.editBox = editBox;
         this.editBox.fileName = null;
         this.editBox.storage = storage;
         this.init(this.editBox);
         this.composition(this.editBox);
+        // @ts-expect-error
         return this.editBox;
     }
     init(editBox) {
@@ -30,6 +32,7 @@ export default class EditBox {
         }
     }
     setEditable(state) {
+        // @ts-expect-error
         this.setAttribute('contenteditable', state);
     }
 }

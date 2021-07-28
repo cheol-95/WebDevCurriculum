@@ -1,6 +1,7 @@
 import Tools from './tools.js';
-export default class Explorer {
+export default class Explorer extends HTMLElement {
     constructor(explorer, fileList) {
+        super();
         this.explorer = explorer;
         this.init(this.explorer, fileList);
         this.composition(this.explorer);
@@ -57,7 +58,8 @@ export default class Explorer {
         oldFile.remove();
     }
     removeFile(fileName) {
-        this.querySelector(`#file_${fileName}`).remove();
+        const removeTarget = this.querySelector(`#file_${fileName}`);
+        removeTarget.remove();
     }
 }
 class ExplorerEvent {

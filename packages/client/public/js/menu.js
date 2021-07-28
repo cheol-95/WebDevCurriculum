@@ -5,8 +5,9 @@ const dummy = {
         delete: '삭제',
     },
 };
-export default class ContextMenu {
+export default class ContextMenu extends HTMLElement {
     constructor(menu) {
+        super();
         this.menu = menu;
         this.item = Object.values(dummy.menu);
         this.templateMenu = document.createElement('template');
@@ -71,6 +72,7 @@ class MenuEvent {
                 this.deleteFile(e);
             }
         };
+        // @ts-expect-error
         this.onclick = this.clickEvent;
     }
     saveFile(e) {

@@ -5,8 +5,9 @@ const dummy = {
         exclamation: 'https://image.flaticon.com/icons/png/512/3521/3521964.png',
     },
 };
-export default class TabBar {
+export default class TabBar extends HTMLElement {
     constructor(tabBar) {
+        super();
         this.currentFile = '';
         this.tabBar = tabBar;
         this.init(this.tabBar);
@@ -37,7 +38,7 @@ export default class TabBar {
     `;
     }
     setTabs() {
-        const tabs = JSON.parse(localStorage.getItem('edt_tabs'));
+        const tabs = JSON.parse(localStorage.edt_tabs);
         if (tabs.length > 0) {
             for (const fileName of tabs) {
                 this.tabBar.addTab(fileName);
@@ -62,7 +63,7 @@ export default class TabBar {
             const newTab = this.getTabElement(fileName);
             this.append(newTab);
         }
-        const tabs = JSON.parse(localStorage.getItem('edt_tabs'));
+        const tabs = JSON.parse(localStorage.edt_tabs);
         if (!tabs.includes(fileName) && fileName) {
             tabs.push(fileName);
             localStorage.setItem('edt_tabs', JSON.stringify(tabs));
@@ -88,7 +89,7 @@ export default class TabBar {
             const indicator = currentTab.querySelector('img');
             indicator.src = dummy.src.xbox;
             indicator.status = 'xbox';
-            localStorage.setItem(`edt_f_${this.currentFile}`, this.nextElementSibling.getText());
+            localStorage[`edt_f_${this.currentFile}`] = this.nextElementSibling.getText();
         }
         this.currentFile = fileName;
         this.nextElementSibling.setText(fileName);

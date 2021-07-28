@@ -5,6 +5,13 @@ import Explorer from './explorer.js';
 import NotepadStorage from './storage.js';
 export default class Notepad {
     constructor() {
+        this.notepad = null;
+        this.menu = null;
+        this.tabBar = null;
+        this.editBox = null;
+        this.explorer = null;
+        this.storage = null;
+        this.fileList = null;
         this.closeEvent = () => {
             if (this.tabBar && this.tabBar.currentFile !== '') {
                 localStorage.setItem('edt_cur_tab', this.tabBar.currentFile);
@@ -84,7 +91,7 @@ export default class Notepad {
             }
             if (e.target.className === 'indicator') {
                 this.tabBar.removeTab(targetTab.fileName);
-                const tabs = JSON.parse(localStorage.getItem('edt_tabs')).filter((tab) => tab !== targetTab.fileName);
+                const tabs = JSON.parse(localStorage.edt_tabs).filter((tab) => tab !== targetTab.fileName);
                 localStorage.setItem('edt_tabs', JSON.stringify(tabs));
                 localStorage.removeItem(`edt_f_${targetTab.fileName}`);
             }

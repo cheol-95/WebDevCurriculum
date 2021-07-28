@@ -125,7 +125,7 @@ export default class NotepadStorage {
             }
             localStorage.setItem(this.filePrefix(newFileName), text);
             localStorage.removeItem(this.filePrefix(oldFileName));
-            const tabs = JSON.parse(localStorage.getItem('edt_tabs')).filter((tab) => tab !== oldFileName);
+            const tabs = JSON.parse(localStorage.edt_tabs).filter((tab) => tab !== oldFileName);
             tabs.push(newFileName);
             localStorage.setItem('edt_tabs', JSON.stringify(tabs));
             alert('다른 이름으로 저장 완료');
@@ -149,7 +149,7 @@ export default class NotepadStorage {
             if (body.errors) {
                 throw body.errors;
             }
-            const tabs = JSON.parse(localStorage.getItem('edt_tabs')).filter((tab) => tab !== fileName);
+            const tabs = JSON.parse(localStorage.edt_tabs).filter((tab) => tab !== fileName);
             localStorage.setItem('edt_tabs', JSON.stringify(tabs));
             localStorage.removeItem(this.filePrefix(fileName));
             alert('파일 삭제 완료');

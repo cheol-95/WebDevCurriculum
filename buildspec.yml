@@ -10,12 +10,9 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - docker build -t client_test:0.1 ./Quest16-B/application/client/dockerfile
-      - docker build -t server_test:0.1 ./Quest16-B/application/server/dockerfile
+      - npm run build
   post_build:
     commands:
-      - docker save client_test:0.1 > client-1.tar
-      - docker save server_test:0.1 > server-1.tar
       - echo Build completed on `date`
 artifacts:
   files:
