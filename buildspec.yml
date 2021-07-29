@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
-      - $(aws ecr get-login --no-include-email --region ap-northeast-2)
+      - $(aws ecr get-login-password --no-include-email --region ap-northeast-2)
       - npm i -g lerna
       - npm i -g eslint
       - npm run clean
