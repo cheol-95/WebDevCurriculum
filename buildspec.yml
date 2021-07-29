@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
-      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - $(aws ecr get-login --no-include-email --region ap-northeast-2)
       - npm i -g lerna
       - npm i -g eslint
       - npm run clean
@@ -18,11 +18,11 @@ phases:
       - docker build -t client_test:0.3 ./packages/client
       - docker build -t server_test:0.3 ./packages/server
 
-      - docker tag client_test:0.3 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/client_test:0.3
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/client_test:0.3
+      - docker tag client_test:0.3 558661889689.dkr.ecr.ap-northeast-2.amazonaws.com/client_test:0.3
+      - docker push 558661889689.dkr.ecr.ap-northeast-2.amazonaws.com/client_test:0.3
 
-      - docker tag server_test:0.3 $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/server_test:0.3
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/server_test:0.3
+      - docker tag server_test:0.3 558661889689.dkr.ecr.ap-northeast-2.amazonaws.com/server_test:0.3
+      - docker push 558661889689.dkr.ecr.ap-northeast-2.amazonaws.com/server_test:0.3
 
   post_build:
     commands:
