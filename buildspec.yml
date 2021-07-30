@@ -21,6 +21,7 @@ phases:
       # - npm i -g eslint
       # - npm run clean
       # - npm run build
+      # - npm run build
 
   build:
     commands:
