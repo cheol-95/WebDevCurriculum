@@ -40,9 +40,3 @@ phases:
       - docker images
       - ls -al
       - echo Build completed on `date`
-
-artifacts:
-  files: -'**/*'
-  base-directory: base_dir
-  name: build-artifact-name
-  discard-paths: no
