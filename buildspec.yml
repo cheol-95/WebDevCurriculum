@@ -41,5 +41,6 @@ phases:
       - ls -al
       # - printf '[{"name":"%s","imageUri":"%s"}, {"name":"%s","imageUri":"%s"}]' $IMAGE_REPO_CLIENT $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_CLIENT:$IMAGE_TAG $IMAGE_REPO_SERVER $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_SERVER:$IMAGE_TAG  > imagedefinitions.json
       - echo Build completed on `date`
-# artifacts:
-#   files: imagedefinitions.json
+artifacts:
+  # files: imagedefinitions.json
+  files: '**/*'
