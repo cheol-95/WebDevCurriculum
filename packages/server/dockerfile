@@ -1,4 +1,5 @@
-FROM node:16
+# FROM node:16
+FROM mhart/alpine-node:latest
 
 EXPOSE 8000
 
