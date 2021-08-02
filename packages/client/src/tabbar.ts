@@ -7,7 +7,7 @@ const dummy: any = {
   },
 };
 
-export default class TabBar extends HTMLElement {
+export default class TabBar {
   fileName: any;
 
   templateTab: any;
@@ -23,7 +23,6 @@ export default class TabBar extends HTMLElement {
   private tabBar: TabBar;
 
   constructor(tabBar: TabBar) {
-    super();
     this.tabBar = tabBar;
 
     this.init(this.tabBar);

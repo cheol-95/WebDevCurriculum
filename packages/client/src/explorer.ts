@@ -1,6 +1,6 @@
 import Tools from './tools.js';
 
-export default class Explorer extends HTMLElement {
+export default class Explorer {
   append: any;
 
   templateFile: any;
@@ -8,7 +8,6 @@ export default class Explorer extends HTMLElement {
   private explorer;
 
   constructor(explorer: any, fileList: Array<string>) {
-    super();
     this.explorer = explorer;
     this.init(this.explorer, fileList);
     this.composition(this.explorer);

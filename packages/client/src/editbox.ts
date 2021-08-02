@@ -9,7 +9,7 @@ interface CustomElement extends HTMLElement {
   setEditable: Function;
 }
 
-export default class EditBox extends HTMLElement {
+export default class EditBox {
   fileName: string | any;
 
   storage: any;
@@ -17,7 +17,6 @@ export default class EditBox extends HTMLElement {
   private editBox;
 
   constructor(editBox: CustomElement, storage: NotepadStorage) {
-    super();
     this.editBox = editBox;
     this.editBox.fileName = null;
     this.editBox.storage = storage;

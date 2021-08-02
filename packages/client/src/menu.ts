@@ -6,7 +6,7 @@ const dummy: any = {
   },
 };
 
-export default class ContextMenu extends HTMLElement {
+export default class ContextMenu {
   targetFile: string | any;
 
   private menu: any;
@@ -16,7 +16,6 @@ export default class ContextMenu extends HTMLElement {
   private templateMenu: HTMLElement;
 
   constructor(menu: HTMLElement) {
-    super();
     this.menu = menu;
     this.item = Object.values(dummy.menu);
     this.templateMenu = document.createElement('template');
