@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 exports.default = {
   PORT: 8000,
   CORS: {
-    'Access-Control-Allow-Origin': 'https://kcweb.ml',
+    'Access-Control-Allow-Origin': 'https://cheol.site',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With, ',

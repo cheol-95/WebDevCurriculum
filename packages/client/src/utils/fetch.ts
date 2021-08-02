@@ -1,5 +1,5 @@
 const dummy = {
-  graphqlUrl: 'https://kcweb.ml:8000/graphql',
+  graphqlUrl: 'https://cheol.site:8000/graphql',
 };
 
 export const customFetch = async (method: string, query: Object, headers = {}): Promise<any> => {
