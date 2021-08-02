@@ -8,6 +8,7 @@ const dummy: any = {
 
 export default class ContextMenu {
   targetFile: string | any;
+  style: any;
 
   private menu: any;
 

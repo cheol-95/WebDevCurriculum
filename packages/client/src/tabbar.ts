@@ -19,7 +19,8 @@ export default class TabBar {
   nextElementSibling: any;
 
   currentFile: string | null = '';
-
+  addEventListener: any;
+  append: any;
   private tabBar: TabBar;
 
   constructor(tabBar: TabBar) {

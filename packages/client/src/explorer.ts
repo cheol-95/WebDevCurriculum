@@ -5,6 +5,9 @@ export default class Explorer {
 
   templateFile: any;
 
+  querySelector: any;
+  replaceChild: any;
+
   private explorer;
 
   constructor(explorer: any, fileList: Array<string>) {

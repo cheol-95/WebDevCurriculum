@@ -1,6 +1,6 @@
 import NotepadStorage from './notepad.js';
 
-interface CustomElement extends HTMLElement {
+interface CustomElement {
   fileName: string | null;
   storage: NotepadStorage;
 
@@ -11,8 +11,8 @@ interface CustomElement extends HTMLElement {
 
 export default class EditBox {
   fileName: string | any;
-
   storage: any;
+  innerText: any;
 
   private editBox;
 
