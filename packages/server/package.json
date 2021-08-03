@@ -4,7 +4,7 @@
   "scripts": {
     "prebuild": "eslint src --fix",
     "build": "tsc -p .",
-    "test": "jest --detectOpenHandles --forceExit ./test/*.js",
+    "test": "jest --detectOpenHandles --forceExit ./test/*.test.js",
     "start": "node dist/app.js"
   },
   "dependencies": {
@@ -38,7 +38,6 @@
     "jest": "^27.0.6",
     "nodemon": "^2.0.12",
     "supertest": "^6.1.4",
-    "ts-jest": "^27.0.4",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   }
