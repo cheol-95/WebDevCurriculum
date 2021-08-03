@@ -1,5 +1,5 @@
-import request from 'supertest';
-import app from '../src/app';
+const request = require('supertest');
+const { default: app } = require('../dist/app');
 
 describe('graphql-query', () => {
   const dummy = {
@@ -16,7 +16,7 @@ describe('graphql-query', () => {
     },
   };
 
-  const sendRequest = async (body: any, jwt: any = null) => {
+  const sendRequest = async (body, jwt = null) => {
     const response = await request(app)
       .post('/graphql')
       .set('Accept', 'application/json')
@@ -26,15 +26,6 @@ describe('graphql-query', () => {
 
     return response.body.data;
   };
-
-  interface file {
-    name: string;
-    text: string;
-  }
-
-  interface files {
-    files: [file];
-  }
 
   beforeAll(async () => {
     const loginQuery = {
@@ -62,7 +53,7 @@ describe('graphql-query', () => {
     };
 
     const data = await sendRequest(query, dummy.user.jwt);
-    const files: files = data.files;
+    const files = data.files;
     expect(typeof files).toBe('object');
   });
 
@@ -140,7 +131,7 @@ describe('graphql-query', () => {
     };
 
     const data = await sendRequest(query, dummy.user.jwt);
-    const file: file = data.file;
+    const file = data.file;
     expect(file).toEqual({
       name: dummy.file.fileName,
       text: dummy.file.text,
@@ -159,6 +150,4 @@ describe('graphql-query', () => {
     const data = await sendRequest(query, dummy.user.jwt);
     expect(data.deleteFile).toBe(true);
   });
-
-  afterAll(async () => {});
 });

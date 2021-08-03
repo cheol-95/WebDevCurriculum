@@ -1,8 +1,5 @@
 export default {
-  transform: {
-    '^.+\\.ts$': 'ts-jest', // 트랜스포머 경로 설정
-  },
-  testRegex: '\\.test\\.ts$',
+  testRegex: '\\.test\\.js$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
   globals: {
     'ts-jest': {

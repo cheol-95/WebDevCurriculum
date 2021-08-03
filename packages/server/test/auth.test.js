@@ -1,5 +1,5 @@
-import User from '../src/dao/user';
-import { jwtVerify, getAccessToken, getDigest } from '../src/lib/auth';
+const { default: User } = require('../dist/dao/user');
+const { jwtVerify, getAccessToken, getDigest } = require('../dist/lib/auth');
 
 describe('권한 테스트', () => {
   const dummy = {
@@ -29,7 +29,7 @@ describe('권한 테스트', () => {
   });
 
   test('digest 검증', async () => {
-    const row: any = await User.findOne({
+    const row = await User.findOne({
       attributes: ['id', 'salt', 'password'],
       where: {
         id: dummy.user.id,
