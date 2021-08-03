@@ -5,9 +5,8 @@ const dummy = {
         exclamation: 'https://image.flaticon.com/icons/png/512/3521/3521964.png',
     },
 };
-export default class TabBar extends HTMLElement {
+export default class TabBar {
     constructor(tabBar) {
-        super();
         this.currentFile = '';
         this.tabBar = tabBar;
         this.init(this.tabBar);

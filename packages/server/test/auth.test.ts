@@ -1,5 +1,3 @@
-import { Request } from 'express';
-
 import User from '../src/dao/user';
 import { jwtVerify, getAccessToken, getDigest } from '../src/lib/auth';
 

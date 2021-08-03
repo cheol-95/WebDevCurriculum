@@ -4,7 +4,10 @@
   "scripts": {
     "clean": "lerna clean --yes && lerna bootstrap",
     "build": "lerna run build",
-    "test": "lerna run test --scope notepad-server"
+    "start": "lerna run start",
+    "test:server": "lerna run test --scope notepad-server",
+    "pretest:client": "lerna run start &",
+    "test:client": "lerna run test --scope notepad-client"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

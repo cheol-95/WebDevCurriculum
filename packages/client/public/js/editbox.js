@@ -1,6 +1,5 @@
-export default class EditBox extends HTMLElement {
+export default class EditBox {
     constructor(editBox, storage) {
-        super();
         this.editBox = editBox;
         this.editBox.fileName = null;
         this.editBox.storage = storage;

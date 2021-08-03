@@ -1,8 +1,8 @@
 export default {
   preset: 'jest-puppeteer',
   globals: {
-    LoginURL: 'https://localhost:3000/',
-    NotepadURL: 'https://localhost:3000/notepad',
+    LoginURL: 'http://localhost:3000/',
+    NotepadURL: 'http://localhost:3000/notepad',
 
     newFileName: 'newFileForTestCase',
     changeFileName: 'changeFileForTestCase',

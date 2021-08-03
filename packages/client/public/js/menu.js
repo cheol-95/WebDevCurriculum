@@ -5,9 +5,8 @@ const dummy = {
         delete: '삭제',
     },
 };
-export default class ContextMenu extends HTMLElement {
+export default class ContextMenu {
     constructor(menu) {
-        super();
         this.menu = menu;
         this.item = Object.values(dummy.menu);
         this.templateMenu = document.createElement('template');

@@ -1,7 +1,6 @@
 import Tools from './tools.js';
-export default class Explorer extends HTMLElement {
+export default class Explorer {
     constructor(explorer, fileList) {
-        super();
         this.explorer = explorer;
         this.init(this.explorer, fileList);
         this.composition(this.explorer);

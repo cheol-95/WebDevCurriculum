@@ -24,6 +24,9 @@ phases:
       - npm run clean
       - npm run build
 
+      - npm run test:server
+      - npm run test:client
+
   build:
     commands:
       - echo Build started on `date`
