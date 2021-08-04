@@ -24,7 +24,7 @@ phases:
       - npm run clean
       - npm run build
 
-      - npm run test:server
+      # - npm run test:server
       - npm run test:client
 
   build:
