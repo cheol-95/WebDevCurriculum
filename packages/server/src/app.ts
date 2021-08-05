@@ -4,11 +4,14 @@ import express from 'express';
 import apolloServer from './graphql/index';
 import config from './config/config';
 import cors from './lib/cors';
+import stream from './lib/log';
 
 const { PORT } = config;
 const app = express();
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
+app.use(morgan('customFormat', { stream }));
+
 app.use(cors);
 
 app.get('/', (req, res) => {
