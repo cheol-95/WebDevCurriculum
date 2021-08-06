@@ -4,15 +4,32 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-co
 
 import { jwtVerify } from '../lib/auth';
 import config from '../config/config';
+import LogService from '../lib/elasticSearch/index';
 
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
+
+const logging = (req: any) => {
+  const { user, method, url, header } = req;
+
+  LogService.log({
+    userId: user.id,
+    method,
+    url,
+    header,
+  });
+};
 
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
-  context: async ({ req }) => ({ user: await jwtVerify(req) }),
+  context: async ({ req }: any) => {
+    req.user = await jwtVerify(req);
+
+    logging(req);
+    return { user: req.user };
+  },
   formatError: (err: any) => {
     throw err;
   },
