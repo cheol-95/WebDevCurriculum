@@ -25,7 +25,7 @@ phases:
       - npm run build
 
       # - npm run test:server
-      - npm run test:client
+      # - npm run test:client
 
   build:
     commands:
