@@ -27,6 +27,8 @@ export class ElasticSearchAPILog extends ElasticSearch<ElasticSearchAPILogType> 
 
       await this.requestElasticSearch(bodyData);
     } catch (err) {
+      /* eslint-disable-next-line no-console */
+      console.log(err);
       throw err;
     }
   }

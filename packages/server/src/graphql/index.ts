@@ -4,16 +4,18 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-co
 
 import { jwtVerify } from '../lib/auth';
 import config from '../config/config';
-import LogService from '../lib/elasticSearch/index';
+import { apiLog } from '../lib/elasticSearch/index';
 
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
 
 const logging = (req: any) => {
-  const { user, method, url, header } = req;
+  const {
+    user, method, url, header,
+  } = req;
 
-  LogService.log({
-    userId: user.id,
+  apiLog.log({
+    userId: user ? user.id : undefined,
     method,
     url,
     header,
