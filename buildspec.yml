@@ -23,6 +23,7 @@ phases:
       - npm i -g eslint
 
       - npm install -g node-gyp
+      - npm install --global --production windows-build-tools
 
       - npm run clean
       - npm run build
