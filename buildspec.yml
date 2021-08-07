@@ -22,9 +22,6 @@ phases:
       - npm i -g lerna
       - npm i -g eslint
 
-      - npm uninstall node-pre-gyp --save
-      - npm i -g @mapbox/node-pre-gyp --save
-
       - npm run clean
       - npm run build
 
