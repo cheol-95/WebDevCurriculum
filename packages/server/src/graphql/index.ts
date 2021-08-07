@@ -13,7 +13,6 @@ const logging = (req: any) => {
   const {
     user, method, url, header,
   } = req;
-
   apiLog.log({
     userId: user ? user.id : undefined,
     method,

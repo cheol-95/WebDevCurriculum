@@ -19,12 +19,14 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
+      # - npm install -g npm@7.20.5
       - npm i -g lerna
       - npm i -g eslint
 
       - npm run clean
       - npm run build
 
+      # - npm audit fix --force
   build:
     commands:
       - echo Build started on `date`

@@ -33,6 +33,7 @@ file_1.default.belongsTo(user_1.default, {
             });
         }
         catch (err) {
+            /* eslint-disable-next-line no-console */
             console.log('err: ', err);
         }
     }
