@@ -1,0 +1,72 @@
+# Quest 18-B. 서비스의 운영: 로깅과 모니터링
+
+## ElasticSearch는 어떤 DB인가요? 기존의 RDB와 어떻게 다르고 어떤 장단점을 가지고 있나요?
+
+- Apache Lucene를 기반으로 구축되었으며, 텍스트, 숫자, 위치 기반 정보, 정형 및 비정형 데이터 등 `모든 유형의 데이터를 위한 검색 및 분석 엔진`으로 분산형 및 개방형이 특징이다.
+- 데이터 수집, 보강, 저장, 분석, 시각화를 위한 무료 개방형 도구 모음인 Elastic Stack(ELK)의 핵심 구성 요소이다.
+
+<br>
+
+### RDB와의 차이점
+
+- 기존의 RDB는 비정형 데이터를 역색인하고 검색하는게 불가능하다.
+- `역 인덱스`라고 하는 데이터 구조를 사용하는데, 이것은 아주 빠른 풀 텍스트 검색을 할 수 있도록 설계된 것으로 문서에 나타나는 모든 고유한 단어의 목록을 만들고, 각 단어가 발생하는 모든 문서를 식별한다.
+
+<br>
+
+### 장점
+
+- `오픈소스 검색엔진`이다
+- `전문 검색` - 내용 전체를 인식해서 특정 단어가 포함된 문서를 검색하는 전문 검색(Full Text)을 지원한다.
+- `통계 분석` - 비정형 로그 데이터를 수집하고 한곳에 모아 통계 분석을 할 수 있다. ex) Kibana
+- `멀티테넌시` - 검색할 필드명으로 여러 개의 인덱스를 한 번에 조회할 수 있다.
+- `역색인` - 역색인 구조를 통해서 특정 단어를 찾을때 문서 전체에서 찾는 것이 아닌, 단어가 포함된 특정 문서의 위치를 알아내어 빠르게 결과를 찾아낼 수 있다.
+
+<br>
+
+### 단점
+
+- 데이터 저장 시점에 해당 데이터를 색인하고, 색인된 데이터는 1초 뒤에나 검색이 가능해져서 `완벽히 실시간으로 검색이 불가능`하다.
+- 전체적인 클러스터의 성능 향상을 위해 비용 소모가 큰 `롤백과 트랜잭션 기능`이 없다.
+- 데이터의 `업데이트를 제공하지 않는다.` 이는 기존 문서를 삭제하고 다시 삽입하는 방식으로 구현된다.
+
+<br><br>
+
+## AWS의 ElasticSearch Service는 어떤 서비스인가요? ElasticSearch를 직접 설치하거나 elastic.co에서 직접 제공하는 클라우드 서비스와 비교하여 어떤 장단점이 있을까요?
+
+- Elasticsearch 클러스터를 쉽게 배포, 운영 및 조정할 수 있는 관리형 서비스이다.
+- AWS ES를 사용하면 Elasticsearch API에 바로 액세스해 기존 코드 및 어플리케이션을 서비스를 통해 원활하게 사용할 수 있다.
+
+<br>
+
+### AWS ES의 장점
+
+- `간편하게 배포`하고 관리할 수 있다.
+- 콘솔을 통해 클러스터를 `쉽게 확장 또는 축소`할수 있다.
+- 같은 VPC에 묶여있는 인스턴스를 통해서만 접근하게 설정하는 등 `보안을 강화`할 수 있다.
+
+<br>
+
+### AWS ES의 단점
+
+- 지원하지 않는 플러그인이나 용어 사전을 파일로 관리할 수 없다.
+
+<br><br>
+
+## Grafana의 Panel 형식에는 어떤 것이 있을까요? 로그를 보기에 적합한 판넬은 어떤 형태일까요?
+
+- pass
+
+<br><br>
+
+# Note
+
+- 다음 퀘스트에서 인증로직 분리하면 ElasticSearch 로그 전송부 GQL -> Winston 내부로 병합
+
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install grafana
+sudo apt-get install -y apt-transport-https
+sudo ls /usr/lib/systemd/system/grafana-server.service
