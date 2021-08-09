@@ -55,18 +55,10 @@
 
 ## Grafana의 Panel 형식에는 어떤 것이 있을까요? 로그를 보기에 적합한 판넬은 어떤 형태일까요?
 
-- pass
+- Graphs ,Big numbers & stats ,Gauge ,Table ,Pie chart ,Heatmaps ,State timeline 등이 있다.
 
 <br><br>
 
 # Note
 
 - 다음 퀘스트에서 인증로직 분리하면 ElasticSearch 로그 전송부 GQL -> Winston 내부로 병합
-
-sudo apt-get install -y software-properties-common
-sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install grafana
-sudo apt-get install -y apt-transport-https
-sudo ls /usr/lib/systemd/system/grafana-server.service
