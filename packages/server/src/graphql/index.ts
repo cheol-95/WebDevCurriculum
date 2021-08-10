@@ -10,9 +10,7 @@ import typeDefs from './typeDefs';
 import resolvers from './resolvers';
 
 const logging = (req: any) => {
-  const {
-    user, method, url, header,
-  } = req;
+  const { user, method, url, header } = req;
   apiLog.log({
     userId: user ? user.id : undefined,
     method,
