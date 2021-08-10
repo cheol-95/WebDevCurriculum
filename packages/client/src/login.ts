@@ -1,4 +1,4 @@
-import { customFetch } from './utils/fetch.js';
+import { loginFetch } from './utils/fetch.js';
 
 interface CustomElement extends HTMLElement {
   value: string;
@@ -33,15 +33,9 @@ export default class Login {
     }
 
     try {
-      const query = {
-        query: `
-          mutation {
-            login(userId: "${id}", userPw: "${pw}")
-          }
-        `,
-      };
-      const body = await customFetch('POST', query, {
-        Authorization: 'bearer ' + 'null',
+      const body = await loginFetch('POST', {
+        userId: id,
+        userPw: pw,
       });
 
       if (body.errors) {

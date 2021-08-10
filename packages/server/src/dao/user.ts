@@ -13,7 +13,8 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export default class User
   extends Model<UserAttributes, UserCreationAttributes>
-  implements UserAttributes {
+  implements UserAttributes
+{
   public id!: number;
 
   public email!: string;
@@ -55,7 +56,7 @@ User.init(
     underscored: true,
     charset: 'utf8mb4',
     collate: 'utf8mb4_general_ci',
-  },
+  }
 );
 
 // User.sync({ force: true })
