@@ -17,4 +17,11 @@ export default {
     expires: 1000 * 60 * 15, // 15분
     // expires: 1,
   },
+  DB: {
+    host: 'database-1.cvboyzqrs149.ap-northeast-2.rds.amazonaws.com',
+    port: 3306,
+    username: 'admin',
+    password: 'rkdcjfrkdcjf',
+    database: 'kcweb',
+  },
 };
