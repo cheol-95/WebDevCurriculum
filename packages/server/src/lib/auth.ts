@@ -1,4 +1,4 @@
-// import crypto from 'crypto';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { Request } from 'express';
 
@@ -23,24 +23,13 @@ export const jwtVerify = async (req: Request | any): Promise<any> => {
   }
 };
 
-// export const getAccessToken = (id: number): string => {
-//   const payload = { id };
-//   const options = {
-//     issuer: 'knowre_server',
-//     subject: 'user_access',
-//     expiresIn: config.JWT.expires,
-//   };
+export const getDigest = (userPw: string, salt: any): Promise<any> => {
+  const userSalt = salt || crypto.randomBytes(64).toString();
 
-//   return jwt.sign(payload, config.JWT.secret, options);
-// };
-
-// export const getDigest = (userPw: string, salt: any): Promise<any> => {
-//   const useSalt = salt || crypto.randomBytes(64).toString();
-
-//   return new Promise((resolve) => {
-//     crypto.pbkdf2(userPw, useSalt, 3292, 64, 'sha512', (err, key) => {
-//       const digest = key.toString('base64');
-//       resolve({ useSalt, digest });
-//     });
-//   });
-// };
+  return new Promise((resolve) => {
+    crypto.pbkdf2(userPw, userSalt, 3292, 64, 'sha512', (err, key) => {
+      const digest = key.toString('base64');
+      resolve({ userSalt, digest });
+    });
+  });
+};

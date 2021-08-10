@@ -10,7 +10,7 @@ export default gql`
     files: [File]
     file(fileName: String): File
   }
-  extend type Mutation {
+  type Mutation {
     createFile(fileName: String): Boolean
     deleteFile(fileName: String): Boolean
     saveFile(fileName: String, text: String): Boolean
