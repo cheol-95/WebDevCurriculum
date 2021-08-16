@@ -4,22 +4,22 @@ import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-co
 
 import { jwtVerify } from '../lib/auth';
 import config from '../config/config';
-import { apiLog } from '../lib/elasticSearch/index';
+// import { apiLog } from '../lib/elasticSearch/index';
 
 import typeDefs from './typeDefs';
 import resolvers from './resolvers';
 
-const logging = (req: any) => {
-  const {
-    user, method, url, header,
-  } = req;
-  apiLog.log({
-    userId: user ? user.id : undefined,
-    method,
-    url,
-    header,
-  });
-};
+// const logging = (req: any) => {
+//   const {
+//     user, method, url, header,
+//   } = req;
+//   apiLog.log({
+//     userId: user ? user.id : undefined,
+//     method,
+//     url,
+//     header,
+//   });
+// };
 
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -28,7 +28,7 @@ const apolloServer = new ApolloServer({
   context: async ({ req }: any) => {
     req.user = await jwtVerify(req);
 
-    logging(req);
+    // logging(req);
     return { user: req.user };
   },
   formatError: (err: any) => {
