@@ -19,27 +19,28 @@ phases:
   pre_build:
     commands:
       - echo Pre_build phase..
-      - npm i -g lerna
-      - npm i -g eslint
-      - npm run clean
-      - npm run build
+      # - npm i -g lerna
+      # - npm i -g eslint
+      # - npm run clean
+      # - npm run build
 
   build:
     commands:
       - echo Build started on `date`
-      - docker build -t $IMAGE_REPO_CLIENT:$IMAGE_TAG ./packages/client
-      - docker build -t $IMAGE_REPO_SERVER:$IMAGE_TAG ./packages/server
+      - aws ssm start-session --target "i-071b3aa7659a60ce7"
+      # - docker build -t $IMAGE_REPO_CLIENT:$IMAGE_TAG ./packages/client
+      # - docker build -t $IMAGE_REPO_SERVER:$IMAGE_TAG ./packages/server
 
-      - docker tag $IMAGE_REPO_CLIENT:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_CLIENT:$IMAGE_TAG
-      - docker tag $IMAGE_REPO_SERVER:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_SERVER:$IMAGE_TAG
+      # - docker tag $IMAGE_REPO_CLIENT:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_CLIENT:$IMAGE_TAG
+      # - docker tag $IMAGE_REPO_SERVER:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_SERVER:$IMAGE_TAG
 
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_CLIENT:$IMAGE_TAG
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_SERVER:$IMAGE_TAG
+      # - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_CLIENT:$IMAGE_TAG
+      # - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_SERVER:$IMAGE_TAG
 
   post_build:
     commands:
-      - docker images
-      - echo Build completed on `date`
+      # - docker images
+      # - echo Build completed on `date`
 
 artifacts:
   files: '**/*'
